@@ -1,0 +1,47 @@
+body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
+  padding: 0;
+  margin: 0;
+}
+body, textarea, select, input, button {
+  font-size: 12px;
+  color: #333;
+  font-family: Arial, Helvetica, sans-serif;
+  -webkit-text-size-adjust: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-size: 100%;
+}
+
+a {
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+ul {
+  display: block;
+  list-style:none;
+  margin: 0;
+  padding: 0;
+}
+
+.fl {
+  float: left;
+}
+
+.fr {
+  float: right;
+}
+.pointer {
+  cursor: pointer;
+}
+.m-top {
+  background: url("../img/logo.png") no-repeat;
+}
+.pr {
+  position: relative;
+} 
+.mr16 {
+  margin-right: 16px;
+}
