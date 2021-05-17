@@ -22,24 +22,68 @@
         </el-carousel>
       </div>
     </div>
+    <!-- 登录弹框 -->
+    <el-dialog
+      title="登录"
+      :visible.sync="dialogVisible"
+      width="30%">
+      <el-form :model="loginParam">
+        <el-form-item>
+          <el-input v-model="loginParam.pbone" placeholder="请输入手机号码" prefix-icon="el-icon-phone"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-input v-model="loginParam.password" placeholder="请输入密码" prefix-icon="el-icon-lock"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-row>
+            <el-col :span="18">
+              <el-checkbox v-model="loginParam.checked">记住我</el-checkbox>
+            </el-col>
+            <el-col :span="6"  align="right">
+              <span class="login-model pointer">忘记密码？</span>
+            </el-col>
+          </el-row>
+        </el-form-item>
+      </el-form>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="login">登录</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 <script>
 import TopBar from '../../components/TopBar.vue'
+import { loginCellPhone, getBanner } from '@/api/index.js'
 export default {
   components: { TopBar },
   data () {
     return {
       discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],
-      selectSubIndex: 0
+      selectSubIndex: 0,
+      // 登录弹框 
+      dialogVisible:false,
+      loginParam: {}
     }
   },
   component: {
     TopBar
   },
+  created() {
+    this.getBannerData()
+  },
   methods: {
     handleSelectSub (index) {
       this.selectSubIndex = index
+    },
+    getBannerData() {
+      getBanner().then(res => {
+        console.log(res);
+      })
+    },
+    login() {
+      loginCellPhone(this.loginParam).then(res => {
+        console.log(res);
+      })
     }
   }
 }
@@ -76,5 +120,8 @@ export default {
       }
     }
   }
+}
+.login-model {
+  text-decoration: underline;
 }
 </style>

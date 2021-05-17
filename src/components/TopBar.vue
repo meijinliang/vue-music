@@ -17,7 +17,7 @@
         <el-input class="top-input mr16" v-model="serachValue" placeholder="音乐/视频/电台/用户" p prefix-icon="el-icon-search" />
         <!-- <el-button>创作者中心</el-button> -->
         <button class="top-btn pointer">创作者中心</button>
-        <el-button type="text" style="margin-left:16px;">登录</el-button>
+        <el-button type="text" style="margin-left:16px;" @click="handleClickLogin">登录</el-button>
       </div>
     </div>
   </div>
@@ -28,11 +28,15 @@ export default {
     return {
       topItems: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
       slectItemIndex: 0,
+      serachValue:''
     }
   },
   methods: {
     handleChange (index) {
       this.slectItemIndex = index
+    },
+    handleClickLogin() {
+      this.$parent.dialogVisible = true
     }
   }
 }
