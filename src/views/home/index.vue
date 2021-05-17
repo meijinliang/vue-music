@@ -13,20 +13,9 @@
       </div>
     </div>
     <!-- 轮播图 -->
-    <div class="banner">
-      <div class="banenr-container">
-        <el-carousel indicator-position="outside">
-          <el-carousel-item v-for="item in 4" :key="item">
-            <h3>{{ item }}</h3>
-          </el-carousel-item>
-        </el-carousel>
-      </div>
-    </div>
+    <Swiper :bannerList="bannerList" />
     <!-- 登录弹框 -->
-    <el-dialog
-      title="登录"
-      :visible.sync="dialogVisible"
-      width="30%">
+    <el-dialog title="登录" :visible.sync="dialogVisible" width="30%">
       <el-form :model="loginParam">
         <el-form-item>
           <el-input v-model="loginParam.pbone" placeholder="请输入手机号码" prefix-icon="el-icon-phone"></el-input>
@@ -39,7 +28,7 @@
             <el-col :span="18">
               <el-checkbox v-model="loginParam.checked">记住我</el-checkbox>
             </el-col>
-            <el-col :span="6"  align="right">
+            <el-col :span="6" align="right">
               <span class="login-model pointer">忘记密码？</span>
             </el-col>
           </el-row>
@@ -53,34 +42,35 @@
 </template>
 <script>
 import TopBar from '../../components/TopBar.vue'
+import Swiper from '../../components/swiper'
 import { loginCellPhone, getBanner } from '@/api/index.js'
 export default {
-  components: { TopBar },
+  components: { TopBar, Swiper },
   data () {
     return {
       discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],
       selectSubIndex: 0,
       // 登录弹框 
-      dialogVisible:false,
-      loginParam: {}
+      dialogVisible: false,
+      loginParam: {},
+      bannerList: [],
+
     }
   },
-  component: {
-    TopBar
-  },
-  created() {
+  created () {
     this.getBannerData()
+    // console.log(this.bannerbgList);
   },
   methods: {
     handleSelectSub (index) {
       this.selectSubIndex = index
     },
-    getBannerData() {
+    getBannerData () {
       getBanner().then(res => {
-        console.log(res);
+        this.bannerList = res.banners
       })
     },
-    login() {
+    login () {
       loginCellPhone(this.loginParam).then(res => {
         console.log(res);
       })
@@ -119,6 +109,12 @@ export default {
         @extend .active;
       }
     }
+  }
+}
+.banner {
+  .banenr-container {
+    width: 982px;
+    margin: 0 auto;
   }
 }
 .login-model {
