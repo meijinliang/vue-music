@@ -14,6 +14,21 @@
     </div>
     <!-- 轮播图 -->
     <Swiper :bannerList="bannerList" />
+
+    <!-- discover-module -->
+    <div class="discover-module">
+      <el-row>
+        <el-col :span="18" class="discover-module-left">
+          <div class="hot-recmend">
+            <div class="hot-header">
+              <span>热门推荐</span>
+
+            </div>
+          </div>
+        </el-col>
+        <el-col :span="6"></el-col>
+      </el-row>
+    </div>
     <!-- 登录弹框 -->
     <el-dialog title="登录" :visible.sync="dialogVisible" width="30%">
       <el-form :model="loginParam">
@@ -115,6 +130,22 @@ export default {
   .banenr-container {
     width: 982px;
     margin: 0 auto;
+  }
+}
+.discover-module {
+  // @extend .banenr-container;
+  width: 982px;
+  margin: 0 auto;
+  .discover-module-left {
+    padding: 20px 20px 40px;
+    .hot-recmend {
+      .hot-header {
+        padding: 0 10px 0 34px;
+        span {
+          font-size: 20px;
+        }
+      }
+    }
   }
 }
 .login-model {
