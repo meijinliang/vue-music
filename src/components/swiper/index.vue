@@ -75,7 +75,6 @@ export default {
   watch: {
     activeSlide: {
       handler (val) {
-        console.log(val);
         this.$refs.swiperBg.style.background = `url(${this.bannerbgList[val - 1]})`
       }
     }

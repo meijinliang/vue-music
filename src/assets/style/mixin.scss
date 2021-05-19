@@ -1,0 +1,10 @@
+.mr16 {
+  margin-right: 16px;
+}
+
+// 单行文本溢出 省略号
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
