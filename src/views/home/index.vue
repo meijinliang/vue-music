@@ -29,7 +29,7 @@
                 </ul>
               </div>
             </series-header>
-            <series-item :recommendedSongList="recommendedSongList"/>
+            <series-item :recommendedSongList="recommendedSongList" />
           </div>
         </el-col>
         <el-col :span="6"></el-col>
@@ -79,7 +79,7 @@ export default {
       bannerList: [],
       hotRecmendItem: ['华语', '流行', '摇滚', '民谣', '电子'],
       // 推荐歌单列表
-      recommendedSongList:[]
+      recommendedSongList: []
     }
   },
   created () {
@@ -99,7 +99,7 @@ export default {
     },
 
     // 获取推荐歌单
-    async getpersonalized() {
+    async getpersonalized () {
       const params = 8
       const res = await personalized(params)
       console.log(res);
@@ -157,8 +157,10 @@ export default {
   // @extend .banenr-container;
   width: 982px;
   margin: 0 auto;
+  border: 1px solid #d3d3d3;
   .discover-module-left {
     padding: 20px 20px 40px;
+
     li {
       display: inline-block;
       height: 26px;
@@ -175,7 +177,7 @@ export default {
     }
     li:last-child {
       span {
-        border-right:none;
+        border-right: none;
       }
     }
   }
