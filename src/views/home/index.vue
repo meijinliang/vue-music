@@ -13,79 +13,49 @@
       </div>
     </div>
     <!-- 轮播图 -->
+    <!-- <swiper>
+      <div slot="content">
+        <img class="pointer" :src="item.imageUrl">
+      </div>
+    </swiper> -->
     <Swiper :bannerList="bannerList" />
-
     <!-- discover-module -->
     <div class="discover-module">
       <el-row>
         <el-col :span="18" class="discover-module-left">
-          <div class="hot-recmend">
-            <series-header title="热门推荐">
-              <div slot="items">
-                <ul>
-                  <li v-for="(item,index) in hotRecmendItem" :key="index">
-                    <span>{{item}}</span>
-                  </li>
-                </ul>
-              </div>
-            </series-header>
-            <series-item :recommendedSongList="recommendedSongList" />
-          </div>
+          <!-- 热门推荐 -->
+          <HotRecommend />
+          <!-- 新碟上架 -->
+          <NewDisc />
+          <!-- 榜单 -->
+          <SongList />
         </el-col>
         <el-col :span="6"></el-col>
       </el-row>
     </div>
     <!-- 登录弹框 -->
-    <el-dialog title="登录" :visible.sync="dialogVisible" width="30%">
-      <el-form :model="loginParam">
-        <el-form-item>
-          <el-input v-model="loginParam.pbone" placeholder="请输入手机号码" prefix-icon="el-icon-phone"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-input v-model="loginParam.password" placeholder="请输入密码" prefix-icon="el-icon-lock"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-row>
-            <el-col :span="18">
-              <el-checkbox v-model="loginParam.checked">记住我</el-checkbox>
-            </el-col>
-            <el-col :span="6" align="right">
-              <span class="login-model pointer">忘记密码？</span>
-            </el-col>
-          </el-row>
-        </el-form-item>
-      </el-form>
-      <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="login">登录</el-button>
-      </span>
-    </el-dialog>
+    <Login />
   </div>
 </template>
 <script>
 import TopBar from '../../components/TopBar.vue'
 import Swiper from '../../components/swiper'
-import SeriesHeader from './comonents/SeriesHeader'
-import SeriesItem from './comonents/SeriesItem'
-import { loginCellPhone, getBanner, personalized } from '@/api/index.js'
+import HotRecommend from './comonents/HotRecommend'
+import NewDisc from './comonents/NewDisc'
+import SongList from './comonents/SongList'
+import Login from './comonents/login'
+import { loginCellPhone, getBanner } from '@/api/index.js'
 export default {
-  components: { TopBar, Swiper, SeriesHeader, SeriesItem },
+  components: { TopBar, Swiper, HotRecommend, NewDisc, SongList, Login },
   data () {
     return {
       discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],
       selectSubIndex: 0,
-      // 登录弹框 
-      dialogVisible: false,
-      loginParam: {},
       bannerList: [],
-      hotRecmendItem: ['华语', '流行', '摇滚', '民谣', '电子'],
-      // 推荐歌单列表
-      recommendedSongList: []
     }
   },
   created () {
     this.getBannerData()
-    this.getpersonalized()
-    // console.log(this.bannerbgList);
   },
   methods: {
     handleSelectSub (index) {
@@ -97,15 +67,6 @@ export default {
         this.bannerList = res.banners
       })
     },
-
-    // 获取推荐歌单
-    async getpersonalized () {
-      const params = 8
-      const res = await personalized(params)
-      console.log(res);
-      this.recommendedSongList = res.result
-    },
-
     login () {
       loginCellPhone(this.loginParam).then(res => {
         console.log(res);
@@ -160,26 +121,6 @@ export default {
   border: 1px solid #d3d3d3;
   .discover-module-left {
     padding: 20px 20px 40px;
-
-    li {
-      display: inline-block;
-      height: 26px;
-      line-height: 26px;
-      span {
-        padding: 0 10px;
-        border-right: 1px solid #ccc;
-      }
-    }
-    li:first-child {
-      span {
-        padding-left: 0;
-      }
-    }
-    li:last-child {
-      span {
-        border-right: none;
-      }
-    }
   }
 }
 .login-model {

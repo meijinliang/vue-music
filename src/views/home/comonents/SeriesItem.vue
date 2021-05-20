@@ -8,7 +8,7 @@
             <a href="javascript:void(0)" :title="item.name"></a>
             <div class="bottom">
               <span class="headset"></span>
-              <span class="nb">{{item.playCount / 10000}}万</span>
+              <span class="nb">{{ item.playCount }}万</span>
               <span></span>
             </div>
           </div>

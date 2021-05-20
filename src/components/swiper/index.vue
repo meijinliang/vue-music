@@ -4,18 +4,18 @@
       <div class="swiper-box-left">
         <swiper ref="mySwiper" :options="swiperOptions">
           <swiper-slide v-for="(item,index) in bannerList" :key="index">
-            <img class="pointer" :src="item.imageUrl">
-            <!-- {{item.typeTitle}} -->
+            <template>
+              <img class="pointer" :src="item.imageUrl">
+            </template>
+            
           </swiper-slide>
-
           <div class="swiper-pagination" slot="pagination" />
         </swiper>
         <!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
-        <div class="swiper-button-prev" />
+        <div :class="classPrev" />
         <!--右箭头。如果放置在swiper-container外面，需要自定义样式。-->
-        <div class="swiper-button-next" />
+        <div :class="classNext" />
       </div>
-      <div class="swiper-box-right"></div>
     </div>
   </div>
 </template>
@@ -34,10 +34,22 @@ export default {
       type: Array,
       required: true
     },
+    hiddenPagination: {
+      type: Boolean,
+      default: false
+    },
+    classPrev: {
+      type: String,
+      default: 'swiper-button-prev'
+    },
+    classNext: {
+      type: String,
+      default: 'swiper-button-next'
+    }
   },
   components: {
     Swiper,
-    SwiperSlide,
+    SwiperSlide
   },
   data () {
     return {

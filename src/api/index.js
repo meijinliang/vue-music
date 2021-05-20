@@ -18,6 +18,22 @@ export function personalized(params) {
     }
   })
 }
+// 新碟上架
+export function getNewAblum(params) {
+  return {
+    url: '/top/ablum',
+    method: 'get',
+    params
+  }
+}
+
+//所有榜单
+export function getTopList() {
+  return {
+    url: '/toplist',
+    method: 'get',
+  }
+}
 // 手机登录
 export function loginCellPhone(params) {
   return request({

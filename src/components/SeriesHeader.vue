@@ -1,18 +1,12 @@
 <template>
   <div class="item-header v-bg">
-    <el-row>
-      <el-col :span="4">
-        <span class="header-title ">{{title}}</span>
-      </el-col>
-      <el-col :span="16">
-        <div ref="items" class="items-style">
-          <slot name="items"></slot>
-        </div>
-      </el-col>
-      <el-col :span="4" align="right">
-        <div class="more pointer v-bg">更多</div>
-      </el-col>
-    </el-row>
+    <div class="left">
+      <span class="header-title ">{{title}}</span>
+    </div>
+    <div ref="items" class="center">
+      <slot name="items"></slot>
+    </div>
+    <div class="more pointer v-bg">更多</div>
   </div>
 </template>
 <script>
@@ -30,11 +24,20 @@ export default {
   padding: 0 10px 0 34px;
   border-bottom: 2px solid #c20c0c;
   background-position: -225px -156px;
-  .header-title {
-    font-size: 20px;
+  display: flex;
+  .left {
+    width: 100px;
+    .header-title {
+      font-size: 20px;
+    }
+  }
+  .center {
+    flex: 1;
   }
   .more {
+    width: 90px;
     height: 26px;
+    text-align: right;
     line-height: 26px;
     padding-right: 20px;
     background-position: 95px -234px;
