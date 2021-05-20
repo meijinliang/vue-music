@@ -6,7 +6,7 @@
 
 <script>
 // import { getTopList } from '@/api/index'
-import SeriesHeader from '../../../components/SeriesHeader'
+import SeriesHeader from '../../../../components/SeriesHeader'
 export default {
   name:  'SongList',
   components: { SeriesHeader },

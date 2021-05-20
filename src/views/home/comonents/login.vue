@@ -1,5 +1,5 @@
 <template>
-  <el-dialog title="登录" :visible.sync="dialogVisible" width="30%">
+  <el-dialog title="登录" :visible.sync="show" width="30%">
       <el-form :model="loginParam">
         <el-form-item>
           <el-input v-model="loginParam.pbone" placeholder="请输入手机号码" prefix-icon="el-icon-phone"></el-input>
@@ -25,12 +25,27 @@
 </template>
 ><script>
 export default {
+  props: {
+    visible: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       loginParam: {},
       dialogVisible: false
     }
-
+  },
+  computed: {
+    show: {
+      get() {
+        return this.visible
+      },
+      set(val) {
+        this.$emit('update:visible',val)
+      }
+    }
   },
   methods: {
     login() {

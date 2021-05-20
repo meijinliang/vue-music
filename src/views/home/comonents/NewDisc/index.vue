@@ -6,7 +6,7 @@
 
 <script>
 // import { getNewAblum } from '@/api/index'
-import SeriesHeader from '../../../components/SeriesHeader'
+import SeriesHeader from '../../../../components/SeriesHeader'
 export default {
   name:  'newDisc',
   components: { SeriesHeader },

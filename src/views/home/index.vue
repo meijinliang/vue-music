@@ -34,7 +34,7 @@
       </el-row>
     </div>
     <!-- 登录弹框 -->
-    <Login />
+    <Login :visible.sync="dialogVisible" @click="dialogVisible = true" />
   </div>
 </template>
 <script>
@@ -52,6 +52,7 @@ export default {
       discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],
       selectSubIndex: 0,
       bannerList: [],
+      dialogVisible: false
     }
   },
   created () {

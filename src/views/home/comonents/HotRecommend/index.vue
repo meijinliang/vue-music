@@ -15,7 +15,7 @@
 <script>
 import {personalized} from '@/api/index.js'
 // import { toFixed } from '@/utils/index'
-import SeriesHeader from '../../../components/SeriesHeader'
+import SeriesHeader from '../../../../components/SeriesHeader'
 import SeriesItem from './SeriesItem'
 export default {
   components: { SeriesHeader, SeriesItem },
