@@ -18,21 +18,29 @@ export function personalized(params) {
     }
   })
 }
+
+// 获取歌单详情 排行榜也是歌单的一种
+export function playListDetail(id) {
+  return request({
+    url: '/playlist/detail?id=' + id,
+    method: 'get',
+  })
+}
 // 新碟上架
 export function getNewAblum(params) {
-  return {
+  return request({
     url: '/top/ablum',
     method: 'get',
     params
-  }
+  })
 }
 
 //所有榜单
 export function getTopList() {
-  return {
+  return request({
     url: '/toplist',
     method: 'get',
-  }
+  })
 }
 // 手机登录
 export function loginCellPhone(params) {

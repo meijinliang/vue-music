@@ -37,7 +37,6 @@ export default {
       this.recommendedSongList.forEach(item => {
         item.playCount = (item.playCount/10000).toFixed(1)
       })
-      console.log(this.recommendedSongList);
     },
   }
 }
