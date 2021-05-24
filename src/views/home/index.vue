@@ -43,7 +43,8 @@ import Swiper from '../../components/swiper'
 import HotRecommend from './comonents/HotRecommend'
 import NewDisc from './comonents/NewDisc'
 import SongList from './comonents/SongList'
-import Login from './comonents/login'
+import Login from './comonents/login/index.vue'
+// import Login from './comonents/login'
 import { loginCellPhone, getBanner } from '@/api/index.js'
 export default {
   components: { TopBar, Swiper, HotRecommend, NewDisc, SongList, Login },

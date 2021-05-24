@@ -4,7 +4,7 @@
       <div slot="items">
         <ul>
           <li v-for="(item,index) in hotRecmendItem" :key="index">
-            <span>{{item}}</span>
+            <span class="pointer">{{item}}</span>
           </li>
         </ul>
       </div>
@@ -13,19 +13,19 @@
   </div>
 </template>
 <script>
-import {personalized} from '@/api/index.js'
+import { personalized } from '@/api/index.js'
 // import { toFixed } from '@/utils/index'
 import SeriesHeader from '../../../../components/SeriesHeader'
 import SeriesItem from './SeriesItem'
 export default {
   components: { SeriesHeader, SeriesItem },
-  data() {
+  data () {
     return {
       hotRecmendItem: ['华语', '流行', '摇滚', '民谣', '电子'],
       recommendedSongList: []
     }
   },
-  created() {
+  created () {
     this.getpersonalized()
   },
   methods: {
@@ -35,7 +35,7 @@ export default {
       const res = await personalized(params)
       this.recommendedSongList = res.result
       this.recommendedSongList.forEach(item => {
-        item.playCount = (item.playCount/10000).toFixed(1)
+        item.playCount = (item.playCount / 10000).toFixed(1)
       })
     },
   }
@@ -64,5 +64,4 @@ export default {
     }
   }
 }
-
 </style>

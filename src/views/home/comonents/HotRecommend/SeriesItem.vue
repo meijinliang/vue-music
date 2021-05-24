@@ -7,9 +7,12 @@
             <img :src="item.picUrl" :alt="item.name">
             <a href="javascript:void(0)" :title="item.name"></a>
             <div class="bottom">
-              <span class="headset"></span>
+              <span class="headset p-bg"></span>
               <span class="nb">{{ item.playCount }}万</span>
-              <span></span>
+              <!-- <span class="play p-bg pointer"></span> -->
+              <el-tooltip class="item" effect="dark" content="播放" placement="bottom-end">
+                <span class="play p-bg pointer"></span>
+              </el-tooltip>
             </div>
           </div>
           <span>{{item.name}}</span>
@@ -64,11 +67,28 @@ export default {
           left: 0;
           width: 100%;
           height: 27px;
+          display: flex;
           background: rgba(0, 0, 0, 0.3);
+          color: #ccc;
           .headset {
             float: left;
             width: 14px;
             height: 11px;
+            background-position: 0 -24px;
+            margin: 8px 5px 9px 10px;
+          }
+          .nb {
+            // font-size: 16px;
+            // display: block;
+            padding: 0 10px;
+            line-height: 27px;
+            flex: 1;
+          }
+          .play {
+            width: 16px;
+            height: 17px;
+            margin: 5px 10px 0 0;
+            background-position: 0 0;
           }
         }
       }

@@ -1,13 +1,22 @@
 <template>
-  <div>
-    <el-card v-for="item in detailList" :key="item.id">
+  <div class="item-box">
+    <div v-for="item in detailList" :key="item.id">
       <div class="item-header">
-        <img src="item.coverImgUrl" alt="">
+        <div>
+          <img :src="item.coverImgUrl" alt="">
+        </div>
         <div>
           <span>{{item.name}}</span>
         </div>
       </div>
-    </el-card>
+      <ul>
+        <li class="song-item" v-for="(subItem, index) in item.tracks" :key="subItem.id">
+          <span class="order">{{ index + 1 }}</span>
+          <span class="song-name pointer">{{ subItem.name }}</span>
+        </li>
+        <li class="check-more">查看更多></li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -23,9 +32,9 @@ export default {
       }
     }
   },
-  created() {
-    console.log(this.topList);
+  created () {
     this.getListDetail()
+    console.log(this.detailList);
   },
   data () {
     return {
@@ -33,11 +42,12 @@ export default {
     }
   },
   methods: {
-    getListDetail() {
+    getListDetail () {
       return Promise.all(
-        [this.topList.forEach(item => {
-          playListDetail(item.id).then(res=> {
-            this.detailList.push(res.playlist.tracks.slice(0,20))
+        [this.topList.forEach((item, index) => {
+          playListDetail(item.id).then(res => {
+            this.detailList.push(res.playlist)
+            this.detailList[index].tracks = res.playlist.tracks.slice(0, 10)
           })
         })]
       )
@@ -47,5 +57,50 @@ export default {
 </script>
 
 <style scoped lang="scss">
-
+.item-box {
+  display: flex;
+  margin-top: 20px;
+  > div {
+    flex: 1;
+    border: 1px solid #d3d3d3;
+  }
+  .item-header {
+    padding: 20px;
+    display: flex;
+    > div {
+      flex: 1;
+      img {
+        width: 80px;
+        height: 80px;
+      }
+      span {
+        margin-top: 10px;
+      }
+    }
+  }
+  .song-item {
+    padding: 0 10px;
+    display: flex;
+    height: 32px;
+    line-height: 32px;
+    .order {
+      padding: 0 5px;
+      font-size: 16px;
+      width: 20px;
+      text-align: center;
+    }
+    .song-name {
+      flex: 1;
+    }
+  }
+  .check-more {
+    height: 32px;
+    line-height: 32px;
+    text-align: right;
+    padding: 0 30px;
+  }
+  li:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.1);
+  }
+}
 </style>
