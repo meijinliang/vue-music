@@ -69,11 +69,6 @@ export default {
         this.bannerList = res.banners
       })
     },
-    login () {
-      loginCellPhone(this.loginParam).then(res => {
-        console.log(res);
-      })
-    }
   }
 }
 </script>

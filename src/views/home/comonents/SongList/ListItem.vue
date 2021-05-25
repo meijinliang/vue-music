@@ -34,7 +34,6 @@ export default {
   },
   created () {
     this.getListDetail()
-    console.log(this.detailList);
   },
   data () {
     return {
@@ -44,13 +43,15 @@ export default {
   methods: {
     getListDetail () {
       return Promise.all(
-        [this.topList.forEach((item, index) => {
-          playListDetail(item.id).then(res => {
-            this.detailList.push(res.playlist)
-            this.detailList[index].tracks = res.playlist.tracks.slice(0, 10)
-          })
-        })]
-      )
+        this.topList.map(item => {
+          return playListDetail(item.id)
+        })
+      ).then(res => {
+        res.forEach(item => {
+          item.playlist.tracks = item.playlist.tracks.slice(0,10)
+          this.detailList.push(item.playlist)
+        })
+      })
     }
   }
 }
