@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
 // 获取banner
-export function getBanner() {
+export function getBanner () {
   return request({
     url: '/banner',
     method: 'GET'
@@ -9,7 +9,7 @@ export function getBanner() {
 }
 
 // 推荐歌单
-export function personalized(params) {
+export function personalized (params) {
   return request({
     url: '/personalized',
     method: 'GET',
@@ -20,14 +20,14 @@ export function personalized(params) {
 }
 
 // 获取歌单详情 排行榜也是歌单的一种
-export function playListDetail(id) {
+export function playListDetail (id) {
   return request({
     url: '/playlist/detail?id=' + id,
     method: 'get',
   })
 }
 // 新碟上架
-export function getNewAblum(params) {
+export function getNewAblum (params) {
   return request({
     url: '/top/ablum',
     method: 'get',
@@ -36,17 +36,9 @@ export function getNewAblum(params) {
 }
 
 //所有榜单
-export function getTopList() {
+export function getTopList () {
   return request({
     url: '/toplist',
     method: 'get',
   })
 }
-// 手机登录
-export function loginCellPhone(params) {
-  return request({
-    url: '/login/cellphone',
-    method: 'get',
-    params
-  })
-} 

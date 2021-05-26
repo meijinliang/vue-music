@@ -1,24 +1,24 @@
 <template>
-  <div :class="className" :style="{width:width}" v-show="show" >
+  <div :class="className" :style="{width:width}" v-show="show">
     <div class="login-header">
       <span>登录</span>
       <i class="el-icon-close pointer" @click="handleClose"></i>
     </div>
     <div class="login-content">
-      <div v-show="flag" class="login-content-1"> 
-        <el-row :gutter="20" >
-          <el-col :span="13" class="left">
-            <img src="" alt="">
+      <div v-show="flag" class="login-content-1">
+        <el-row :gutter="30">
+          <el-col :span="11" class="left">
+            <div class="code-phone-guide fr"></div>
           </el-col>
-          <el-col :span="11" class="right">
+          <el-col :span="13" class="right">
             <span>扫码登录</span>
-            <img src="" alt="">
+            <img :src="qrimg" alt="">
             <div>使用<span class="tip">网易云音乐APP</span>扫码登录</div>
           </el-col>
         </el-row>
       </div>
       <div v-show="!flag" class="login-content-2">
-        <el-row >
+        <el-row>
           <el-col :span="13" class="left">
             <img src="" alt="">
             <el-row>
@@ -42,7 +42,8 @@
     </div>
   </div>
 </template>
-><script>
+<script>
+import { loginQrKey, loginQrCreate, loginQrCheck } from '@/api/login'
 export default {
   props: {
     visible: {
@@ -58,32 +59,42 @@ export default {
       default: '500px'
     },
   },
-  data() {
+  data () {
     return {
       loginParam: {},
       dialogVisible: false,
-      flag: true
+      flag: true,
+      qrimg: ''
     }
   },
   computed: {
     show: {
-      get() {
+      get () {
         return this.visible
       },
-      set(val) {
-        this.$emit('update:visible',val)
+      set (val) {
+        this.$emit('update:visible', val)
       }
     }
   },
+  created () {
+    this.getQrCode()
+  },
   methods: {
-    login() {
-      
+    getQrCode () {
+      loginQrKey().then(res1 => {
+        loginQrCreate({ key: res1.data.unikey, qrimg: true }).then(res2 => {
+          this.qrimg = res2.data.qrimg
+        })
+      })
     },
-    handleClose() {
+    handleClose () {
       this.show = false
       this.flag = true
+      loginQrCreate, loginQrCheck
+
     },
-    changeLoginMehtod() {
+    changeLoginMehtod () {
       this.flag = !this.flag
     }
   }
@@ -94,10 +105,12 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04)
+  z-index: 9998;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
 }
 .login-header {
+  cursor: move;
   position: relative;
   background: #000;
   padding: 8px 0 8px 15px;
@@ -118,14 +131,15 @@ export default {
   .login-content-1 {
     padding: 20px;
     .left {
-      text-align: right;
-      img {
-        width: 200px;
-        height: 200px;
+      .code-phone-guide {
+        width: 125px;
+        height: 220px;
+        background: url("../../../../assets/img/phone-guide.png");
+        background-size: contain;
       }
     }
     .right {
-      >span {
+      > span {
         display: block;
         font-size: 20px;
         width: 150px;
@@ -137,7 +151,7 @@ export default {
         margin: 10px 0;
       }
       .tip {
-        color: #105CDD;
+        color: #105cdd;
       }
     }
   }
@@ -166,6 +180,5 @@ export default {
       outline: none;
     }
   }
-  
 }
 </style>

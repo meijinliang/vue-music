@@ -30,9 +30,6 @@ export default {
         return []
       }
     }
-  },
-  created () {
-    console.log(this.recommendedSongList);
   }
 }
 </script>
