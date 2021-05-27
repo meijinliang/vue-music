@@ -59,3 +59,11 @@ ul {
     height: 0;
   }
 }
+
+.link-span {
+  color: #105cdd;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
