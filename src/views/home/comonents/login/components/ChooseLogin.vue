@@ -11,7 +11,7 @@
         </el-row>
       </el-col>
       <el-col :span="10" class="right">
-          <ul class="right-box">
+        <ul class="right-box">
           <li class="pl24" v-for="(item,index) in loginMethods" :key="index">
             <i class="icon"></i>
             <span class="title ml24 pointer">{{item}}</span>
@@ -20,7 +20,7 @@
       </el-col>
     </el-row>
     <div class="bottom">
-      <el-checkbox v-model="checked" >
+      <el-checkbox v-model="checked">
         同意
         <span class="link-span">《服务条款》 </span>
         <span class="link-span">《隐私政策》 </span>
@@ -41,7 +41,7 @@ export default {
     }
   },
   methods: {
-    changeLoginMehtod() {
+    changeLoginMehtod () {
       if (this.checked) {
         this.$emit('update:type', 1)
       } else {
@@ -63,7 +63,7 @@ export default {
       width: 225px;
       height: 120px;
       margin: 0 auto;
-      background: url('../../../../../assets/img/platform.png');
+      background: url("../../../../../assets/img/platform.png");
       background-size: contain;
     }
   }
@@ -96,9 +96,10 @@ export default {
       position: absolute;
       bottom: 0;
       right: 0;
-      background: red;
-      width: 60px;
-      height: 60px;
+      background: url("../../../../../assets/img/qr_login_icon.png");
+      background-size: contain;
+      width: 52px;
+      height: 52px;
     }
   }
 }

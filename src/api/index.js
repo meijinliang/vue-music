@@ -27,11 +27,10 @@ export function playListDetail (id) {
   })
 }
 // 新碟上架
-export function getNewAblum (params) {
+export function getNewAblum () {
   return request({
-    url: '/top/ablum',
+    url: '/album/newest',
     method: 'get',
-    params
   })
 }
 
