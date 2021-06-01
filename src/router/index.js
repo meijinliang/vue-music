@@ -10,6 +10,7 @@ const routes = [
     meta: {
       title: '首页'
     },
+    // import 异步加载
     component: () => import('@/views/home')
   }, {
     path: '/discover',

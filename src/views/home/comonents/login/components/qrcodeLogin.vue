@@ -6,7 +6,10 @@
       </el-col>
       <el-col :span="13" class="right">
         <span>扫码登录</span>
-        <img :src="qrimg" alt="">
+        <div class="code-box pr">
+          <img :src="qrimg" alt="">
+          <span class="code-overdue">请重新扫码</span>
+        </div>
         <div>使用<span class="link-span">网易云音乐APP</span>扫码登录</div>
       </el-col>
     </el-row>
@@ -55,12 +58,23 @@ export default {
       width: 150px;
       text-align: center;
     }
-    img {
+    .code-box {
       width: 150px;
-      height: 150px;
-      margin: 10px 0;
+      img {
+        width: 150px;
+        height: 150px;
+        margin: 10px 0;
+      }
+      .code-overdue {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%,-50%);
+        background: green;
+        padding: 10px;
+        color: #fff;
+      }
     }
-    
   }
   .bottom {
     text-align: center;
