@@ -7,7 +7,7 @@
           <el-button size="medium" type="primary" class="btn w-100 mt20" @click="$emit('update:type', 3)">手机号登陆</el-button>
         </el-row>
         <el-row>
-          <el-button size="medium" class="btn w-100 mt16">注 册</el-button>
+          <el-button size="medium" class="btn w-100 mt16" @click="$emit('update:type', 4)">注 册</el-button>
         </el-row>
       </el-col>
       <el-col :span="10" class="right">
@@ -37,7 +37,7 @@ export default {
   data () {
     return {
       loginMethods: ['微信登录', 'QQ登录', '微博登录', '网易邮箱账号登录'],
-      checked: false
+      checked: true
     }
   },
   methods: {

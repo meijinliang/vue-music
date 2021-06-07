@@ -1,7 +1,7 @@
 <template>
   <div ref="login" class="login" :style="{width:width}" v-show="show">
     <div class="login-header" @mousedown="move">
-      <span>登录</span>
+      <span>{{ loginTitle }}</span>
       <i class="el-icon-close pointer" @click="handleClose"></i>
     </div>
     <div class="login-content h-100">
@@ -32,6 +32,7 @@ export default {
         return this.visible
       },
       set (val) {
+        console.log(val);
         this.$emit('update:visible', val)
       }
     },
@@ -43,8 +44,20 @@ export default {
           return () => import('./components/ChooseLogin')
         case 3 :
           return () => import('./components/PhoneLogin')
+        case 4 : 
+          return () => import('./components/Register')
         default :
           return () => import('./components/QrcodeLogin')
+      }
+    },
+    loginTitle() {
+      switch(this.type) {
+        case 3 :
+          return '手机号登录'
+        case 4: 
+          return '手机号注册'
+        default :
+          return '登录'
       }
     }
   },
@@ -85,7 +98,7 @@ export default {
   position: absolute;
   top: 50%;
   left: 50%;
-  z-index: 9998;
+  z-index: 1;
   transform: translate(-50%, -50%);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12), 0 0 6px rgba(0, 0, 0, 0.04);
   .login-header {

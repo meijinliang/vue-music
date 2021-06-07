@@ -8,7 +8,12 @@
         <span>扫码登录</span>
         <div class="code-box pr">
           <img :src="qrimg" alt="">
-          <span class="code-overdue">请重新扫码</span>
+          <div class="cover-box h-100 w-100">
+            <div class="cover-box-inner">
+              <p>二维码已失效</p>
+              <span class="code-overdue">点击刷新</span>
+            </div>
+          </div>
         </div>
         <div>使用<span class="link-span">网易云音乐APP</span>扫码登录</div>
       </el-col>
@@ -65,14 +70,37 @@ export default {
         height: 150px;
         margin: 10px 0;
       }
-      .code-overdue {
+      .cover-box {
         position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%,-50%);
-        background: green;
-        padding: 10px;
-        color: #fff;
+        top: 0;
+        left: 0;
+        background: rgba(255, 255, 255, 0.8);
+        .cover-box-inner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%,-50%);
+          p {
+            text-align: center;
+            margin-bottom: 10px;
+            font-weight: 600;
+          }
+          .code-overdue {
+            background: green;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: #fff;
+          }
+        }
+        // .code-overdue {
+        //   position: absolute;
+        //   top: 50%;
+        //   left: 50%;
+        //   transform: translate(-50%,-50%);
+        //   background: green;
+        //   padding: 10px;
+        //   color: #fff;
+        // }
       }
     }
   }
