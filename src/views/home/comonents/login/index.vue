@@ -1,5 +1,5 @@
 <template>
-  <div ref="login" class="login" :style="{width:width}" v-show="show">
+  <div ref="login" class="login" :style="{width:width}" v-if="show">
     <div class="login-header" @mousedown="move">
       <span>{{ loginTitle }}</span>
       <i class="el-icon-close pointer" @click="handleClose"></i>
@@ -36,17 +36,21 @@ export default {
         this.$emit('update:visible', val)
       }
     },
-    currentComponent() {
+    currentComponent () {
       switch (this.type) {
-        case 1 :
+        case 1:
           return () => import('./components/QrcodeLogin')
-        case 2 :
+        case 2:
           return () => import('./components/ChooseLogin')
-        case 3 :
+        case 3:
           return () => import('./components/PhoneLogin')
+<<<<<<< HEAD
         case 4 : 
           return () => import('./components/Register')
         default :
+=======
+        default:
+>>>>>>> 1e57b0bd1f38227dc483d8d89dbb4ca2f25a51fc
           return () => import('./components/QrcodeLogin')
       }
     },
@@ -66,7 +70,7 @@ export default {
       this.show = false
       this.type = 1
     },
-    move() {
+    move () {
       console.log(this.$el);
       // let loginBox = document.querySelector('#login')
       // console.log(e,loginBox);

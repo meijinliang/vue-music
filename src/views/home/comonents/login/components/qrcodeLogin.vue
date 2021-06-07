@@ -25,11 +25,15 @@
 </template>
 
 <script>
-import { loginQrKey, loginQrCreate } from '@/api/login'
+import { loginQrKey, loginQrCreate, loginQrCheck } from '@/api/login'
 export default {
   data () {
     return {
       qrimg: '',
+      // 二维码是否过期
+      isOver: false,
+      // 定时器
+      timer: null
     }
   },
   created () {
@@ -40,9 +44,25 @@ export default {
       loginQrKey().then(res1 => {
         loginQrCreate({ key: res1.data.unikey, qrimg: true }).then(res2 => {
           this.qrimg = res2.data.qrimg
+          this.checkQrStatu(res1.data.unikey)
         })
       })
     },
+    // 定时器轮询检测二维码扫码状态
+    checkQrStatu (key) {
+      this.timer = setInterval(() => {
+        loginQrCheck({ key }).then(res => {
+          if (res.code === 800) {
+            this.isOver = true
+          }
+        })
+      }, 5000)
+    }
+  },
+  beforeDestroy () {
+    //销毁组件之前先清除定时器
+    clearInterval(this.timer)
+    console.log(this.timer);
   }
 }
 </script>
@@ -92,15 +112,6 @@ export default {
             color: #fff;
           }
         }
-        // .code-overdue {
-        //   position: absolute;
-        //   top: 50%;
-        //   left: 50%;
-        //   transform: translate(-50%,-50%);
-        //   background: green;
-        //   padding: 10px;
-        //   color: #fff;
-        // }
       }
     }
   }
