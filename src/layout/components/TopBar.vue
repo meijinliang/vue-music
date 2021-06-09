@@ -36,7 +36,7 @@ export default {
       this.slectItemIndex = index
     },
     handleClickLogin() {
-      this.$parent.dialogVisible = true
+      this.$emit('login')
     }
   }
 }

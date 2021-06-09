@@ -8,10 +8,10 @@
         <span>扫码登录</span>
         <div class="code-box pr">
           <img :src="qrimg" alt="">
-          <div class="cover-box h-100 w-100">
+          <div class="cover-box h-100 w-100" v-if="isOver">
             <div class="cover-box-inner">
               <p>二维码已失效</p>
-              <span class="code-overdue">点击刷新</span>
+              <span class="code-overdue pointer" @click="getQrCode">点击刷新</span>
             </div>
           </div>
         </div>
@@ -41,6 +41,8 @@ export default {
   },
   methods: {
     getQrCode () {
+      this.isOver = false
+      clearInterval(this.timer)
       loginQrKey().then(res1 => {
         loginQrCreate({ key: res1.data.unikey, qrimg: true }).then(res2 => {
           this.qrimg = res2.data.qrimg
@@ -62,7 +64,6 @@ export default {
   beforeDestroy () {
     //销毁组件之前先清除定时器
     clearInterval(this.timer)
-    console.log(this.timer);
   }
 }
 </script>
@@ -73,7 +74,7 @@ export default {
   .code-phone-guide {
     width: 125px;
     height: 220px;
-    background: url("../../../../../assets/img/phone-guide.png");
+    background: url("../../../assets/img/phone-guide.png");
     background-size: contain;
   }
   .right {

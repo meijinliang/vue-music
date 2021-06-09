@@ -8,10 +8,11 @@
           </el-select>
         </el-input>
       </el-form-item>
-      <el-form-item label="密码：">
-        <el-form-item prop="password">
+      <el-form-item label="密码：" prop="password">
         <el-input v-model="registerParams.password" show-password placeholder="设置登录密码，不少于8位"/>
       </el-form-item>
+      <el-form-item>
+        <el-button class="w-100" type="primary">下一步</el-button>
       </el-form-item>
     </el-form>
     <div class="bottem">

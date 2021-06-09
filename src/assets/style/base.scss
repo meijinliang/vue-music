@@ -1,0 +1,79 @@
+// 基础通用*
+.h-100 {
+  height: 100%;
+}
+
+.h-50 {
+  height: 50%;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
+.w-50 {
+  width: 50%;
+}
+// 外边距16px
+.m16 {
+  margin: 16px;
+}
+
+.mt16 {
+  margin-top: 16px;
+}
+
+.mr16 {
+  margin-right: 16px;
+}
+
+.mb16 {
+  margin-bottom: 16px;
+}
+
+.ml16 {
+  margin-left: 16px;
+}
+
+// 外边距20px
+.m20 {
+  margin: 20px;
+}
+
+.mt20 {
+  margin-top: 20px;
+}
+
+.mr20 {
+  margin-right: 20px;
+}
+
+.mb20 {
+  margin-bottom: 20px;
+}
+
+.ml20 {
+  margin-left: 20px;
+}
+.pl24 {
+  padding-left: 24px;
+}
+// 单行文本溢出 省略号
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 用于
+.m-top {
+  background: url("../img/logo.png") no-repeat;
+}
+
+.v-bg {
+  background: url("../img/play.png") no-repeat;
+}
+
+.p-bg {
+  background: url("../img/play-btn.png");
+}

@@ -1,7 +1,5 @@
 <template>
   <div>
-    <!-- 顶部导航栏 -->
-    <top-bar />
     <!-- 发现音乐导航栏 -->
     <div class="top-subnav">
       <div class="wrap">
@@ -18,7 +16,7 @@
         <img class="pointer" :src="item.imageUrl">
       </div>
     </swiper> -->
-    <Swiper :bannerList="bannerList" />
+    <swiper :bannerList="bannerList" />
     <!-- discover-module -->
     <div class="discover-module">
       <el-row>
@@ -33,27 +31,21 @@
         <el-col :span="6"></el-col>
       </el-row>
     </div>
-    <!-- 登录弹框 -->
-    <Login :visible.sync="dialogVisible" @click="dialogVisible = true" />
   </div>
 </template>
 <script>
-import TopBar from '../../components/TopBar.vue'
 import Swiper from '../../components/swiper'
 import HotRecommend from './comonents/HotRecommend'
 import NewDisc from './comonents/NewDisc'
 import SongList from './comonents/SongList'
-import Login from './comonents/login/index.vue'
-// import Login from './comonents/login'
 import { getBanner } from '@/api/index.js'
 export default {
-  components: { TopBar, Swiper, HotRecommend, NewDisc, SongList, Login },
+  components: {  Swiper, HotRecommend, NewDisc, SongList },
   data () {
     return {
       discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],
       selectSubIndex: 0,
       bannerList: [],
-      dialogVisible: false
     }
   },
   created () {

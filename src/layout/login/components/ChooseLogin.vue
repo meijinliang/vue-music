@@ -63,7 +63,7 @@ export default {
       width: 225px;
       height: 120px;
       margin: 0 auto;
-      background: url("../../../../../assets/img/platform.png");
+      background: url("../../../assets/img/platform.png");
       background-size: contain;
     }
   }
@@ -96,7 +96,7 @@ export default {
       position: absolute;
       bottom: 0;
       right: 0;
-      background: url("../../../../../assets/img/qr_login_icon.png");
+      background: url("../../../assets/img/qr_login_icon.png");
       background-size: contain;
       width: 52px;
       height: 52px;

@@ -5,21 +5,43 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    meta: {
-      title: '首页'
-    },
-    // import 异步加载
-    component: () => import('@/views/home')
-  }, {
-    path: '/discover',
-    name: 'discover',
-    meta: {
-      title: '发现音乐-推荐'
-    },
-    redirect: '/'
-  }
+    path: '',
+    name: 'topnav',
+    redirect: 'home',
+    component: () => import('@/layout'),
+    children: [{
+      path: 'home',
+      name: 'home',
+      meta: {
+        title: '首页'
+      },
+      // import 异步加载
+      component: () => import('@/views/home')
+    }, {
+      path: 'discover',
+      name: 'discover',
+      meta: {
+        title: '发现音乐-推荐'
+      },
+      redirect: 'home'
+    }]
+  },
+  // {
+  //   path: '/home',
+  //   name: 'home',
+  //   meta: {
+  //     title: '首页'
+  //   },
+  //   // import 异步加载
+  //   component: () => import('@/views/home')
+  // }, {
+  //   path: '/discover',
+  //   name: 'discover',
+  //   meta: {
+  //     title: '发现音乐-推荐'
+  //   },
+  //   redirect: '/home'
+  // }
 ]
 
 const router = new VueRouter({

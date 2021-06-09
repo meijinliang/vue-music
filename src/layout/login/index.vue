@@ -44,13 +44,9 @@ export default {
           return () => import('./components/ChooseLogin')
         case 3:
           return () => import('./components/PhoneLogin')
-<<<<<<< HEAD
         case 4 : 
           return () => import('./components/Register')
         default :
-=======
-        default:
->>>>>>> 1e57b0bd1f38227dc483d8d89dbb4ca2f25a51fc
           return () => import('./components/QrcodeLogin')
       }
     },
