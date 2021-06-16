@@ -10,13 +10,8 @@
         </ul>
       </div>
     </div>
-    <!-- 轮播图 -->
-    <!-- <swiper>
-      <div slot="content">
-        <img class="pointer" :src="item.imageUrl">
-      </div>
-    </swiper> -->
-    <swiper :bannerList="bannerList" />
+    <!-- <swiper :bannerList="bannerList" /> -->
+    <banner :bannerList="bannerList" />
     <!-- discover-module -->
     <div class="discover-module">
       <el-row>
@@ -34,13 +29,14 @@
   </div>
 </template>
 <script>
-import Swiper from '../../components/swiper'
+// import Swiper from '../../components/swiper'
+import Banner from './comonents/Banner'
 import HotRecommend from './comonents/HotRecommend'
 import NewDisc from './comonents/NewDisc'
 import SongList from './comonents/SongList'
 import { getBanner } from '@/api/index.js'
 export default {
-  components: {  Swiper, HotRecommend, NewDisc, SongList },
+  components: { Banner, HotRecommend, NewDisc, SongList },
   data () {
     return {
       discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],

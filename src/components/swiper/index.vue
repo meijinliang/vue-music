@@ -7,7 +7,7 @@
             <template>
               <img class="pointer" :src="item.imageUrl">
             </template>
-            
+
           </swiper-slide>
           <div class="swiper-pagination" slot="pagination" />
         </swiper>
@@ -120,6 +120,7 @@ export default {
   .swiper-box-left {
     width: 730px;
     img {
+      height: 100%;
       width: 730px;
     }
     .swiper-pagination {
