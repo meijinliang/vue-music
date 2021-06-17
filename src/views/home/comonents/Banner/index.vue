@@ -1,5 +1,5 @@
 <template>
-  <div class="n-banner" :style="{ backgroundImage: 'url(' + bgImg2 + ')' }" @mousemove="moveIntoBanner" @mouseout="moveOutBanner">
+  <div class="n-banner" :style="{ backgroundImage: 'url(' + bgImg2 + ')' }" @mouseover="moveIntoBanner" @mouseout="moveOutBanner">
     <div class="wrap">
       <div class="ban pr">
         <div class="ban-img">
@@ -57,8 +57,6 @@ export default {
       }
     }
   },
-  created () {
-  },
   methods: {
     // 点击切换li 小圆点
     handleClick (index) {
@@ -67,19 +65,17 @@ export default {
     // banner图定时器
     bannerSetTime () {
       return setInterval(() => {
-        // console.log(this.currentIndex);
         this.currentIndex >= this.bannerList.length - 1
           ? this.currentIndex = 0
           : this.currentIndex++
       }, 2000)
     },
     moveIntoBanner () {
-      debugger
+      // debugger
       if (this.timer) {
+        clearInterval(this.timer)
         this.timer = null
-        console.log('shubiaoyiru', this.timer);
       }
-
     },
     moveOutBanner () {
       if (!this.timer) this.timer = this.bannerSetTime()
@@ -92,6 +88,7 @@ export default {
 .n-banner {
   background-size: 6000px;
   background-position: center center;
+  background-color: sandybrown;
   .wrap {
     width: 982px;
     margin: 0 auto;
@@ -99,6 +96,7 @@ export default {
       .ban-img {
         img {
           width: 730px;
+          height: 200px;
           display: block;
         }
       }
@@ -125,5 +123,27 @@ export default {
       }
     }
   }
+}
+@keyframes fadeInOut {
+    0% {
+        opacity:1;
+     }
+    25% {
+        opacity:0;
+    }
+    50% {
+        opacity: 0;    
+    }
+    75% {
+        opacity:1;
+    }
+}
+.anim_fade_image {
+    position:absolute;    
+    animation-name: fadeInOut;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    animation-duration: 12s;
+    animation-direction: alternate;
 }
 </style>
