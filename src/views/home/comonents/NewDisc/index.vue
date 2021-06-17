@@ -1,6 +1,6 @@
 <template>
   <div class="new-disc">
-    <SeriesHeader title="新碟上架" />
+    <series-header title="新碟上架" />
     <disc-item :swiper-data="swiperData"></disc-item>
   </div>
 </template>
