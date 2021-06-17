@@ -8,11 +8,11 @@
               <li class="li-item" v-for="(subItem, index) in item" :key="index">
                 <div class="cover pr">
                   <img :src="subItem.picUrl" alt="">
-                  <a href="javascript:;" class="msk"></a>
+                  <a href="javascript:;" class="msk "></a>
                   <!-- <div class="cover"></div> -->
                 </div>
-                <p>{{ subItem.name }}</p>
-                <p>{{ subItem.artist.name}}</p>
+                <p class="ellipsis">{{ subItem.name }}</p>
+                <p class="ellipsis">{{ subItem.artist.name}}</p>
               </li>
             </ul>
           </div>
@@ -87,7 +87,6 @@ export default {
           img {
             width: 100px;
             height: 100px;
-            background-position: 0 -570px;
           }
           .msk {
             position: absolute;
@@ -95,9 +94,14 @@ export default {
             left: 0;
             width: 118px;
             height: 100px;
-            background-position: 0 -570px;
             background: url("../../../../assets/img/cover-disc.png") no-repeat;
+            background-position: 0 -570px;
+            // background-image: url("../../../../assets/img/cover-disc.png");
           }
+          // background:url("../../../../assets/img/cover-disc.png") 和 background-position: 0 -570px;后者会失效是因为前者是后者的简写样式覆盖问题
+        }
+        > p {
+          width: 100px;
         }
       }
     }

@@ -1,12 +1,12 @@
 <template>
-  <div class="n-banner" :style="{ backgroundImage: 'url(' + bgImg2 + ')' }" @mouseover="moveIntoBanner" @mouseout="moveOutBanner">
+  <div class="n-banner" v-show="bannerList.length" :style="{ backgroundImage: 'url(' + bgImg2 + ')' }" @mouseover="moveIntoBanner" @mouseout="moveOutBanner">
     <div class="wrap">
       <div class="ban pr">
         <div class="ban-img">
           <img :src="bgImg1" alt="">
         </div>
-        <a href="javascript:void(0)" class="btn-prve"></a>
-        <a href="javascript:void(0)" class="btn-next"></a>
+        <a href="javascript:void(0)" class="btn-prve" @click="changeBanner('prve')"></a>
+        <a href="javascript:void(0)" class="btn-next" @click="changeBanner('next')"></a>
         <div class="dtos">
           <ul>
             <li v-for="(item, index) in bannerList" :key="index" class="dtos-item" :class="currentIndex === index ? 'active-item' : ''" @click="handleClick(index)"></li>
@@ -68,27 +68,50 @@ export default {
         this.currentIndex >= this.bannerList.length - 1
           ? this.currentIndex = 0
           : this.currentIndex++
-      }, 2000)
+      }, 4000)
     },
+    // 鼠标移入banner清除定时器
     moveIntoBanner () {
-      // debugger
       if (this.timer) {
         clearInterval(this.timer)
         this.timer = null
       }
     },
+    // 鼠标移出banner开启定时器
     moveOutBanner () {
       if (!this.timer) this.timer = this.bannerSetTime()
+    },
+    // 点击banner图切换banner
+    changeBanner (type) {
+      if (type === 'next') {
+        this.currentIndex >= this.bannerList.length - 1
+          ? this.currentIndex = 0
+          : this.currentIndex++
+      } else {
+        this.currentIndex <= 0
+          ? this.currentIndex = this.bannerList.length - 1
+          : this.currentIndex--
+      }
     }
   }
 }
 
 </script>
 <style lang="scss" scoped>
+.banner-btn {
+  position: absolute;
+  top: 50%;
+  width: 37px;
+  height: 63px;
+  transform: translateY(-50%);
+  background: url("../../../../assets/img/banner-button.png");
+  &:hover {
+    background-color: #333;
+  }
+}
 .n-banner {
   background-size: 6000px;
   background-position: center center;
-  background-color: sandybrown;
   .wrap {
     width: 982px;
     margin: 0 auto;
@@ -96,54 +119,63 @@ export default {
       .ban-img {
         img {
           width: 730px;
-          height: 200px;
           display: block;
         }
       }
-    }
-    .dtos {
-      position: absolute;
-      bottom: 10px;
-      width: 730px;
-      text-align: center;
-      .dtos-item {
-        width: 6px;
-        height: 6px;
-        display: inline-block;
-        background: #fff;
-        border-radius: 50%;
-        margin-right: 20px;
-        cursor: pointer;
-        &:hover {
-          @extend .active-item;
-        }
+      .btn-prve {
+        @extend .banner-btn;
+        left: -68px;
+        background-position: 0 -360px;
       }
-      .active-item {
-        background: #c20c0c;
+      .btn-next {
+        @extend .banner-btn;
+        right: -68px;
+        background-position: 0 -510px;
+      }
+      .dtos {
+        position: absolute;
+        bottom: 10px;
+        width: 730px;
+        text-align: center;
+        .dtos-item {
+          width: 6px;
+          height: 6px;
+          display: inline-block;
+          background: #fff;
+          border-radius: 50%;
+          margin-right: 20px;
+          cursor: pointer;
+          &:hover {
+            @extend .active-item;
+          }
+        }
+        .active-item {
+          background: #c20c0c;
+        }
       }
     }
   }
 }
 @keyframes fadeInOut {
-    0% {
-        opacity:1;
-     }
-    25% {
-        opacity:0;
-    }
-    50% {
-        opacity: 0;    
-    }
-    75% {
-        opacity:1;
-    }
+  0% {
+    opacity: 1;
+  }
+  25% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  75% {
+    opacity: 1;
+  }
 }
 .anim_fade_image {
-    position:absolute;    
-    animation-name: fadeInOut;
-    animation-timing-function: ease-in-out;
-    animation-iteration-count: infinite;
-    animation-duration: 12s;
-    animation-direction: alternate;
+  // position: absolute;
+  // animation-name: fadeInOut;
+  // animation-timing-function: ease-in-out;
+  // animation-iteration-count: infinite;
+  // animation-duration: 12s;
+  // animation-direction: alternate;
 }
 </style>

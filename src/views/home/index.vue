@@ -17,7 +17,7 @@
       <el-row>
         <el-col :span="18" class="discover-module-left">
           <!-- 热门推荐 -->
-          <HotRecommend />
+          <hot-recommend />
           <!-- 新碟上架 -->
           <NewDisc />
           <!-- 榜单 -->

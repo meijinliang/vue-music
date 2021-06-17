@@ -12,7 +12,7 @@
       <ul>
         <li class="song-item" v-for="(subItem, index) in item.tracks" :key="subItem.id">
           <span class="order">{{ index + 1 }}</span>
-          <span class="song-name pointer">{{ subItem.name }}</span>
+          <span class="song-name ellipsis pointer">{{ subItem.name }}</span>
         </li>
         <li class="check-more">查看更多></li>
       </ul>
@@ -48,7 +48,7 @@ export default {
         })
       ).then(res => {
         res.forEach(item => {
-          item.playlist.tracks = item.playlist.tracks.slice(0,10)
+          item.playlist.tracks = item.playlist.tracks.slice(0, 10)
           this.detailList.push(item.playlist)
         })
       })
@@ -85,13 +85,15 @@ export default {
     height: 32px;
     line-height: 32px;
     .order {
-      padding: 0 5px;
+      padding: 0 10px;
       font-size: 16px;
       width: 20px;
       text-align: center;
     }
     .song-name {
+      width: 170px;
       flex: 1;
+      // overflow: hidden;
     }
   }
   .check-more {
