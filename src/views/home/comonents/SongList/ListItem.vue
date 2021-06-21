@@ -12,7 +12,7 @@
       <ul>
         <li class="song-item" v-for="(subItem, index) in item.tracks" :key="subItem.id">
           <span class="order">{{ index + 1 }}</span>
-          <span class="song-name ellipsis pointer">{{ subItem.name }}</span>
+          <span class="song-name ellipsis pointer hover-underline">{{ subItem.name }}</span>
         </li>
         <li class="check-more">查看更多></li>
       </ul>

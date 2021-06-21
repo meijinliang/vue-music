@@ -15,7 +15,9 @@
               </el-tooltip>
             </div>
           </div>
-          <span>{{item.name}}</span>
+          <div class="hover-underline pointer">
+            <span>{{item.name}}</span>
+          </div>
         </el-card>
       </el-col>
     </el-row>

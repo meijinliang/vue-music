@@ -1,7 +1,7 @@
 <template>
   <div class="app-wrapper">
     <!-- 顶部导航栏 -->
-    <el-header class="header-wrapper" height="70px">
+    <el-header class="header-wrapper" height="100%">
       <top-bar @login="dialogVisible = true" />
     </el-header>
     <!-- 内容部分 -->
@@ -22,14 +22,14 @@ export default {
   data () {
     return {
       // 登录弹框
-      dialogVisible:false
+      dialogVisible: false
     }
   },
-  mounted() {
+  mounted () {
     console.log(this.key);
   },
   computed: {
-    key() {
+    key () {
       return this.$route.path
     }
   }
@@ -37,7 +37,6 @@ export default {
 </script>
 
 <style scoped lang="scss">
-$headerHeight: 70px;  
 .app-wrapper {
   // @include clearfix;
   // position: relative;
@@ -49,7 +48,6 @@ $headerHeight: 70px;
     clear: both;
   }
   .header-wrapper {
-    height: $headerHeight;
     padding: 0;
   }
   .container {

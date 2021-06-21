@@ -1,15 +1,5 @@
 <template>
   <div>
-    <!-- 发现音乐导航栏 -->
-    <div class="top-subnav">
-      <div class="wrap">
-        <ul class="nav">
-          <li class="fl pointer" v-for="(item,index) in discoverItem" :key="index" @click="handleSelectSub(index)">
-            <span class="sub-item" :class="selectSubIndex === index ? 'active' : ''">{{item}}</span>
-          </li>
-        </ul>
-      </div>
-    </div>
     <!-- <swiper :bannerList="bannerList" /> -->
     <banner :bannerList="bannerList" />
     <!-- discover-module -->
@@ -39,8 +29,6 @@ export default {
   components: { Banner, HotRecommend, NewDisc, SongList },
   data () {
     return {
-      discoverItem: ['推荐', '排行榜', '歌单', '主播电台', '歌手', '新碟上架'],
-      selectSubIndex: 0,
       bannerList: [],
     }
   },
@@ -48,9 +36,6 @@ export default {
     this.getBannerData()
   },
   methods: {
-    handleSelectSub (index) {
-      this.selectSubIndex = index
-    },
     // 获取banner
     getBannerData () {
       getBanner().then(res => {
@@ -61,38 +46,6 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.top-subnav {
-  background: #c20c0c;
-  height: 35px;
-  box-sizing: border-box;
-  border-bottom: 1px solid #a40011;
-  .wrap {
-    width: 1100px;
-    height: 34px;
-    margin: 0 auto;
-    .nav {
-      padding-left: 180px;
-      li {
-        height: 34px;
-        line-height: 34px;
-        text-align: center;
-        color: #fff;
-        padding: 0 15px;
-      }
-      .sub-item {
-        padding: 5px 15px;
-        // background: #9b0909;
-        border-radius: 12px;
-      }
-      .active {
-        background: #9b0909;
-      }
-      .sub-item:hover {
-        @extend .active;
-      }
-    }
-  }
-}
 .banner {
   .banenr-container {
     width: 982px;

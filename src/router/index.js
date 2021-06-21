@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-
+import { HomeRouter } from './home-router'
 Vue.use(VueRouter)
 
 const routes = [
@@ -9,39 +9,8 @@ const routes = [
     name: 'topnav',
     redirect: 'home',
     component: () => import('@/layout'),
-    children: [{
-      path: 'home',
-      name: 'home',
-      meta: {
-        title: '首页'
-      },
-      // import 异步加载
-      component: () => import('@/views/home')
-    }, {
-      path: 'discover',
-      name: 'discover',
-      meta: {
-        title: '发现音乐-推荐'
-      },
-      redirect: 'home'
-    }]
+    children: HomeRouter
   },
-  // {
-  //   path: '/home',
-  //   name: 'home',
-  //   meta: {
-  //     title: '首页'
-  //   },
-  //   // import 异步加载
-  //   component: () => import('@/views/home')
-  // }, {
-  //   path: '/discover',
-  //   name: 'discover',
-  //   meta: {
-  //     title: '发现音乐-推荐'
-  //   },
-  //   redirect: '/home'
-  // }
 ]
 
 const router = new VueRouter({

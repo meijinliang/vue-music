@@ -1,5 +1,7 @@
 <template>
+  <!-- 顶部导航栏的切换事件要存到 -->
   <div>
+    <!-- 顶部导航栏 -->
     <div class="header">
       <div class="header-container">
         <h1 class="logo m-top">
@@ -20,6 +22,17 @@
         <el-button type="text" style="margin-left:16px;" @click="handleClickLogin">登录</el-button>
       </div>
     </div>
+    <!-- 发现音乐导航栏 -->
+    <div v-if="!slectItemIndex" class="top-subnav">
+      <div class="wrap">
+        <ul class="nav">
+          <li class="fl pointer" v-for="(item,index) in discoverItem" :key="index" @click="handleSelectSub(item, index)">
+            <span class="sub-item" :class="selectSubIndex === index ? 'active' : ''">{{item.label}}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div v-else class="top-subnav" style="height: 5px"></div>
   </div>
 </template>
 <script>
@@ -27,17 +40,37 @@ export default {
   data () {
     return {
       topItems: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
+      discoverItem: [
+        { label: '推荐', name: 'discover' },
+        { label: '排行榜', name: 'discover-toplist' },
+        { label: '歌单', name: 'discover-playlist' },
+        { label: '主播电台', name: 'discover-djradio' },
+        { label: '歌手', name: 'discover-artist' },
+        { label: '新碟上架', name: 'discover-album' }
+      ],
+      // 首页顶部导航栏索引
       slectItemIndex: 0,
-      serachValue:''
+      // 发现音乐sub导航栏的索引
+      selectSubIndex: 0,
+      serachValue: ''
     }
   },
   methods: {
+    // 顶部导航栏切换事件
     handleChange (index) {
       this.slectItemIndex = index
     },
-    handleClickLogin() {
+
+    // 调用登录组件
+    handleClickLogin () {
       this.$emit('login')
-    }
+    },
+
+    // 发现音乐sub导航栏切换事件
+    handleSelectSub (value, index) {
+      this.$router.push({ name: value.name })
+      this.selectSubIndex = index
+    },
   }
 }
 </script>
@@ -128,6 +161,38 @@ export default {
   .active {
     background: #000;
     color: #fff;
+  }
+}
+.top-subnav {
+  background: #c20c0c;
+  height: 35px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #a40011;
+  .wrap {
+    width: 1100px;
+    height: 34px;
+    margin: 0 auto;
+    .nav {
+      padding-left: 180px;
+      li {
+        height: 34px;
+        line-height: 34px;
+        text-align: center;
+        color: #fff;
+        padding: 0 15px;
+      }
+      .sub-item {
+        padding: 5px 15px;
+        // background: #9b0909;
+        border-radius: 12px;
+      }
+      .active {
+        background: #9b0909;
+      }
+      .sub-item:hover {
+        @extend .active;
+      }
+    }
   }
 }
 </style>

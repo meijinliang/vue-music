@@ -11,8 +11,8 @@
                   <a href="javascript:;" class="msk "></a>
                   <!-- <div class="cover"></div> -->
                 </div>
-                <p class="ellipsis">{{ subItem.name }}</p>
-                <p class="ellipsis">{{ subItem.artist.name}}</p>
+                <p class="ellipsis pointer hover-underline">{{ subItem.name }}</p>
+                <p class="ellipsis pointer hover-underline">{{ subItem.artist.name}}</p>
               </li>
             </ul>
           </div>
@@ -96,7 +96,6 @@ export default {
             height: 100px;
             background: url("../../../../assets/img/cover-disc.png") no-repeat;
             background-position: 0 -570px;
-            // background-image: url("../../../../assets/img/cover-disc.png");
           }
           // background:url("../../../../assets/img/cover-disc.png") 和 background-position: 0 -570px;后者会失效是因为前者是后者的简写样式覆盖问题
         }
