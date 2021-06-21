@@ -53,7 +53,6 @@ export default {
   }
 }
 .discover-module {
-  // @extend .banenr-container;
   width: 982px;
   margin: 0 auto;
   border: 1px solid #d3d3d3;
