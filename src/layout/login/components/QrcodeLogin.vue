@@ -25,7 +25,9 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
 import { loginQrKey, loginQrCreate, loginQrCheck } from '@/api/login'
+import { setToken } from '@/utils/auth'
 export default {
   data () {
     return {
@@ -56,9 +58,16 @@ export default {
         loginQrCheck({ key }).then(res => {
           if (res.code === 800) {
             this.isOver = true
+          } else if (res.code === 803) {
+            setToken(res.cookie)
+            console.log(this.$store);
+            this.$store.commit('SET_TOKEN', res.cookie)
+            clearInterval(this.timer)
+            console.log(this.$store);
+            this.$store.dispatch('loginByQrcode')
           }
         })
-      }, 5000)
+      }, 2000)
     }
   },
   beforeDestroy () {
@@ -100,7 +109,7 @@ export default {
           position: absolute;
           top: 50%;
           left: 50%;
-          transform: translate(-50%,-50%);
+          transform: translate(-50%, -50%);
           p {
             text-align: center;
             margin-bottom: 10px;

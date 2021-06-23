@@ -72,7 +72,7 @@ export function logout () {
 // 登录状态
 export function loginStatus () {
   return request({
-    url: '/logout/status',
+    url: '/login/status',
     method: 'get'
   })
 }
