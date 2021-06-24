@@ -3,18 +3,21 @@
     <div class="toplist-left">
       <div class="g-sd">
         <div>
-          <h2 class="g-sd-1">云音乐特色榜</h2>
-          <div v-for="item in musicFeaturelist" :key="item.id" class="g-sd-item">
+          <h2 class="g-sd-1" @click="handleClick">云音乐特色榜</h2>
+          <!-- <div v-for="item in musicFeaturelist" :key="item.id" class="g-sd-item">
             <div class="g-sd-item-left">
               <img :src="item.coverImgUrl" alt="">
             </div>
             <div class="g-sd-item-right">
-
+              <span class="text-bold">{{ item.name }}</span>
+              <span class="text-tip">{{ item.updateFrequency }}</span>
             </div>
-          </div>
+          </div> -->
+          <list-item :data-source="musicFeaturelist"/>
         </div>
         <div>
           <h2>全球媒体榜</h2>
+          <list-item :data-source="globalMediaList"/>
         </div>
       </div>
     </div>
@@ -25,9 +28,12 @@
 </template>
 
 <script>
-import { getTopList } from '@/api/index'
+import ListItem from './ListItem.vue'
 export default {
   name: 'DiscoverToplist',
+  components: {
+    ListItem
+  },
   data () {
     return {
       topList: []
@@ -35,24 +41,31 @@ export default {
   },
   computed: {
     musicFeaturelist () {
-      return this.topList.slice(0, 4).forEach(item => {
+      return this.topList.slice(0, 4).map(item => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
+        return {...item}
+      })
+    },
+    globalMediaList() {
+      return this.topList.slice(4).map(item => {
+        item.coverImgUrl = item.coverImgUrl + '?param40y40'
+        return {...item}
       })
     }
   },
-  mounted () {
-    console.log(this.musicFeaturelist);
-  },
-  created () {
-    this.getTopList()
+  async created () {
+    await this.getTopList()
   },
   methods: {
     // 发现音乐-排行榜-各榜单列表
-    getTopList () {
-      getTopList().then(res => {
-        console.log(res);
-        this.topList = res.list || []
-      })
+    async getTopList() {
+      const res = await this.$store.dispatch('getToplist')
+      console.log(res);
+      this.topList = res.list || []
+    },
+    handleClick() {
+      console.log(this.musicFeaturelist);
+      console.log(this.globalMediaList);
     }
   }
 }
@@ -69,15 +82,7 @@ export default {
       &-1 {
         padding: 0 10px 12px 15px;
       }
-      &-item {
-        display: flex;
-        &-left {
-          img {
-            width: 40px;
-            height: 40px;
-          }
-        }
-      }
+      
     }
   }
   &-right {

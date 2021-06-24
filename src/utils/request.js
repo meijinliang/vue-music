@@ -14,14 +14,7 @@ service.interceptors.request.use(config => {
 })
 
 service.interceptors.response.use(res => {
-  if (res.data.code === 200) {
-    return res.data
-  } else if (
-    res.data.code === 800
-    || res.data.code === 801
-    || res.data.code === 802
-    || res.data.code === 803
-  ) {
+  if ([200, 800, 801, 802, 803].includes(res.data.code)) {
     return res.data
   } else {
     throw new Error(res.data.message)
