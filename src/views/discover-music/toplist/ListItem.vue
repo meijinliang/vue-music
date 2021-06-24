@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in dataSource" :key="item.id" class="item">
+    <div v-for="item in dataSource" :key="item.id" class="item pointer" :class="currentListId === item.id ? 'selected' : ''" @click="chooseList(item.id)">
       <div class="item-left">
         <img :src="item.coverImgUrl" alt="">
       </div>
@@ -17,10 +17,13 @@ export default {
   name: '',
   props: {
     dataSource: {
-      type: Object,
+      type: Array,
       default: () => {
-        return {}
+        return []
       }
+    },
+    currentListId: {
+      type: Number
     }
   },
   data () {
@@ -28,14 +31,19 @@ export default {
 
     }
   },
+  methods: {
+    chooseList (id) {
+      this.$emit('choose', id)
+    }
+  }
 }
 </script>
 
 <style scoped lang="scss">
-item {
+.item {
   display: flex;
   height: 40px;
-  padding: 5px 10px;
+  padding: 10px 20px;
   &-left {
     img {
       width: 40px;
@@ -48,5 +56,8 @@ item {
     flex-direction: column;
     justify-content: space-between;
   }
+}
+.selected {
+  background: #e6e6e6;
 }
 </style>
