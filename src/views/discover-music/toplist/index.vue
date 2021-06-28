@@ -48,12 +48,15 @@ export default {
     }
   },
   computed: {
+    // 云音乐特色榜列表
     musicFeaturelist () {
       return this.topList.slice(0, 4).map(item => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
         return { ...item }
       })
     },
+
+    // 全球媒体榜列表
     globalMediaList () {
       return this.topList.slice(4).map(item => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
@@ -72,6 +75,7 @@ export default {
       this.currentListId = res.list[0]?.id
       this.getListDetail()
     },
+    // 切换排行榜榜单
     changeCurrentListId (id) {
       this.currentListId = id
       this.getListDetail()
@@ -80,6 +84,7 @@ export default {
     getListDetail () {
       playListDetail(this.currentListId).then(res => {
         this.playList = res?.playlist
+        console.log(this.playList);
       })
     }
   }
