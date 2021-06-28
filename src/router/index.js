@@ -9,8 +9,23 @@ const routes = [
     name: 'topnav',
     redirect: 'home',
     component: () => import('@/layout'),
-    children: HomeRouter
+    children: [{
+      path: 'home',
+      name: 'home',
+      meta: {
+        title: '首页'
+      },
+      // import 异步加载
+      component: () => import('@/views/home')
+    }]
   },
+  {
+    path: '',
+    name: 'topnav',
+    redirect: 'home',
+    component: () => import('@/layout'),
+    children: HomeRouter
+  }
 ]
 
 const router = new VueRouter({

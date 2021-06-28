@@ -25,11 +25,15 @@
     <!-- 发现音乐导航栏 -->
     <div v-if="!slectItemIndex" class="top-subnav">
       <div class="wrap">
-        <ul class="nav">
-          <li class="fl pointer" v-for="(item,index) in discoverItem" :key="index" @click="handleSelectSub(item, index)">
-            <span class="sub-item" :class="selectSubIndex === index ? 'active' : ''">{{item.label}}</span>
+        <!-- <ul class="nav">
+          <li class="fl pointer" v-for="(item,index) in subNavRouter" :key="index" @click="handleSelectSub(item, index)">
+            <span class="sub-item" :class="$route.fullPath === item.path ? 'active' : ''">{{item.meta.title}}</span>
+            <span class="sub-item" :class="selectSubClass">{{item.meta.title}}</span>
           </li>
-        </ul>
+        </ul> -->
+        <!-- <el-menu :default-active="activeIndex" class="el-menu-demo" mode="horizontal" unique-opened @select="handleSelect">
+          <el-menu-item v-for="(item,index) in subNavRouter" :key="index"></el-menu-item>
+        </el-menu> -->
       </div>
     </div>
     <div v-else class="top-subnav" style="height: 5px"></div>
@@ -40,20 +44,18 @@ export default {
   data () {
     return {
       topItems: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
-      discoverItem: [
-        { label: '推荐', name: 'discover' },
-        { label: '排行榜', name: 'discover-toplist' },
-        { label: '歌单', name: 'discover-playlist' },
-        { label: '主播电台', name: 'discover-djradio' },
-        { label: '歌手', name: 'discover-artist' },
-        { label: '新碟上架', name: 'discover-album' }
-      ],
       // 首页顶部导航栏索引
       slectItemIndex: 0,
       // 发现音乐sub导航栏的索引
       selectSubIndex: 0,
+      subNavRouter: this.$router.options.routes[1].children,
       serachValue: ''
     }
+  },
+  created () {
+    console.log(this.$router.options.routes);
+  },
+  computed: {
   },
   methods: {
     // 顶部导航栏切换事件
@@ -66,6 +68,16 @@ export default {
       this.$emit('login')
     },
 
+    // 绑定subNav选中样式
+    // selectSubClass (val) {
+    //   // console.log(this.$route.fullPath, val.path);
+    //   if (this.$route.fullPath === val.path) {
+    //     console.log(111);
+    //     return 'active'
+    //   } else {
+    //     return ''
+    //   }
+    // },
     // 发现音乐sub导航栏切换事件
     handleSelectSub (value, index) {
       this.$router.push({ name: value.name })
