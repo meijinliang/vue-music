@@ -7,12 +7,14 @@ const service = axios.create({
   timeout: 10000
 })
 
+// 请求拦截器
 service.interceptors.request.use(config => {
   return config
 }, err => {
   console.log(err);
 })
 
+// 响应拦截器
 service.interceptors.response.use(res => {
   if ([200, 800, 801, 802, 803].includes(res.data.code)) {
     return res.data

@@ -64,3 +64,46 @@ export function parseTime(time, pattern) {
   })
   return time_str
 }
+
+// 手写深拷贝
+export function deepClone(obj) {
+  let cloneObj
+  // 判断当前传入的数据是不是简单数据类型 是的话直接赋值就可以
+  if ( obj && typeof obj !== 'object') {
+    cloneObj = obj
+  }
+  // 当输入的数据是数组或对象的时候 
+  else if (obj && typeof obj === 'object') {
+    cloneObj = Array.isArray(obj) ? [] : {}
+    // 遍历数据对象
+    for (let key in obj) {
+      if (Object.prototype.hasOwnProperty.call(obj, 'key')) {
+        if (obj[key] && typeof obj[key] === 'object') {
+          // 若当前元素类型是对象时，递归调用
+          cloneObj[key] = deepClone(obj[key])
+        } else {
+           // 若当前元素类型为基本数据类型 
+          cloneObj[key] = obj[key]
+        }
+      }
+    }
+  }
+  return cloneObj
+}
+
+/**
+ * 下载二进制流文件
+ * @param {arraybuffer} data
+ * @param {String} fileName
+ */
+
+ export function extendDownload(data, fileName) {
+  const url = window.URL.createObjectURL(new Blob([data], { type: 'application/xls;charset=UTF-8' }))
+  const link = document.createElement('a')
+  link.href = url
+  link.setAttribute('download', fileName)
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  window.URL.revokeObjectURL(link)
+}
