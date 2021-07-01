@@ -14,11 +14,15 @@
     </div>
     <div class="toplist-right">
       <div class="toplist-wrap1">
-        <div class="cover text-center cover-bg">
+        <div class="cover-bg cover text-center">
           <!-- <img :src="playList.coverImgUrl" alt=""> -->
         </div>
         <div>
-
+          <h3>{{ playList.name }}</h3>
+          <div>
+            <i></i>
+            <span>最近更新：{{ new Date(playList.trackUpdateTime) | parseTime('{y}年{m}月{d}日')}}</span>
+          </div>
         </div>
       </div>
       <div class="toplist-wrap2">
@@ -32,8 +36,12 @@
 <script>
 import ListItem from './ListItem.vue'
 import { playListDetail } from '@/api/index'
+import { parseTime } from '@/utils/index'
 export default {
   name: 'DiscoverToplist',
+  filters: {
+    parseTime
+  },
   components: {
     ListItem
   },
