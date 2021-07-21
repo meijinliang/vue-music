@@ -1,5 +1,6 @@
 @import './mixin.scss';
 @import './base.scss';
+@import './variables.scss';
 
 body, html, h1, h2, h3, h4, h5, h6, ul, ol, li, dl, dt, dd, header, menu, section, p, input, td, th, ins {
   padding: 0;
@@ -92,4 +93,8 @@ ul {
 
 .text-tip {
   color: #ccc;
+}
+
+.text-red {
+  color: $red;
 }
