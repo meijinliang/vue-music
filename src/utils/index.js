@@ -97,7 +97,7 @@ export function deepClone(obj) {
  * @param {String} fileName
  */
 
- export function extendDownload(data, fileName) {
+export function extendDownload(data, fileName) {
   const url = window.URL.createObjectURL(new Blob([data], { type: 'application/xls;charset=UTF-8' }))
   const link = document.createElement('a')
   link.href = url

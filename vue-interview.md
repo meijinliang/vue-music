@@ -46,6 +46,14 @@ proxy：
   1.可以劫持整个对象，并返回一个新的对象。
   2.有多种劫持操作
 
+# 11.组件中name选项得作用？
+  1.项目中使用keep-alive可以使用name进行过滤
+  2.DOM做递归组件时需要调用自身name
+  3.vue-devtools调试工具里显示得组件名称是由组件name决定得
+
+# 12.$route 和 $router的区别
+  $route是当前激活路由的对象包含当前路由的信息 $router是全局的路由对象（具有实现路由跳转的方法）
+
   1.vue mvvm模式 （ui、数据模型、ViewModel 是一个同步View 和 Model的对象）
 2.vue对视图的修改是通过修改数据而不是像jQuery那样直接修改DOM
 3.定义vue的类使用function而不是class 这是因为我们往后看这里有很多 xxxMixin 的函数调用，并把 Vue 当参数传入，它们的功能都是给Vue 
