@@ -13,7 +13,7 @@ const user = {
       state.cookie = cookie
     },
     SET_ACCOUNT: (state, accont) => {
-      state.accont = accont
+      state.accont = accont 
     },
     SET_PROFILE: (state, profile) => {
       state.profile = profile

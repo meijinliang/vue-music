@@ -25,6 +25,11 @@ const routes = [
     redirect: 'home',
     component: () => import('@/layout'),
     children: HomeRouter
+  },
+  {
+    path: 'playlist',
+    name: 'playlist',
+    component: () => import('@/views/play-list')
   }
 ]
 
@@ -34,7 +39,13 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  document.title = to.meta.title
+  console.log(to);
+  if (to.path == '/playlist') {
+    document.title = to.query.title
+  }
+  if (to.meta.title) {
+    document.title = to.meta.title
+  }
   next()
 })
 

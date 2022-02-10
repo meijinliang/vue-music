@@ -61,6 +61,9 @@ export default {
         if (valid) {
           loginCellPhone(this.loginParams).then(res => {
             console.log(res);
+            this.$store.commit('SET_ACCOUNT', res?.account)
+            this.$store.commit('SET_PROFILE', res?.profile)
+            this.$store.commit('SET_PROFILE', res?.profile)
           })
         }
       })

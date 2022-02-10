@@ -6,7 +6,8 @@ export const HomeRouter = [
       title: '推荐'
     },
     component: () => import('@/views/home'),
-  }, {
+  },
+  {
     path: 'discover/toplist',
     name: 'discover-toplist',
     meta: {
@@ -21,26 +22,34 @@ export const HomeRouter = [
       title: '歌单'
     },
     component: () => import('@/views/discover-music/playlist')
-  }, {
+  },
+  {
     path: 'discover/djradio',
     name: 'discover-djradio',
     meta: {
       title: '主播电台'
     },
     component: () => import('@/views/discover-music/djradio')
-  }, {
+  },
+  {
     path: 'discover/artist',
     name: 'discover-artist',
     meta: {
       title: '歌手'
     },
     component: () => import('@/views/discover-music/artist')
-  }, {
+  },
+  {
     path: 'discover/album',
     name: 'discover-album',
     meta: {
       title: '新碟上架'
     },
     component: () => import('@/views/discover-music/album')
+  },
+  {
+    path: 'playlist',
+    name: 'playlist',
+    component: () => import('@/views/play-list'),
   }
 ]
