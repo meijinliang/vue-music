@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="10px" height="10px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>切片</title>
+    <g id="首页" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="首页-light-蓝" transform="translate(-1894.000000, -27.000000)" fill="#CBCBCB">
+            <g id="导航栏" transform="translate(224.000000, 0.000000)">
+                <g id="个人信息" transform="translate(1594.000000, 14.000000)">
+                    <g id="图标/基础/下拉" transform="translate(81.000000, 18.000000) scale(1, -1) translate(-81.000000, -18.000000) translate(76.000000, 13.000000)">
+                        <path d="M2.12917862,2.5 C1.29844371,2.5 1.05245921,3.01905761 1.57430984,3.65273338 L4.05069016,6.65976662 C4.57497951,7.29640369 5.42745921,7.29344239 5.94930984,6.65976662 L8.42569016,3.65273338 C8.94997951,3.01609631 8.70293112,2.5 7.87082138,2.5 L2.12917862,2.5 Z" id="icon_arrow" transform="translate(5.000000, 5.156250) scale(1, -1) translate(-5.000000, -5.156250) "></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

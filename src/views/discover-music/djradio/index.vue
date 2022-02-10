@@ -1,5 +1,7 @@
 <template>
-  <div></div>
+  <div>
+    <svg-icon icon-class="logout" />
+  </div>
 </template>
 
 <script>

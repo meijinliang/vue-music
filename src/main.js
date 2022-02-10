@@ -5,6 +5,7 @@ import store from './store'
 
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css';
+import './assets/icons' // icon 
 
 Vue.config.productionTip = false
 // 引入全局样式
