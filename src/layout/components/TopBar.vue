@@ -44,7 +44,7 @@ export default {
       slectItemIndex: 0,
       // 发现音乐sub导航栏的索引
       selectSubItem: '',
-      subNavRouter: this.$router.options.routes[1].children,
+      subNavRouter: this.$router.options.routes[1].children.slice(0, 6),
       serachValue: ''
     }
   },
@@ -61,7 +61,7 @@ export default {
 
     // 绑定subNav选中样式
     selectSubClass (val) {
-      this.selectSubItem  = this.$route.fullPath.split('/').filter(x => x).join('/')
+      this.selectSubItem = this.$route.fullPath.split('/').filter(x => x).join('/')
       if (this.selectSubItem === val.path) {
         return 'active'
       } else {
@@ -71,9 +71,9 @@ export default {
     // 发现音乐sub导航栏切换事件
     handleSelectSub (value) {
       if (this.selectSubItem !== value.path) {
-        this.$router.push({ name: value.name }) 
+        this.$router.push({ name: value.name })
       }
-      
+
     },
   }
 }

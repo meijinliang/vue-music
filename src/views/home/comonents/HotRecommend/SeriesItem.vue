@@ -2,7 +2,7 @@
   <div>
     <el-row class="card-item">
       <el-col v-for="item in recommendedSongList" :key="item.id">
-        <el-card>
+        <el-card @click.native="handleClick(item)">
           <div class="img-container pr">
             <img :src="item.picUrl" :alt="item.name">
             <a href="javascript:void(0)" :title="item.name"></a>
@@ -31,6 +31,20 @@ export default {
       default: () => {
         return []
       }
+    }
+  },
+  methods: {
+    handleClick (item) {
+      console.log(item);
+      this.$router.push(
+        {
+          path: `playlist`,
+          query: {
+            id: item.id,
+            title: item.name
+          }
+        }
+      )
     }
   }
 }

@@ -1,9 +1,9 @@
 <template>
-<!-- 发现音乐 - 排行榜 -->
+  <!-- 发现音乐 - 排行榜 -->
   <div class="basic-container toplist">
     <!-- 左边榜单列表 -->
     <div class="toplist-left">
-      <!-- <div class="g-sd">
+      <div class="g-sd">
         <div>
           <h2 class="g-sd-1">云音乐特色榜</h2>
           <list-item :data-source="musicFeaturelist" :current-list-id="currentListId" @choose="changeCurrentListId" />
@@ -12,13 +12,13 @@
           <h2 class="g-sd-1 mt16">全球媒体榜</h2>
           <list-item :data-source="globalMediaList" :current-list-id="currentListId" @choose="changeCurrentListId" />
         </div>
-      </div> -->
+      </div>
     </div>
     <!-- 右边榜单详情 -->
     <div class="toplist-right">
       <div class="toplist-wrap1">
         <div class="cover-bg cover text-center">
-          <!-- <img :src="playList.coverImgUrl" alt=""> -->
+          <img :src="playList.coverImgUrl" alt="">
         </div>
         <div>
           <h3>{{ playList.name }}</h3>
@@ -42,12 +42,7 @@
           </el-col>
         </el-row>
         <!-- 歌单列表 -->
-         <el-table 
-          :data="tableData"
-          v-loading="loading"
-          stripe
-          :header-row-class-name="headerClassName"
-          >
+        <el-table :data="tableData" v-loading="loading" stripe :header-row-class-name="headerClassName">
           <el-table-column type="index" width="100">
             <template v-slot="{row, $index}">
               <span>{{ $index + 1 }}</span>
@@ -55,8 +50,8 @@
           </el-table-column>
           <el-table-column label="标题">
             <template v-slot="{row, $index}">
-              <div>
-                <img v-if="$index < 3" :src="row.al.picUrl">
+              <div class="table-td">
+                <img class="table-img" v-if="$index < 3" :src="row.al.picUrl">
                 <span>{{ row.name}}</span>
               </div>
             </template>
@@ -83,13 +78,13 @@
 </template>
 
 <script>
-// import ListItem from './ListItem.vue'
+import ListItem from './ListItem.vue'
 import { playListDetail } from '@/api/index'
 import { parseTime } from '@/utils/index'
 export default {
   name: 'DiscoverToplist',
   components: {
-    // ListItem
+    ListItem
   },
   data () {
     return {
@@ -152,13 +147,13 @@ export default {
       })
     },
     // 总毫秒处理成分秒
-    formatTime(val) {
-      let m,s
+    formatTime (val) {
+      let m, s
       m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
-      s= val % 60 < 10 ? '0' + val % 60 : val % 60
-      return m + ':'+ s
+      s = val % 60 < 10 ? '0' + val % 60 : val % 60
+      return m + ':' + s
     },
-    headerClassName() {
+    headerClassName () {
       return 'header-class'
     }
   }
@@ -201,6 +196,15 @@ export default {
       .play-count {
         line-height: 24px;
       }
+      .table-td {
+        display: flex;
+        align-items: center;
+        .table-img {
+          width: 50px;
+          height: 50px;
+          margin-right: 15px;
+        }
+      }
     }
   }
 }
@@ -213,5 +217,4 @@ export default {
   border: 1px solid #ccc;
   border-top: 2px solid #c20c0c;
 }
-   
 </style>
