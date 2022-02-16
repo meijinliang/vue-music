@@ -188,7 +188,7 @@ export default {
           height: 150px;
           margin-top: 50%;
           transform: translateY(-50%);
-        }
+        } 
       }
     }
     .toplist-wrap2 {

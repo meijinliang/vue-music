@@ -64,7 +64,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-
+// .ellipsis2 {
+//   overflow: hidden;
+//   text-overflow: ellipsis;
+//   display: -webkit-box;
+//   -webkit-box-orient: vertical;
+//   -webkit-line-clamp: 2;
+//  }
 .inline-block {
   display: inline-block;
 }

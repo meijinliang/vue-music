@@ -1,9 +1,13 @@
 <template>
   <div class="album">
     <el-row>
-      <el-col :span="18" class="album-left">
+      <el-col v-if="JSON.stringify(albumDetail) != '{}'" :span="18" class="album-left">
         <div class="cnt">
-          <img :src="albumDetail.coverImgUrl" :alt="albumDetail.description" class="cnt-img">
+          <div class="cnt-img">
+            <img :src="albumDetail.coverImgUrl" :alt="albumDetail.description">
+            <span class="cover-bg"></span>
+          </div>
+          
           <div class="cnt-detail">
             <div class="cnt-detail-title">
               <i class="icon-bg inline-block"></i>
@@ -17,6 +21,14 @@
               </span>
               <span class="cnt-detail-creator-time">
                 {{ parseTime(albumDetail.createTime, '{y}-{m}-{d}')}} 创建
+              </span>
+            </div>
+            <div class="cnt-detail-opration-btn">
+              <span class="play">
+                <a>
+                  <svg-icon icon-class="logout" />
+                  播放
+                </a>
               </span>
             </div>
           </div>
@@ -67,8 +79,20 @@ export default {
       // display: flex;
       &-img {
         float: left;
-        width: 200px;
-        height: 200px;
+        width: 208px;
+        height: 208px;
+        img {
+          width: 100%;
+          height: 100%;
+        }
+        .cover-bg {
+          display: block;
+          width: 208px;
+          height: 208px;
+          position: absolute;
+          top: 40px;
+          background-position: 0 -1285px;
+        }
       }
       &-detail {
         margin-left: 240px;
@@ -107,6 +131,14 @@ export default {
           }
           &-time {
             color: #999;
+          }
+        }
+
+        // 操作按钮
+        &-opration-btn {
+          display: flex;
+          .play {
+            background-color: #1e6fbf;
           }
         }
       }

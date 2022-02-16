@@ -2,10 +2,10 @@
   <div>
     <el-row class="card-item">
       <el-col v-for="item in recommendedSongList" :key="item.id">
-        <el-card @click.native="handleClick(item)">
+        <el-card shadow="never" @click.native="handleClick(item)">
           <div class="img-container pr">
             <img :src="item.picUrl" :alt="item.name">
-            <a href="javascript:void(0)" :title="item.name"></a>
+            <a class="cover-bg" href="javascript:void(0)" :title="item.name"></a>
             <div class="bottom">
               <span class="headset p-bg"></span>
               <span class="nb">{{ item.playCount }}万</span>
@@ -65,6 +65,7 @@ export default {
         img {
           width: 100%;
           height: 100%;
+          
         }
         a {
           display: block;
@@ -73,6 +74,7 @@ export default {
           position: absolute;
           top: 0;
           left: 0;
+          background-position: 0 0;
         }
         .bottom {
           position: absolute;
