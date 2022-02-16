@@ -1,6 +1,7 @@
 <template>
   <div class="album">
     <el-row>
+      <!-- 左侧歌单详情 -->
       <el-col v-if="JSON.stringify(albumDetail) != '{}'" :span="18" class="album-left">
         <div class="cnt">
           <div class="cnt-img">
@@ -23,14 +24,57 @@
                 {{ parseTime(albumDetail.createTime, '{y}-{m}-{d}')}} 创建
               </span>
             </div>
+
+            <!-- 操作按钮 -->
             <div class="cnt-detail-opration-btn">
-              <span class="play">
-                <a>
-                  <svg-icon icon-class="logout" />
+              <span class="play mr8">
+                <a title="播放">
+                  <svg-icon class="icon" icon-class="play" />
                   播放
+                </a>
+                <a class="plus" title="添加到播放列表">
+                  +
+                </a>
+              </span>
+              <span class="button mr8">
+                <a>
+                  <svg-icon class="icon" icon-class="file" />
+                  ({{ albumDetail.subscribedCount }})
+                </a>
+              </span>
+              <span class="button mr8">
+                <a>
+                  <svg-icon class="icon" icon-class="share" />
+                  ({{ albumDetail.shareCount }})
+                </a>
+              </span>
+              <span class="button mr8">
+                <a>
+                  <svg-icon class="icon" icon-class="download" />
+                  下载
+                </a>
+              </span>
+              <span class="button mr8">
+                <a>
+                  <svg-icon class="icon" icon-class="chat-dot-square" />
+                  ({{ albumDetail.commentCount }})
                 </a>
               </span>
             </div>
+
+            <!-- 歌单标签 -->
+            <div class="cnt-detail-tags">
+              <span>标签：</span>
+              <a v-for="(item, index) in albumDetail.tags" :key="index" class="cnt-detail-tags-item mr8"> {{ item }}</a>
+            </div>
+
+            <!-- 歌单描述 -->
+            <p class="cnt-detail-description">
+              描述：{{ albumDetail.description }}
+              <!-- <span>描述：</span>
+              <span style="white-space: pre-wrap;">{{ albumDetail.description }}</span> -->
+              <!-- <span v-html="albumDetail.description" style="white-space: pre-wrap;"></span> -->
+            </p>
           </div>
         </div>
         <div class="album-list">
@@ -137,12 +181,52 @@ export default {
         // 操作按钮
         &-opration-btn {
           display: flex;
+          height: 31px;
           .play {
-            background-color: #1e6fbf;
+            line-height: 31px;
+            display: flex;
+            a {
+              color: #fff;
+              background-color: #1e6fbf;
+              padding: 0 8px;
+              border-radius: 5px 0 0 5px;
+            }
+            .plus {
+              font-size: 20px;
+              margin-left: 1px;
+              border-radius: 0 5px 5px 0;
+            }
           }
+        }
+
+        // 歌单标签
+        &-tags {
+          margin: 25px 0 5px 0;
+          color: #666;
+          &-item {
+            border: 1px solid #dcdfe6;
+            border-radius: 10px;
+            padding: 2px 10px;
+            background-color: #f5f5f5;
+          }
+          &-item:hover {
+            background-color: #fff;
+          }
+        }
+
+        // 歌单描述
+        &-description {
+          color: #666;
+          white-space: pre-wrap;
+          line-height: 18px;
         }
       }
     }
   }
+}
+.icon {
+  font-weight: 600;
+  font-size: 20px;
+  vertical-align: -5px;
 }
 </style>

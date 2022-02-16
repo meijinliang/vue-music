@@ -33,6 +33,8 @@ const routes = [
     meta: {
       title: 'icons'
     }
+  },
+  {
     path: 'playlist',
     name: 'playlist',
     component: () => import('@/views/play-list')

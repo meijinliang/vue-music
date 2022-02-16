@@ -98,3 +98,14 @@ ul {
 .text-red {
   color: $red;
 }
+
+.button {
+  line-height: 31px;
+  border: 1px solid #dcdfe6;
+  border-radius: 5px;
+  padding: 0 8px;
+  background-color: #f5f5f5;
+}
+.button:hover {
+  background-color: #fff;
+}
