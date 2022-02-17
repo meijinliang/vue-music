@@ -3,12 +3,12 @@
     <el-row>
       <!-- 左侧歌单详情 -->
       <el-col v-if="JSON.stringify(albumDetail) != '{}'" :span="18" class="album-left">
-        <div class="cnt">
-          <div class="cnt-img">
+        <div class="cnt clearfix">
+          <div class="cnt-img ">
             <img :src="albumDetail.coverImgUrl" :alt="albumDetail.description">
             <span class="cover-bg"></span>
           </div>
-          
+
           <div class="cnt-detail">
             <div class="cnt-detail-title">
               <i class="icon-bg inline-block"></i>
@@ -18,7 +18,7 @@
               <img class="inline-block pointer" :src="albumDetail.creator.avatarUrl" alt="">
               <span class="cnt-detail-creator-name">
                 <a> {{ albumDetail.creator.nickname }} </a>
-                <img class="inline-block" :src="albumDetail.creator.avatarDetail.identityIconUrl" alt="">
+                <img v-if="albumDetail.creator.avatarDetail" class="inline-block" :src="albumDetail.creator.avatarDetail.identityIconUrl" alt="">
               </span>
               <span class="cnt-detail-creator-time">
                 {{ parseTime(albumDetail.createTime, '{y}-{m}-{d}')}} 创建
@@ -70,15 +70,73 @@
 
             <!-- 歌单描述 -->
             <p class="cnt-detail-description">
-              描述：{{ albumDetail.description }}
-              <!-- <span>描述：</span>
-              <span style="white-space: pre-wrap;">{{ albumDetail.description }}</span> -->
-              <!-- <span v-html="albumDetail.description" style="white-space: pre-wrap;"></span> -->
+              介绍：{{ albumDetail.description }}
             </p>
           </div>
         </div>
-        <div class="album-list">
-
+        <div class="album-list mt20">
+          <div class="album-list-header">
+            <div class="left">
+              <h1>歌曲列表</h1>
+              <span>{{ albumDetail.trackCount }} 首歌</span>
+            </div>
+            <div class="right">
+              播放：{{ albumDetail.playCount }}次
+            </div>
+          </div>
+          <div class="album-list-content">
+            <!-- 歌单歌曲列表 -->
+            <el-table class="my-table" :data="albumDetail.tracks" stripe :header-row-class-name="headerClassName">
+              <el-table-column type="index" width="80">
+                <template v-slot="{row, $index}">
+                  <span class="index">{{ $index + 1 }}</span>
+                  <svg-icon class="icon fr pointer a-icon" icon-class="play-black" />
+                </template>
+              </el-table-column>
+              <el-table-column label="歌曲标题" prop="name">
+                <template v-slot="{row}">
+                  <div class="ellipsis">
+                    <a class="hover-underline" :title="row.name">{{ row.name }}</a>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="时长" width="110">
+                <template v-slot="{row}">
+                  <span class="table-oprate-time"> {{ row.dt | formatTime() }} </span>
+                  <div class="table-oprate-btn">
+                    <a class="a-icon" title="添加到播放列表">
+                      +
+                    </a>
+                    <a class="a-icon" title="收藏">
+                      <svg-icon icon-class="file" />
+                    </a>
+                    <a class="a-icon" title="分享">
+                      <svg-icon icon-class="share" />
+                    </a>
+                    <a class="a-icon" title="下载">
+                      <svg-icon icon-class="download" />
+                    </a>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="歌手" width="140">
+                <template v-slot="{row}">
+                  <div class="ellipsis">
+                    <span v-for="(item, index) in row.ar" :key="item.id">{{ item.name }}
+                      <span v-if="index !== row.ar.length - 1"> / </span>
+                    </span>
+                  </div>
+                </template>
+              </el-table-column>
+              <el-table-column label="专辑" width="140">
+                <template v-slot="{row}">
+                  <div class="ellipsis">
+                    <a class="hover-underline" :title="row.al.name">{{ row.al.name }}</a>
+                  </div>
+                </template>
+              </el-table-column>
+            </el-table>
+          </div>
         </div>
         <div class="album-comment">
 
@@ -91,12 +149,16 @@
 
 <script>
 import { playListDetail } from '@/api/index'
-import { parseTime } from '@/utils/index'
+import { parseTime, formatTime } from '@/utils/index'
 export default {
   data () {
     return {
-      albumDetail: {}
+      // 专辑顶部详情
+      albumDetail: {},
     }
+  },
+  filters: {
+    formatTime
   },
   created () {
     this.getAlbumDetail()
@@ -107,7 +169,13 @@ export default {
       playListDetail(this.$route.query.id).then(res => {
         this.albumDetail = res.playlist
       })
-    }
+    },
+
+    // 设置表头顶部边框颜色
+    headerClassName () {
+      return 'header-class'
+    },
+
   }
 }
 
@@ -119,6 +187,7 @@ export default {
   border: 1px solid #d3d3d3;
   &-left {
     padding: 40px;
+    border-right: 1px solid #d3d3d3;
     .cnt {
       // display: flex;
       &-img {
@@ -222,11 +291,41 @@ export default {
         }
       }
     }
+    .album-list {
+      &-header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+        .left {
+          h1 {
+            font-weight: 400;
+            display: inline-block;
+            margin-right: 20px;
+          }
+        }
+        .right {
+          line-height: 31px;
+        }
+      }
+    }
   }
 }
 .icon {
   font-weight: 600;
   font-size: 20px;
   vertical-align: -5px;
+}
+.index {
+  padding-left: 8px;
+  color: #999;
+}
+.table-oprate-btn {
+  height: 23px;
+  a {
+    font-size: 20px;
+    .svg-icon {
+      margin-right: 3px;
+    }
+  }
 }
 </style>

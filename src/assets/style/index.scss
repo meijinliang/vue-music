@@ -109,3 +109,31 @@ ul {
 .button:hover {
   background-color: #fff;
 }
+
+.my-table {
+  border: 1px solid #ccc;
+  border-top: 2px solid #c20c0c;
+  .el-table__header-wrapper > table > thead > tr > th{
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+  }
+  
+}
+
+.table-oprate-btn{
+  display: none;
+}
+.el-table__body tr:hover{
+  .table-oprate-btn{
+    display: block;
+  }
+  .table-oprate-time {
+    display: none;
+  }
+}
+.a-icon {
+  color: #999;
+  :hover{
+    color: #333;
+  }
+}

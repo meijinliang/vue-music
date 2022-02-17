@@ -107,3 +107,14 @@ export function extendDownload(data, fileName) {
   document.body.removeChild(link)
   window.URL.revokeObjectURL(link)
 }
+
+/**
+ * 歌曲的总毫秒数转换成分秒
+ * @param val 总毫秒数
+ * */ 
+export function formatTime (val) {
+  let m, s
+  m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
+  s = val % 60 < 10 ? '0' + val % 60 : val % 60
+  return m + ':' + s
+}
