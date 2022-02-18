@@ -57,17 +57,18 @@ proxy：
 # 13 路由导航守卫
   1.全局守卫
   2.路由守卫
-  3.组件内
-  1.vue mvvm模式 （ui、数据模型、ViewModel 是一个同步View 和 Model的对象）
-2.vue对视图的修改是通过修改数据而不是像jQuery那样直接修改DOM
-3.定义vue的类使用function而不是class 这是因为我们往后看这里有很多 xxxMixin 的函数调用，并把 Vue 当参数传入，它们的功能都是给Vue 
-的 prototype 上扩展一些方法，Vue 按功能把这些扩展分散到多个模块中去实现，而不是在一个模块里实现所有，这种方式是用 Class 
-难以实现的。
-4.为什么this.message可以直接获取大data里的messag？    
-当我们访问vm[key] 就会去访问vm[sourceKey][key] ，vm._data[key]也就是说vm.message 就会去访问vm._data.message也就是
-vm.data.message，所以 this.message就是this._dara.message，只不过_dara是vue内部使用的。
+  3.组件守卫
 
-5表单校验选择日期范围组件初始是字符串重置之后变成数组导致表单校验失败
+# 14 vue渐进式理解
+  声明式渲染->组件化应用->客户端路由->集中式状态管理->项目构建
+
+# 15 定义vue使用的是构造函数而不是class
+  这是因为我们往后看这里有很多 xxxMixin 的函数调用，并把 Vue 当参数传入，它们的功能都是给Vue 
+  的 prototype 上扩展一些方法，Vue 按功能把这些扩展分散到多个模块中去实现，而不是在一个模块里实现所有，这种方式是用 Class 
+  难以实现的。
+
+
+
 
 6. element的input输入框带图标  可以通过prefix-icon和suffix-icon属性在input组件首部和尾部增加显示图标，也可以通过slot来放置图标
 <el-input>
@@ -81,7 +82,6 @@ vm.data.message，所以 this.message就是this._dara.message，只不过_dara�
 	...，threshold, ...}]
 }
 8.表单验证在el-form上加验证与el-form-item上加验证的区别
-9.文件导出设置了响应类型 但还是打不开 可能就需要换导出文件的后缀 .xlsx .xls
 
 vue源码解析 自我认识
 1.createElemnet方法实际上是对-createElement方法的封装 真正创建虚拟dom vnode的函数是 _createElemnt函数
