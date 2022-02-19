@@ -47,7 +47,6 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  console.log(to);
   if (to.path == '/playlist') {
     document.title = to.query.title
   }

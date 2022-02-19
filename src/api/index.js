@@ -26,6 +26,16 @@ export function playListDetail (id) {
     method: 'get',
   })
 }
+
+// 获取歌单评论 params {id，limit: 取出评论数量 , 默认为 20}
+export function playListComment(params) {
+  return request({
+    url: '/comment/playlist',
+    method: 'get',
+    params
+  })
+}
+
 // 新碟上架
 export function getNewAblum () {
   return request({

@@ -106,7 +106,7 @@
               </el-table-column>
               <el-table-column label="时长" width="110">
                 <template v-slot="{row}">
-                  <span class="table-oprate-time"> {{ row.dt | formatTime() }} </span>
+                  <span v-time class="table-oprate-time"> {{ row.dt }} </span>
                   <div class="table-oprate-btn">
                     <a class="a-icon" title="添加到播放列表">
                       +
@@ -162,12 +162,31 @@
             </a>
             <div class="comment">
               <!-- <input type="textarea"> -->
-              <el-input type="textarea" placeholder="评论" :maxlength="140" show-word-limit :rows="3" />
+              <el-input class="pr" type="textarea" placeholder="评论" :maxlength="140" show-word-limit :rows="3" />
               <div class="mt8">
                 <a class="submmit fr">提交</a>
               </div>
             </div>
           </div>
+          <!-- 评论 -->
+          <div>
+            <h3 v-if="hotComment.length">精彩评论</h3>
+            <comment-item v-if="hotComment.length" :comment-list="hotComment" />
+            <h3 v-if="comments.length && currentPage == 1">最新评论({{ commentDetail.total }})</h3>
+            <comment-item :comment-list="comments" />
+          </div>
+          <el-pagination
+            small
+            background
+            layout="prev, pager, next"
+            :page-size="pageSize"
+            :current-page.sync="currentPage"
+            :total="commentDetail.total"
+            prev-text="< 上一页"
+            next-text	="下一页 >"
+            @current-change="handleCurrentChange"
+          >
+          </el-pagination>
         </div>
       </el-col>
       <el-col :span="6"></el-col>
@@ -176,29 +195,56 @@
 </template>
 
 <script>
-import { playListDetail } from '@/api/index'
-import { parseTime, formatTime } from '@/utils/index'
+import { playListDetail, playListComment } from '@/api/index'
+import { parseTime } from '@/utils/index'
+import CommentItem from '@/views/components/commentItem'
 export default {
   data () {
     return {
       // 专辑顶部详情
       albumDetail: {},
+      commentDetail: {},
+      // 评论
+      comments: [],
+      // 热门评论
+      hotComment: [],
+      // 分页条数
+      pageSize: 20,
+      currentPage: 1
     }
   },
-  filters: {
-    formatTime
-  },
+  components: { CommentItem },
   created () {
     this.getAlbumDetail()
+    this.gtePlayListComment()
   },
   methods: {
     parseTime,
+    // 获取歌单详情
     getAlbumDetail () {
       playListDetail(this.$route.query.id).then(res => {
         this.albumDetail = res.playlist
       })
     },
 
+    // 获取歌单评论
+    gtePlayListComment(offset) {
+      // limit 默认取20条评论
+      const params = {
+        id: this.$route.query.id,
+        offset
+      }
+      playListComment(params).then(res => {
+        this.commentDetail = res
+        this.comments = res.comments || []
+        this.hotComment = res.hotComments || []
+      })
+    },
+    // 分页切换
+    handleCurrentChange(val) {
+      val = val == 1 ? undefined : (val - 1) * this.pageSize
+      this.gtePlayListComment(val)
+    },
     // 设置表头顶部边框颜色
     headerClassName () {
       return 'header-class'
@@ -384,23 +430,27 @@ export default {
           .el-textarea::before,.el-textarea::after {
             content: ' ';
             position: absolute;
-            display: block;
+            right: 100%;
             width: 0;
             height: 0;
             border: solid transparent;
           }
           .el-textarea::before {
-            top: 10px;
-            border-right-width: 12px;
-            border-right-color: #C0C4CC;
+            top:14px;
+            border-width:10px;
+            border-right-color:#DCDFE6;
+          }
+          .el-textarea:hover:before {
+            border-right-color:#C0C4CC;
           }
           .el-textarea::after {
-            top: 10px;
-            border-right-width: 10px;
-            border-right-color: #fff;
+            top:16px;
+            border-width:8px;
+            border-right-color:#fff;
           }
         }
       }
+
     }
   }
 }
@@ -420,6 +470,14 @@ export default {
     .svg-icon {
       margin-right: 3px;
     }
+  }
+}
+
+// 分页选中背景颜色
+.el-pagination.is-background {
+  text-align: center;
+  /deep/.el-pager li:not(.disabled).active {
+    background-color: #c20c0c;
   }
 }
 </style>
