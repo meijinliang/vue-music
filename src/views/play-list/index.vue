@@ -74,16 +74,20 @@
             </p>
           </div>
         </div>
+
+        <!-- 歌曲列表 -->
         <div class="album-list mt20">
+          <!-- 歌曲列表 头部 -->
           <div class="album-list-header">
             <div class="left">
               <h1>歌曲列表</h1>
-              <span>{{ albumDetail.trackCount }} 首歌</span>
+              <span class="tc-6">{{ albumDetail.trackCount }} 首歌</span>
             </div>
             <div class="right">
               播放：{{ albumDetail.playCount }}次
             </div>
           </div>
+          <!-- 具体歌曲 -->
           <div class="album-list-content">
             <!-- 歌单歌曲列表 -->
             <el-table class="my-table" :data="albumDetail.tracks" stripe :header-row-class-name="headerClassName">
@@ -119,7 +123,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="歌手" width="140">
+              <el-table-column label="歌手" width="90">
                 <template v-slot="{row}">
                   <div class="ellipsis">
                     <span v-for="(item, index) in row.ar" :key="item.id">{{ item.name }}
@@ -128,7 +132,7 @@
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="专辑" width="140">
+              <el-table-column label="专辑" width="130">
                 <template v-slot="{row}">
                   <div class="ellipsis">
                     <a class="hover-underline" :title="row.al.name">{{ row.al.name }}</a>
@@ -137,9 +141,33 @@
               </el-table-column>
             </el-table>
           </div>
-        </div>
-        <div class="album-comment">
+          <!-- 歌曲列表尾部 -->
+          <div class="album-list-footer">
+            <!-- <p class="text-center">查看更多内容，请下载客户端</p> -->
+            <a>查看更多内容，请下载客户端</a>
+            <a class="download">立即下载</a>
+          </div>
 
+        </div>
+
+        <!-- 评论 -->
+        <div class="album-comment">
+          <div class="album-comment-header">
+            <h1>评论</h1>
+            <span class="tc-6">共{{ albumDetail.commentCount }}条评论</span>
+          </div>
+          <div class="album-comment-content clearfix">
+            <a class="fl">
+              <img src="../../assets/img/default_avatar.jpg" alt="">
+            </a>
+            <div class="comment">
+              <!-- <input type="textarea"> -->
+              <el-input type="textarea" placeholder="评论" :maxlength="140" show-word-limit :rows="3" />
+              <div class="mt8">
+                <a class="submmit fr">提交</a>
+              </div>
+            </div>
+          </div>
         </div>
       </el-col>
       <el-col :span="6"></el-col>
@@ -305,6 +333,72 @@ export default {
         }
         .right {
           line-height: 31px;
+        }
+      }
+      &-footer {
+        margin: 30px 0 10px 0;
+        font-size: 13px;
+        height: 66px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        .download {
+          padding: 7px 35px;
+          border-radius: 15px;
+          color: #fff;
+          background-color: #ff1d12;
+        }
+      }
+    }
+    .album-comment {
+      &-header {
+        border-bottom: 2px solid #c20c0c;
+        padding-bottom: 5px;
+        h1 {
+          font-weight: 400;
+          display: inline-block;
+          margin-right: 20px;
+        }
+      }
+      &-content {
+        margin: 20px 0;
+        img {
+          width: 50px;
+          height: 50px;
+        }
+        .comment {
+          margin-left: 62px;
+          .submmit {
+            display: block;
+            margin-top: 8px;
+            background-color: #297ac7;
+            color: #fff;
+            border-radius: 2px;
+            padding: 4px 11px;
+          }
+          .submmit:hover {
+            color: #297ac7;
+          }
+
+          .el-textarea::before,.el-textarea::after {
+            content: ' ';
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border: solid transparent;
+          }
+          .el-textarea::before {
+            top: 10px;
+            border-right-width: 12px;
+            border-right-color: #C0C4CC;
+          }
+          .el-textarea::after {
+            top: 10px;
+            border-right-width: 10px;
+            border-right-color: #fff;
+          }
         }
       }
     }

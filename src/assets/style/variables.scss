@@ -1,1 +1,9 @@
-$red: #c20c0c
+$red: #c20c0c;
+
+// 基础颜色
+.bg-red {
+  background-color: $red;
+}
+.tc-6 {
+  color: #666;
+}
