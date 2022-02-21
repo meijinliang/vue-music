@@ -189,13 +189,48 @@
           </el-pagination>
         </div>
       </el-col>
-      <el-col :span="6"></el-col>
+      <el-col :span="6" class="album-right">
+        <!-- 喜欢歌单的用户 -->
+        <div class="users">
+          <h5 class="right-title">喜欢这个歌单的人</h5>
+          <div class="users-wrapper">
+            <a v-for="item in albumDetail.subscribers" :key="item.userId">
+              <img :src="item.avatarUrl" :title="item.nickname">
+            </a>
+          </div>
+        </div>
+
+        <!-- 热门歌单 -->
+        <div class="hot-play">
+          <h5 class="right-title">热门歌单</h5>
+          <ul class="hot-play-wrapper">
+            <li class="item" v-for="(item, index) in topPlayList" :key="index">
+              <a :title="item.name">
+                <img :src="item.coverImgUrl">
+              </a>
+              <a class="title">
+                <span class="ellipsis" :title="item.name">{{ item.name }}</span>
+                <span class="tc-6">by -{{ item.creator.nickname }}</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 网易云多端下载 -->
+        <div class="downloads">
+          <h5 class="right-title">网易云多端下载</h5>
+          <div class="download-wrapper">
+            <p class="tc-9">同步歌单，随时畅听320k好音乐</p>
+          </div>
+          
+        </div>
+      </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-import { playListDetail, playListComment } from '@/api/index'
+import { playListDetail, playListComment, topPlayList } from '@/api/index'
 import { parseTime } from '@/utils/index'
 import CommentItem from '@/views/components/commentItem'
 export default {
@@ -210,7 +245,9 @@ export default {
       hotComment: [],
       // 分页条数
       pageSize: 20,
-      currentPage: 1
+      currentPage: 1,
+      // 热门歌单
+      topPlayList: []
     }
   },
   components: { CommentItem },
@@ -224,6 +261,9 @@ export default {
     getAlbumDetail () {
       playListDetail(this.$route.query.id).then(res => {
         this.albumDetail = res.playlist
+      })
+      topPlayList().then(res => {
+        this.topPlayList = res.playlists.slice(0, 5)
       })
     },
 
@@ -453,6 +493,45 @@ export default {
 
     }
   }
+  &-right {
+    padding: 20px;
+    .users {
+      img {
+        width: 40px;
+        height: 40px;
+      }
+      &-wrapper {
+        padding: 20px 0;
+        display: flex;
+        flex-wrap: wrap;
+        a {
+          // width: 25%;
+          padding: 0 0 10px 10px;
+        }
+      }
+    }
+    .hot-play {
+      &-wrapper{
+        padding: 20px 0;
+        .item {
+          display: flex;
+          height: 50px;
+          margin-bottom: 15px;
+          img {
+            width: 50px;
+            height: 50px;
+          }
+          .title {
+            width: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            margin-left: 10px;
+          }
+        }
+      }
+    }
+  }
 }
 .icon {
   font-weight: 600;
@@ -472,7 +551,10 @@ export default {
     }
   }
 }
-
+.right-title {
+  padding: 5px 0;
+  border-bottom: 1px solid #d3d3d3;
+}
 // 分页选中背景颜色
 .el-pagination.is-background {
   text-align: center;

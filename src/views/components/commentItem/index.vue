@@ -6,11 +6,11 @@
         <div class="content-wrapper">
           <div>
             <span class="user-name">{{ item.user.nickname }} : </span>
-            <span>{{ item.content ? item.content : '该评论已经删除' }}</span>
+            <span class="pre-wrap">{{ item.content ? item.content : '该评论已经删除' }}</span>
           </div>
           <div v-for="subItem in item.beReplied" :key="subItem.beRepliedCommentId" class="reply">
             <span class="user-name">{{ subItem.user.nickname }} : </span>
-            <span>{{ subItem.content ? subItem.content : '该评论已经删除' }}</span>
+            <span class="pre-wrap">{{ subItem.content ? subItem.content : '该评论已经删除' }}</span>
           </div>
           <div class="zan">
             <a class="tc-6">{{ formaterTime(item.time, item.timeStr) }}</a>\
@@ -38,9 +38,6 @@ export default {
         return []
       }
     }
-  },
-  created() {
-    console.log(this.commentList);
   },
   data() {
     return {

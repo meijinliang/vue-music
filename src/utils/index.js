@@ -118,3 +118,9 @@ export function formatTime (val) {
   s = val % 60 < 10 ? '0' + val % 60 : val % 60
   return m + ':' + s
 }
+
+// 字符传换行\n
+export function lineFeed(str) {
+  console.log(str);
+  return str.replace(/\\n/g, '<br>')
+}

@@ -51,3 +51,10 @@ export function getTopList () {
     method: 'get',
   })
 }
+
+// 热门歌单分类
+export function topPlayList() {
+  return request({
+    url: '/top/playlist'
+  })
+}
