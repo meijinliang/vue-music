@@ -1,4 +1,4 @@
-# vue面试题
+# vue面试题 
 # 1.MVVM 和 MVC的区别？它和其它框加有什么区别（如jQuery）？适合哪些场景
   MVC：M(Model模型)、V(View视图)、C(Controller控制器) MVC的思想简单的说就是controller负责将Model的数据用View显示出来
   MVVM：vm(实例)做了两件事达到双向数据绑定，一是将【模型】转化成【视图】即将后端传递的数据转化成所看到的页面。实现的方式是：数据绑定。

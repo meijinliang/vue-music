@@ -69,9 +69,16 @@
             </div>
 
             <!-- 歌单描述 -->
-            <p class="cnt-detail-description">
+            <p v-if="isExpand" class="cnt-detail-description">
               介绍：{{ albumDetail.description }}
             </p>
+            <p v-else class="cnt-detail-description ellipsis4">
+              介绍：{{ albumDetail.description }}
+            </p>
+            <span v-if="isExpand !== null" @click="isExpand = !isExpand" class="link-span fr">
+              {{ isExpand ? '收起' : '展开'}}
+              <svg-icon style="color: #666" :icon-class="isExpand ? 'arrow-up' : 'arrow-down'" />
+            </span>
           </div>
         </div>
 
@@ -210,19 +217,30 @@
               </a>
               <a class="title">
                 <span class="ellipsis" :title="item.name">{{ item.name }}</span>
-                <span class="tc-6">by -{{ item.creator.nickname }}</span>
+                <span class="tc-6">
+                  by -{{ item.creator.nickname }}
+                  <img v-if="item.creator.avatarDetail" :src="item.creator.avatarDetail.identityIconUrl" >
+                </span>
               </a>
             </li>
           </ul>
         </div>
 
         <!-- 网易云多端下载 -->
-        <div class="downloads">
-          <h5 class="right-title">网易云多端下载</h5>
-          <div class="download-wrapper">
-            <p class="tc-9">同步歌单，随时畅听320k好音乐</p>
-          </div>
-          
+        <div class="download">
+          <h5 class="right-title mb20">网易云多端下载</h5>
+          <ul class="download-bg">
+            <li>
+              <a class="ios"></a>
+            </li>
+            <li>
+              <a class="pc"></a>
+            </li>
+            <li>
+              <a class="aos"></a>
+            </li>
+          </ul>
+          <p class="tc-9">同步歌单，随时畅听320k好音乐</p>
         </div>
       </el-col>
     </el-row>
@@ -247,7 +265,9 @@ export default {
       pageSize: 20,
       currentPage: 1,
       // 热门歌单
-      topPlayList: []
+      topPlayList: [],
+
+      isExpand: null
     }
   },
   components: { CommentItem },
@@ -261,6 +281,8 @@ export default {
     getAlbumDetail () {
       playListDetail(this.$route.query.id).then(res => {
         this.albumDetail = res.playlist
+        this.isExpand = this.albumDetail.description.length > 80 ? false : null
+        console.log(this.albumDetail.description.length, this.isExpand);
       })
       topPlayList().then(res => {
         this.topPlayList = res.playlists.slice(0, 5)
@@ -300,7 +322,7 @@ export default {
   margin: 0 auto;
   border: 1px solid #d3d3d3;
   &-left {
-    padding: 40px;
+    padding: 47px 30px 40px 39px;
     border-right: 1px solid #d3d3d3;
     .cnt {
       // display: flex;
@@ -317,7 +339,7 @@ export default {
           width: 208px;
           height: 208px;
           position: absolute;
-          top: 40px;
+          top: 47px;
           background-position: 0 -1285px;
         }
       }
@@ -527,7 +549,39 @@ export default {
             flex-direction: column;
             justify-content: space-around;
             margin-left: 10px;
+            img {
+              width: 13px;
+              height: 13px;
+            }
           }
+        }
+      }
+    }
+
+    .download ul {
+      height: 65px;
+      margin-bottom: 10px;
+      background-position: 0 -392px;
+      li {
+        float: left;
+        a {
+          display: block;
+          width: 42px;
+          height: 48px;
+          text-indent: -9999px;
+        }
+        .pc {
+          width: 68px;
+          margin: 0 26px;
+        }
+        .ios:hover {
+          background-position: 0 -472px;
+        }
+        .pc:hover {
+          background-position: -68px -472px;
+        }
+        .aos:hover {
+          background-position: -162px -472px;
         }
       }
     }

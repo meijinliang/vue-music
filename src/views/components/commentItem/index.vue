@@ -2,14 +2,16 @@
   <div class="list-warpper">
     <ul v-for="item in commentList" :key="item.commentId">
       <li class="list-item clearfix">
-        <img class="list-item-img fl" :src="item.user.avatarUrl" alt="">
+        <img class="list-item-img fl pointer" :src="item.user.avatarUrl" alt="">
         <div class="content-wrapper">
           <div>
-            <span class="user-name">{{ item.user.nickname }} : </span>
+            <span class="user-name link-span">{{ item.user.nickname }}</span>
+            : 
             <span class="pre-wrap">{{ item.content ? item.content : '该评论已经删除' }}</span>
           </div>
           <div v-for="subItem in item.beReplied" :key="subItem.beRepliedCommentId" class="reply">
-            <span class="user-name">{{ subItem.user.nickname }} : </span>
+            <span class="user-name link-span">{{ subItem.user.nickname }}</span>
+            :
             <span class="pre-wrap">{{ subItem.content ? subItem.content : '该评论已经删除' }}</span>
           </div>
           <div class="zan">

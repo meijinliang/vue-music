@@ -34,11 +34,14 @@
         </el-col>
       </el-row>
     </div>
-    <div class="list-container"></div>
+    <div class="list-container">
+      <series-item />
+    </div>
   </div>
 </template>
 
 <script>
+import SeriesItem from '@/views/home/comonents/HotRecommend/SeriesItem'
 export default {
   name: '',
   data () {
@@ -46,6 +49,7 @@ export default {
       toplistData: []
     }
   },
+  components: { SeriesItem },
   computed: {
 
   },
@@ -80,6 +84,10 @@ export default {
   .list-title {
     padding-bottom: 8px;
     border-bottom: 2px solid #c20c0c;
+    // .right .el-button {
+    //   background-color: #b70a0b;
+    //   color: #fff;
+    // }
   }
 }
 .popover-class {

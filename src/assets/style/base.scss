@@ -73,13 +73,13 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-// .ellipsis2 {
-//   overflow: hidden;
-//   text-overflow: ellipsis;
-//   display: -webkit-box;
-//   -webkit-box-orient: vertical;
-//   -webkit-line-clamp: 2;
-//  }
+.ellipsis4 {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+ }
 .inline-block {
   display: inline-block;
 }
@@ -100,6 +100,12 @@
 }
 .icon-bg {
   background: url("../img/icon.png") no-repeat;
+}
+.download-bg {
+  background: url("../img/download.png") no-repeat;
+  li a:hover {
+    background: url("../img/download.png") no-repeat 0 9999px;
+  }
 }
 
 
