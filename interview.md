@@ -128,6 +128,49 @@ content-box：标准盒模型的宽高不包含内边距和边框；     border-
   原型链： 当我们访问对象的属性或者方法时，它会先在对象自身查找，如果有则直接调用，如果没有则会去原型对象中去查找，如果找到直接使用，没有接着
   到原型的原型中寻找 直到找到Object对象，如果还是没有直接返回undefined
 
+# 9.Promise链式调用及优点
+  优点特性：1.promise解决回调地狱的问题 2.状态一旦改变，就不会再变（pending、fulfilled、rejected）
+
+  promise可以链式调用的原因是Promise定义在原型链上的方法than catch返回的是个promise
+  Promise.all ：所有的状态都变成fufilled 包装的状态才会变成fufilled 如果有一个状态变成rejected 包装的状态就会变成rejected
+  Promise.allSetted 参数数组所有promise对象的状态发生改变，包装promise
+  Promise.race 第一个状态发生改变 包装的状态就跟着改变
+  Promise.any  只要有一个的状态改变成fufilled 包装的状态就会改变成fufilled
+  Promise.resolve 处理成promise对象 状态fufilled
+  Promise.reject 处理成promise对象 状态rejected
+  function red() {
+    console.log('red');
+}
+function green() {
+    console.log('green');
+}
+function yellow() {
+    console.log('yellow');
+}
+
+var light = function (timmer, cb) {
+    return new Promise(function (resolve, reject) {
+        setTimeout(function () {
+            cb();
+            resolve();
+        }, timmer);
+    });
+};
+
+var step = function () {
+    Promise.resolve().then(function () {
+        return light(3000, red);
+    }).then(function () {
+        return light(2000, green);
+    }).then(function () {
+        return light(1000, yellow);
+    }).then(function () {
+        step();
+    });
+}
+
+step();
+
 ## 计算机网络
   # DNS解析
     DNS的作用就是通过域名查询到及具体的IP （两种查询方式：1.递归查询，2.迭代查询）
@@ -153,4 +196,6 @@ content-box：标准盒模型的宽高不包含内边距和边框；     border-
   
   # 3.为什么关闭连接的时候客户端收到FIN报文发送ACK 需要进入超时等待状态？
     防止最后一个ACK包丢失，服务端未收到ACK包会重新发送FIN包给客户端，如果没有超时等待直接关闭的话这时客户端就收不到服务端发送的FIN包，服务端就会一直处在等待关闭状态
+
+
 
