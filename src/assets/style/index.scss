@@ -61,7 +61,11 @@ ul {
     height: 0;
   }
 }
-
+.link {
+  color: #105cdd;
+  cursor: pointer;
+  text-decoration: underline;
+}
 .link-span {
   color: #105cdd;
   cursor: pointer;
@@ -77,6 +81,7 @@ ul {
 .basic-container {
   width: 982px;
   margin: 0 auto;
+  border: 1px solid #d3d3d3;
 }
 
 .text-bold {

@@ -20,6 +20,9 @@
 .mr8 {
   margin-right: 8px;
 }
+.mtb10 {
+  margin: 10px 0;
+}
 // 外边距16px
 .m16 {
   margin: 16px;
@@ -60,6 +63,23 @@
 
 .ml20 {
   margin-left: 20px;
+}
+
+// 外边距24
+.m24 {
+  margin: 24px;
+}
+.ml24 {
+  margin-left: 24px;
+}
+.mr24 {
+  margin-right: 24px;
+}
+.mt24{
+  margin-top: 24px;
+}
+.mb24 {
+  margin-bottom: 24px;
 }
 .pl8 {
   padding-left: 8px;
@@ -106,6 +126,10 @@
   li a:hover {
     background: url("../img/download.png") no-repeat 0 9999px;
   }
+}
+
+.playbar-bg {
+  background: url("../img/playbar.png") no-repeat 0 9999px; // 第三个参数0 背景左右偏移 正数向右偏移 负数向左偏移 第四个参数正数向下偏移 负数向上偏移
 }
 
 

@@ -35,6 +35,14 @@ export function playListComment(params) {
     params
   })
 }
+// 歌曲评论 params {id，limit: 取出评论数量 , 默认为 20}
+export function getMusicComment(params) {
+  return request({
+    url: '/comment/music',
+    method: 'get',
+    params
+  })
+}
 
 // 新碟上架
 export function getNewAblum () {
@@ -56,5 +64,17 @@ export function getTopList () {
 export function topPlayList() {
   return request({
     url: '/top/playlist'
+  })
+}
+
+// 获取歌曲详情
+/**
+ * @params 必传字段为ids
+ * */ 
+export function getSongDetail(params) {
+  return request({
+    url: '/song/detail',
+    method: 'get',
+    params
   })
 }

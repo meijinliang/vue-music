@@ -2,6 +2,7 @@
   <div>
     <!-- <svg-icon icon-class="logout" /> -->
     <span v-time.binf>{{ number }}</span>
+    <input type="file" @change="handleChange">
   </div>
 </template>
 
@@ -13,6 +14,11 @@ export default {
       number: 413576
     }
   },
+  methods: {
+    handleChange(e) {
+      console.log(e.target.files);
+    }
+  }
 }
 </script>
 

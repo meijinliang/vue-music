@@ -1,5 +1,6 @@
 <template>
-  <div class="album">
+<!-- 歌单详情 -->
+  <div class="basic-container album">
     <el-row>
       <!-- 左侧歌单详情 -->
       <el-col v-if="JSON.stringify(albumDetail) != '{}'" :span="18" class="album-left">
@@ -107,7 +108,7 @@
               <el-table-column label="歌曲标题" prop="name">
                 <template v-slot="{row}">
                   <div class="ellipsis">
-                    <a class="hover-underline" :title="row.name">{{ row.name }}</a>
+                    <a class="hover-underline" :title="row.name" @click="checkSongDetail(row)">{{ row.name }}</a>
                   </div>
                 </template>
               </el-table-column>
@@ -311,16 +312,22 @@ export default {
     headerClassName () {
       return 'header-class'
     },
-
+    // 跳转歌曲详情页
+    checkSongDetail(row) {
+      this.$router.push({
+        path: 'song',
+        query: {
+          id: row.id,
+          title: row.name
+        }
+      })
+    }
   }
 }
 
 </script>
 <style lang="scss" scoped>
 .album {
-  width: 982px;
-  margin: 0 auto;
-  border: 1px solid #d3d3d3;
   &-left {
     padding: 47px 30px 40px 39px;
     border-right: 1px solid #d3d3d3;

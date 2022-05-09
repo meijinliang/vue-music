@@ -3,7 +3,7 @@
     <!-- <swiper :bannerList="bannerList" /> -->
     <banner :bannerList="bannerList" />
     <!-- discover-module -->
-    <div class="discover-module">
+    <div class="basic-container discover-module">
       <el-row>
         <el-col :span="18" class="discover-module-left">
           <!-- 热门推荐 -->
@@ -52,13 +52,8 @@ export default {
     margin: 0 auto;
   }
 }
-.discover-module {
-  width: 982px;
-  margin: 0 auto;
-  border: 1px solid #d3d3d3;
-  .discover-module-left {
-    padding: 20px 20px 40px;
-  }
+.discover-module-left {
+  padding: 20px 20px 40px;
 }
 .login-model {
   text-decoration: underline;

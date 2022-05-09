@@ -10,14 +10,18 @@
     </el-main>
     <!-- 登录弹框 -->
     <login :visible.sync="dialogVisible" />
+
+    <!-- 播放器 进度条 -->
+    <play-process-bar />
   </div>
 </template>
 
 <script>
 import TopBar from './components/TopBar.vue'
 import Login from './login/index.vue'
+import PlayProcessBar from './components/playProcessBar.vue'
 export default {
-  components: { TopBar, Login },
+  components: { TopBar, Login, PlayProcessBar },
   name: '',
   data () {
     return {

@@ -51,5 +51,10 @@ export const HomeRouter = [
     path: 'playlist',
     name: 'playlist',
     component: () => import('@/views/play-list'),
+  },
+  {
+    path: 'song',
+    name: 'song',
+    component: () => import('@/views/song-detail')
   }
 ]

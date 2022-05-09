@@ -47,7 +47,7 @@ const router = new VueRouter({
   routes
 })
 router.beforeEach((to, from, next) => {
-  if (to.path == '/playlist') {
+  if ( ['/playlist', '/song'].includes(to.path) ) {
     document.title = to.query.title
   }
   if (to.meta.title) {
