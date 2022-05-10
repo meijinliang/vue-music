@@ -6,7 +6,7 @@
         <div class="content-wrapper">
           <div>
             <span class="user-name link-span">{{ item.user.nickname }}</span>
-            : 
+            :
             <span class="pre-wrap">{{ item.content ? item.content : '该评论已经删除' }}</span>
           </div>
           <div v-for="subItem in item.beReplied" :key="subItem.beRepliedCommentId" class="reply">
@@ -32,7 +32,7 @@
 <script>
 import { parseTime } from '@/utils/index'
 export default {
-  name:'',
+  name: '',
   props: {
     commentList: {
       type: Array,
@@ -52,11 +52,11 @@ export default {
       return arr.length == 3
         ? parseTime(time, '{y}年{m}月{d}日 {h}:{i}:{s}')
         : arr.length == 2
-        ? parseTime(time, '{m}月{d}日 {h}:{i}:{s}')
-        : timeStr
+          ? parseTime(time, '{m}月{d}日 {h}:{i}:{s}')
+          : timeStr
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

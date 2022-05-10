@@ -6,11 +6,11 @@
           <img :src="item.coverImgUrl" alt="">
         </div>
         <div>
-          <span>{{item.name}}</span>
+          <span>{{ item.name }}</span>
         </div>
       </div>
       <ul>
-        <li class="song-item" v-for="(subItem, index) in item.tracks" :key="subItem.id">
+        <li v-for="(subItem, index) in item.tracks" :key="subItem.id" class="song-item">
           <span class="order">{{ index + 1 }}</span>
           <span class="song-name ellipsis pointer hover-underline">{{ subItem.name }}</span>
         </li>
@@ -23,7 +23,7 @@
 <script>
 import { playListDetail } from '@/api/index'
 export default {
-  name: 'listitem',
+  name: 'Listitem',
   props: {
     topList: {
       type: Array,
@@ -32,16 +32,16 @@ export default {
       }
     }
   },
-  created () {
-    this.getListDetail()
-  },
-  data () {
+  data() {
     return {
       detailList: []
     }
   },
+  created() {
+    this.getListDetail()
+  },
   methods: {
-    getListDetail () {
+    getListDetail() {
       return Promise.all(
         this.topList.map(item => {
           return playListDetail(item.id)

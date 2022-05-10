@@ -1,7 +1,7 @@
-/**四舍五入
+/** 四舍五入
  * @param {Number} number
  *   */
-export function toFixed(number,m) {
+export function toFixed(number, m) {
   if (typeof number !== 'number') {
     throw new Error(`${number}不是数字`)
   }
@@ -13,11 +13,11 @@ export function toFixed(number,m) {
       // join 方法将数组内容拼接成字符串 拼接在内容之间
       result += new Array(m + 1).join('0')
     }
-  }else {
-    let arr = result.split('.')
+  } else {
+    const arr = result.split('.')
     // 小数点后面的数小于需要保留的小数点位数才会执行if判断
     if (arr[1].length < m) {
-      arr[1] += new Array(m - arr[1].length + 1 ).join('0')
+      arr[1] += new Array(m - arr[1].length + 1).join('0')
     }
     result = arr.join('.')
   }
@@ -69,20 +69,20 @@ export function parseTime(time, pattern) {
 export function deepClone(obj) {
   let cloneObj
   // 判断当前传入的数据是不是简单数据类型 是的话直接赋值就可以
-  if ( obj && typeof obj !== 'object') {
+  if (obj && typeof obj !== 'object') {
     cloneObj = obj
   }
-  // 当输入的数据是数组或对象的时候 
+  // 当输入的数据是数组或对象的时候
   else if (obj && typeof obj === 'object') {
     cloneObj = Array.isArray(obj) ? [] : {}
     // 遍历数据对象
-    for (let key in obj) {
+    for (const key in obj) {
       if (Object.prototype.hasOwnProperty.call(obj, 'key')) {
         if (obj[key] && typeof obj[key] === 'object') {
           // 若当前元素类型是对象时，递归调用
           cloneObj[key] = deepClone(obj[key])
         } else {
-           // 若当前元素类型为基本数据类型 
+          // 若当前元素类型为基本数据类型
           cloneObj[key] = obj[key]
         }
       }
@@ -111,8 +111,8 @@ export function extendDownload(data, fileName) {
 /**
  * 歌曲的总毫秒数转换成分秒
  * @param val 总毫秒数
- * */ 
-export function formatTime (val) {
+ * */
+export function formatTime(val) {
   let m, s
   m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
   s = val % 60 < 10 ? '0' + val % 60 : val % 60
@@ -121,6 +121,6 @@ export function formatTime (val) {
 
 // 字符传换行\n
 export function lineFeed(str) {
-  console.log(str);
+  console.log(str)
   return str.replace(/\\n/g, '<br>')
 }

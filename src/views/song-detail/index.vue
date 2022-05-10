@@ -8,16 +8,13 @@
         class="song-left"
       >
         <div class="cnt clearfix">
-          <div class="fl pr ">
+          <div class="fl pr">
             <div class="cnt-img">
               <img :src="songDetail.al.picUrl" :alt="songDetail.al.name">
               <span class="cover-bg" />
             </div>
             <div class="mt20 text-center">
-              <svg-icon
-                style="font-size: 14px;margin-right:2px"
-                icon-class="music"
-              />
+              <svg-icon style="font-size: 14px; margin-right: 2px" icon-class="music" />
               <a class="link">生成外链播放器</a>
             </div>
           </div>
@@ -41,9 +38,7 @@
                   <svg-icon class="icon" icon-class="play" />
                   播放
                 </a>
-                <a class="plus" title="添加到播放列表">
-                  +
-                </a>
+                <a class="plus" title="添加到播放列表"> + </a>
               </span>
               <span class="button mr8">
                 <a>
@@ -91,6 +86,13 @@
           :detail="commentDetail"
           @page="handleCurrentChange"
         />
+        <span
+          v-if="JSON.stringify(commentDetail) != '{}'"
+          :detail="commentDetail"
+          @page="handleCurrentChange"
+        >
+          1
+        </span>
       </el-col>
       <el-col :span="6" class="album-right">
         <!-- 喜欢歌单的用户 -->
@@ -167,7 +169,7 @@ export default {
       const params = {
         ids: this.$route.query.id
       }
-      getSongDetail(params).then(res => {
+      getSongDetail(params).then((res) => {
         this.songDetail = res.songs[0]
       })
     },
@@ -177,7 +179,7 @@ export default {
         id: this.$route.query.id,
         offset
       }
-      getMusicComment(params).then(res => {
+      getMusicComment(params).then((res) => {
         this.commentDetail = res
       })
     },

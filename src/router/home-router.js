@@ -5,7 +5,7 @@ export const HomeRouter = [
     meta: {
       title: '推荐'
     },
-    component: () => import('@/views/home'),
+    component: () => import('@/views/home')
   },
   {
     path: 'discover/toplist',
@@ -50,7 +50,7 @@ export const HomeRouter = [
   {
     path: 'playlist',
     name: 'playlist',
-    component: () => import('@/views/play-list'),
+    component: () => import('@/views/play-list')
   },
   {
     path: 'song',

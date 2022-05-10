@@ -26,13 +26,13 @@ export default {
       type: Number
     }
   },
-  data () {
+  data() {
     return {
 
     }
   },
   methods: {
-    chooseList (id) {
+    chooseList(id) {
       this.$emit('choose', id)
     }
   }

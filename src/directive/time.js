@@ -5,7 +5,7 @@
  *                     3.inserted 被绑定的元素插入父节点时使用（仅保证父节点存在，但不一定已被插入文档中）
  * 钩子函数中的参数
  *  1.el 指令所绑定的元素，可以用来直接操作dom
- *  2.binding 一个对象 
+ *  2.binding 一个对象
  * {
  *    name： 指令名 不包含v-前缀
  *    value：指令绑定的值
@@ -14,7 +14,7 @@
  *    arg：传给指令的参数，可选。例如v-my-directive：foo中，foo就是参数
  *    modifiers：一个包含修饰符的对象。例如v-my-directive.foo.bar中，修饰符对象为 { foo：true，bar：true}
  * }
- * 
+ *
 */
 
 export default {

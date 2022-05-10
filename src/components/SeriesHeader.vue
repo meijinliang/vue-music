@@ -1,10 +1,10 @@
 <template>
   <div class="item-header v-bg">
     <div class="left">
-      <span class="header-title ">{{title}}</span>
+      <span class="header-title ">{{ title }}</span>
     </div>
     <div ref="items" class="center">
-      <slot name="items"></slot>
+      <slot name="items" />
     </div>
     <div class="more pointer v-bg">更多</div>
   </div>

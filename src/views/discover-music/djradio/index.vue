@@ -8,15 +8,15 @@
 
 <script>
 export default {
-  name: 'djRadio',
-  data () {
+  name: 'DjRadio',
+  data() {
     return {
       number: 413576
     }
   },
   methods: {
     handleChange(e) {
-      console.log(e.target.files);
+      console.log(e.target.files)
     }
   }
 }

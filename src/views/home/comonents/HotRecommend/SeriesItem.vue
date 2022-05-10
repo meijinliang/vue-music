@@ -5,18 +5,18 @@
         <el-card shadow="never" @click.native="handleClick(item)">
           <div class="img-container pr">
             <img :src="item.picUrl" :alt="item.name">
-            <a class="cover-bg" href="javascript:void(0)" :title="item.name"></a>
+            <a class="cover-bg" href="javascript:void(0)" :title="item.name" />
             <div class="bottom">
-              <span class="headset p-bg"></span>
+              <span class="headset p-bg" />
               <span class="nb">{{ item.playCount }}万</span>
               <!-- <span class="play p-bg pointer"></span> -->
               <el-tooltip class="item" effect="dark" content="播放" placement="bottom-end">
-                <span class="play p-bg pointer"></span>
+                <span class="play p-bg pointer" />
               </el-tooltip>
             </div>
           </div>
           <div class="hover-underline pointer">
-            <span>{{item.name}}</span>
+            <span>{{ item.name }}</span>
           </div>
         </el-card>
       </el-col>
@@ -34,8 +34,8 @@ export default {
     }
   },
   methods: {
-    handleClick (item) {
-      console.log(item);
+    handleClick(item) {
+      console.log(item)
       this.$router.push(
         {
           path: `playlist`,
@@ -65,7 +65,7 @@ export default {
         img {
           width: 100%;
           height: 100%;
-          
+
         }
         a {
           display: block;

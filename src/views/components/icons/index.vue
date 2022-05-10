@@ -46,21 +46,21 @@
 <script>
 import svgIcons from './svg-icons'
 export default {
-  name:'',
+  name: '',
   props: {
 
   },
   data() {
     return {
       svgIcons,
-      active: '1',
+      active: '1'
     }
   },
 
   methods: {
     generateIconCode(symbol) {
       return `<svg-icon icon-class="${symbol}" />`
-    },
+    }
     // generateElementIconCode(symbol) {
     //   return `<i class="el-icon-${symbol}" />`
     // },
@@ -68,7 +68,7 @@ export default {
     //   return require('../../../assets/image/' + symbol)
     // },
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

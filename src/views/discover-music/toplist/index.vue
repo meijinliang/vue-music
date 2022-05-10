@@ -23,7 +23,7 @@
         <div>
           <h3>{{ playList.name }}</h3>
           <div>
-            <i></i>
+            <i />
             <span>最近更新：{{ updateTime }}</span>
           </div>
         </div>
@@ -37,12 +37,12 @@
           </el-col>
           <el-col align="right">
             <div class="play-count">
-              播放：<span class="text-red">{{ playList.playCount}}</span> 次
+              播放：<span class="text-red">{{ playList.playCount }}</span> 次
             </div>
           </el-col>
         </el-row>
         <!-- 歌单列表 -->
-        <el-table :data="tableData" v-loading="loading" stripe :header-row-class-name="headerClassName">
+        <el-table v-loading="loading" :data="tableData" stripe :header-row-class-name="headerClassName">
           <el-table-column type="index" width="100">
             <template v-slot="{row, $index}">
               <span>{{ $index + 1 }}</span>
@@ -51,8 +51,8 @@
           <el-table-column label="标题">
             <template v-slot="{row, $index}">
               <div class="table-td">
-                <img class="table-img" v-if="$index < 3" :src="row.al.picUrl">
-                <span>{{ row.name}}</span>
+                <img v-if="$index < 3" class="table-img" :src="row.al.picUrl">
+                <span>{{ row.name }}</span>
               </div>
             </template>
           </el-table-column>
@@ -86,7 +86,7 @@ export default {
   components: {
     ListItem
   },
-  data () {
+  data() {
     return {
       // 左边榜单栏
       topList: [],
@@ -104,7 +104,7 @@ export default {
   },
   computed: {
     // 云音乐特色榜列表
-    musicFeaturelist () {
+    musicFeaturelist() {
       return this.topList.slice(0, 4).map(item => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
         return { ...item }
@@ -112,31 +112,31 @@ export default {
     },
 
     // 全球媒体榜列表
-    globalMediaList () {
+    globalMediaList() {
       return this.topList.slice(4).map(item => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
         return { ...item }
       })
     }
   },
-  async created () {
+  async created() {
     await this.getTopList()
   },
   methods: {
     // 发现音乐-排行榜-各榜单列表
-    async getTopList () {
+    async getTopList() {
       const res = await this.$store.dispatch('getToplist')
       this.topList = res.list || []
       this.currentListId = res.list[0]?.id
       this.getListDetail()
     },
     // 切换排行榜榜单
-    changeCurrentListId (id) {
+    changeCurrentListId(id) {
       this.currentListId = id
       this.getListDetail()
     },
     // 获取榜单详情
-    getListDetail () {
+    getListDetail() {
       this.loading = true
       playListDetail(this.currentListId).then(res => {
         this.playList = res?.playlist
@@ -147,13 +147,13 @@ export default {
       })
     },
     // 总毫秒处理成分秒
-    formatTime (val) {
+    formatTime(val) {
       let m, s
       m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
       s = val % 60 < 10 ? '0' + val % 60 : val % 60
       return m + ':' + s
     },
-    headerClassName () {
+    headerClassName() {
       return 'header-class'
     }
   }
@@ -188,7 +188,7 @@ export default {
           height: 150px;
           margin-top: 50%;
           transform: translateY(-50%);
-        } 
+        }
       }
     }
     .toplist-wrap2 {

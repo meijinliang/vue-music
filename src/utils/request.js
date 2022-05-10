@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 axios.defaults.headers['Content-Type'] = 'application/json;charset=utf-8'
-console.log(process.env, process.env.VUE_APP_API);
+console.log(process.env, process.env.VUE_APP_API)
 const service = axios.create({
   baseURL: process.env.VUE_APP_API,
   timeout: 10000
@@ -11,7 +11,7 @@ const service = axios.create({
 service.interceptors.request.use(config => {
   return config
 }, err => {
-  console.log(err);
+  console.log(err)
 })
 
 // 响应拦截器
@@ -22,8 +22,8 @@ service.interceptors.response.use(res => {
     throw new Error(res.data.message)
   }
 },
-  error => {
-    return Promise.reject(error)
-  })
+error => {
+  return Promise.reject(error)
+})
 
 export default service

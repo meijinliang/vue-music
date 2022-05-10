@@ -4,8 +4,8 @@ import router from './router'
 import store from './store'
 
 import Element from 'element-ui'
-import 'element-ui/lib/theme-chalk/index.css';
-import './assets/icons' // icon 
+import 'element-ui/lib/theme-chalk/index.css'
+import './assets/icons' // icon
 
 // 引入自定义指令
 import install from './directive'

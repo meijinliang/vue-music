@@ -8,7 +8,7 @@ const music = {
   },
   actions: {
     // 获取发现音乐->排行榜
-    getToplist({commit}) {
+    getToplist({ commit }) {
       return new Promise((resovle, reject) => {
         getTopList().then(res => {
           resovle(res)
@@ -16,7 +16,6 @@ const music = {
           reject(error)
         })
       })
-      
     }
   }
 }

@@ -8,15 +8,15 @@
           <a href="/">网易云音乐</a>
         </h1>
         <ul class="fl">
-          <li class="fl pr top-item pointer" :class="slectItemIndex == index ? 'active' : ''" v-for="(item, index) in topItems" :key="index" @click="handleChange(index)">
-            <span>{{item}}</span>
-            <sub v-show="slectItemIndex == index" class="col"></sub>
-            <i v-if="index == topItems.length-1" class="hot m-top"></i>
+          <li v-for="(item, index) in topItems" :key="index" class="fl pr top-item pointer" :class="slectItemIndex == index ? 'active' : ''" @click="handleChange(index)">
+            <span>{{ item }}</span>
+            <sub v-show="slectItemIndex == index" class="col" />
+            <i v-if="index == topItems.length-1" class="hot m-top" />
           </li>
         </ul>
       </div>
       <div class="fl top-login">
-        <el-input class="top-input mr16" v-model="serachValue" placeholder="音乐/视频/电台/用户" p prefix-icon="el-icon-search" />
+        <el-input v-model="serachValue" class="top-input mr16" placeholder="音乐/视频/电台/用户" p prefix-icon="el-icon-search" />
         <!-- <el-button>创作者中心</el-button> -->
         <button class="top-btn pointer">创作者中心</button>
         <el-button type="text" style="margin-left:16px;" @click="handleClickLogin">登录</el-button>
@@ -26,18 +26,18 @@
     <div v-if="!slectItemIndex" class="top-subnav">
       <div class="wrap">
         <ul class="nav">
-          <li class="fl pointer" v-for="(item,index) in subNavRouter" :key="index" @click="handleSelectSub(item)">
-            <span class="sub-item" :class="selectSubClass(item)">{{item.meta.title}}</span>
+          <li v-for="(item,index) in subNavRouter" :key="index" class="fl pointer" @click="handleSelectSub(item)">
+            <span class="sub-item" :class="selectSubClass(item)">{{ item.meta.title }}</span>
           </li>
         </ul>
       </div>
     </div>
-    <div v-else class="top-subnav" style="height: 5px"></div>
+    <div v-else class="top-subnav" style="height: 5px" />
   </div>
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       topItems: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
       // 首页顶部导航栏索引
@@ -50,17 +50,17 @@ export default {
   },
   methods: {
     // 顶部导航栏切换事件
-    handleChange (index) {
+    handleChange(index) {
       this.slectItemIndex = index
     },
 
     // 调用登录组件
-    handleClickLogin () {
+    handleClickLogin() {
       this.$emit('login')
     },
 
     // 绑定subNav选中样式
-    selectSubClass (val) {
+    selectSubClass(val) {
       this.selectSubItem = this.$route.fullPath.split('/').filter(x => x).join('/')
       if (this.selectSubItem === val.path) {
         return 'active'
@@ -69,12 +69,11 @@ export default {
       }
     },
     // 发现音乐sub导航栏切换事件
-    handleSelectSub (value) {
+    handleSelectSub(value) {
       if (this.selectSubItem !== value.path) {
         this.$router.push({ name: value.name })
       }
-
-    },
+    }
   }
 }
 </script>

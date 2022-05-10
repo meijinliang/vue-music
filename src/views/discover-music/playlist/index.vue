@@ -19,12 +19,12 @@
                       <li>情感</li>
                     </ul>
                   </el-col>
-                  <el-col :span="18"></el-col>
+                  <el-col :span="18" />
                 </el-row>
               </div>
               <el-button slot="reference" class="ml20" plain>
                 <span>选择分类</span>
-                <i class="el-icon-arrow-down el-icon--right"></i>
+                <i class="el-icon-arrow-down el-icon--right" />
               </el-button>
             </el-popover>
           </el-row>
@@ -44,32 +44,30 @@
 import SeriesItem from '@/views/home/comonents/HotRecommend/SeriesItem'
 export default {
   name: '',
-  data () {
+  components: { SeriesItem },
+  data() {
     return {
       toplistData: []
     }
   },
-  components: { SeriesItem },
   computed: {
 
   },
-  created () {
+  created() {
     this.arrSort()
   },
   methods: {
     // 冒泡排序
-    arrSort (arr) {
-      arr = [2, 34, 5, 1, 9, 334] //arr.length = 6
+    arrSort(arr) {
+      arr = [2, 34, 5, 1, 9, 334] // arr.length = 6
       for (let i = 0; i < arr.length - 1; i++) { // 这里少遍历一次是因为最后一次不用循环了
         for (let j = 0; j < arr.length - i; j++) {
           if (arr[j] < arr[j - 1]) { // 如果右边小于左边，那么交换位置
-            let temp = arr[j]
+            const temp = arr[j]
             arr[j] = arr[j - 1]
             arr[j - 1] = temp
           }
-
         }
-
       }
     }
   }

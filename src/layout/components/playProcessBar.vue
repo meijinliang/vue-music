@@ -2,12 +2,8 @@
   <div class="process-bar">
     <div class="m-playbar">
       <div class="updn">
-        <div class="left playbar-bg">
-
-        </div>
-        <div class="right playbar-bg">
-
-        </div>
+        <div class="left playbar-bg" />
+        <div class="right playbar-bg" />
       </div>
       <div class="bg playbar-bg">
         <!-- 播放栏主体 -->
@@ -15,32 +11,30 @@
           <!-- 播放按钮 -->
           <div class="btns">
             <a class="pointer" title="上一首">
-              <svg-icon  icon-class="previous" />
+              <svg-icon icon-class="previous" />
             </a>
             <a class="pointer" title="播放/暂停">
-              <svg-icon  icon-class="play" />
+              <svg-icon icon-class="play" />
             </a>
             <a class="pointer" title="下一首">
-              <svg-icon  icon-class="next" />
+              <svg-icon icon-class="next" />
             </a>
           </div>
           <!-- 歌曲头像 -->
           <div class="heade">
             <div class="pr">
               <img src="../../assets/img/default_album.jpg" alt="">
-              <a class="mask playbar-bg" @click="skipToMusic"></a>
+              <a class="mask playbar-bg" @click="skipToMusic" />
             </div>
           </div>
           <!-- 歌曲播放进度 -->
           <div class="play">
-            <div class="words"></div>
-            <div class="m-pbar">
-
-            </div>
+            <div class="words" />
+            <div class="m-pbar" />
           </div>
           <!-- 收藏分享 -->
-          <div class="oper"></div>
-          <div class="ctrl"></div>
+          <div class="oper" />
+          <div class="ctrl" />
         </div>
       </div>
     </div>
@@ -52,27 +46,27 @@ export default {
   name: '',
   data() {
     return {
-    };
+    }
   },
-  computed:{
+  computed: {
   },
   methods: {
     // 跳转歌曲详情
     skipToMusic() {}
-  },
-};
+  }
+}
 </script>
 
 <style lang='scss' scoped>
 // /* 从上到下，蓝色渐变到红色 */
 // linear-gradient(blue, red);
- 
+
 // /* 渐变轴为45度，从蓝色渐变到红色 */
 // linear-gradient(45deg, blue, red);
- 
+
 // /* 从右下到左上、从蓝色渐变到红色 */
 // linear-gradient(to left top, blue, red);
- 
+
 // /* 从下到上，从蓝色开始渐变、到高度40%位置是绿色渐变开始、最后以红色结束 */
 // linear-gradient(0deg, blue, green 40%, red);
 .process-bar {
@@ -171,7 +165,7 @@ export default {
               background-position: 0 -80px;
             }
           }
-          
+
         }
         .play {
           .words {

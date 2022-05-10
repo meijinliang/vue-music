@@ -31,10 +31,9 @@
       :current-page.sync="currentPage"
       :total="detail.total"
       prev-text="< 上一页"
-      next-text	="下一页 >"
+      next-text="下一页 >"
       @current-change="handleCurrentChange"
-    >
-    </el-pagination>
+    />
   </div>
 </template>
 
@@ -42,7 +41,7 @@
 import CommentItem from './commentItem'
 export default {
   name: '',
-  components: { CommentItem},
+  components: { CommentItem },
   props: {
     detail: {
       type: Object,
@@ -51,24 +50,24 @@ export default {
       }
     }
   },
-  created() {
-    console.log(this.detail);
-  },
   data() {
     return {
       // 分页条数
       pageSize: 20,
-      currentPage: 1,
-    };
+      currentPage: 1
+    }
   },
-  computed:{
+  computed: {
+  },
+  created() {
+    console.log(this.detail)
   },
   methods: {
     handleCurrentChange(val) {
       this.$emit('page', val)
     }
-  },
-};
+  }
+}
 </script>
 
 <style lang='scss' scoped>

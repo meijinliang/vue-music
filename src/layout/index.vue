@@ -21,20 +21,20 @@ import TopBar from './components/TopBar.vue'
 import Login from './login/index.vue'
 import PlayProcessBar from './components/playProcessBar.vue'
 export default {
-  components: { TopBar, Login, PlayProcessBar },
   name: '',
-  data () {
+  components: { TopBar, Login, PlayProcessBar },
+  data() {
     return {
       // 登录弹框
       dialogVisible: false
     }
   },
-  mounted () {
-  },
   computed: {
-    key () {
+    key() {
       return this.$route.path
     }
+  },
+  mounted() {
   }
 }
 </script>

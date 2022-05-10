@@ -5,14 +5,14 @@
         <template>
           <div class="inner-box">
             <ul>
-              <li class="li-item" v-for="(subItem, index) in item" :key="index">
+              <li v-for="(subItem, index) in item" :key="index" class="li-item">
                 <div class="cover pr">
                   <img :src="subItem.picUrl" alt="">
-                  <a href="javascript:;" class="msk "></a>
+                  <a href="javascript:;" class="msk " />
                   <!-- <div class="cover"></div> -->
                 </div>
                 <p class="ellipsis pointer hover-underline">{{ subItem.name }}</p>
-                <p class="ellipsis pointer hover-underline">{{ subItem.artist.name}}</p>
+                <p class="ellipsis pointer hover-underline">{{ subItem.artist.name }}</p>
               </li>
             </ul>
           </div>
@@ -33,6 +33,10 @@ import Swiper2, { Autoplay, Pagination, Navigation } from 'swiper'
 Swiper2.use([Autoplay, Pagination, Navigation])
 import 'swiper/swiper-bundle.css'
 export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
   props: {
     swiperData: {
       type: Array,
@@ -41,27 +45,23 @@ export default {
       }
     }
   },
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  watch: {
-    swiperData: {
-      handler (val) {
-        console.log(val);
-      }
-    }
-  },
-  data () {
+  data() {
     return {
       swiperOptions: {
         loop: true,
         speed: 1000,
         // 设置点击箭头
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         }
+      }
+    }
+  },
+  watch: {
+    swiperData: {
+      handler(val) {
+        console.log(val)
       }
     }
   }

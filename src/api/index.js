@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
 // 获取banner
-export function getBanner () {
+export function getBanner() {
   return request({
     url: '/banner',
     method: 'GET'
@@ -9,7 +9,7 @@ export function getBanner () {
 }
 
 // 推荐歌单
-export function personalized (params) {
+export function personalized(params) {
   return request({
     url: '/personalized',
     method: 'GET',
@@ -20,10 +20,10 @@ export function personalized (params) {
 }
 
 // 获取歌单详情 排行榜也是歌单的一种
-export function playListDetail (id) {
+export function playListDetail(id) {
   return request({
     url: '/playlist/detail?id=' + id,
-    method: 'get',
+    method: 'get'
   })
 }
 
@@ -45,18 +45,18 @@ export function getMusicComment(params) {
 }
 
 // 新碟上架
-export function getNewAblum () {
+export function getNewAblum() {
   return request({
     url: '/album/newest',
-    method: 'get',
+    method: 'get'
   })
 }
 
-//所有榜单
-export function getTopList () {
+// 所有榜单
+export function getTopList() {
   return request({
     url: '/toplist',
-    method: 'get',
+    method: 'get'
   })
 }
 
@@ -70,7 +70,7 @@ export function topPlayList() {
 // 获取歌曲详情
 /**
  * @params 必传字段为ids
- * */ 
+ * */
 export function getSongDetail(params) {
   return request({
     url: '/song/detail',

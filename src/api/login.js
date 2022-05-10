@@ -1,7 +1,7 @@
 import request from '../utils/request'
 
 // 手机登录
-export function loginCellPhone (params) {
+export function loginCellPhone(params) {
   return request({
     url: '/login/cellphone',
     method: 'get',
@@ -9,8 +9,8 @@ export function loginCellPhone (params) {
   })
 }
 
-// 二维码key生成接口 
-export function loginQrKey () {
+// 二维码key生成接口
+export function loginQrKey() {
   return request({
     url: '/login/qr/key',
     method: 'get'
@@ -18,7 +18,7 @@ export function loginQrKey () {
 }
 
 // 二维码生成接口
-export function loginQrCreate (params) {
+export function loginQrCreate(params) {
   return request({
     url: '/login/qr/create',
     method: 'get',
@@ -27,7 +27,7 @@ export function loginQrCreate (params) {
 }
 
 // 二维码检测扫码状态接口
-export function loginQrCheck (params) {
+export function loginQrCheck(params) {
   return request({
     url: '/login/qr/check',
     method: 'get',
@@ -36,15 +36,15 @@ export function loginQrCheck (params) {
 }
 
 // 刷新登录 可刷新登录状态
-export function loginRefresh () {
+export function loginRefresh() {
   return request({
     url: '/login/refresh',
     method: 'get'
   })
 }
 
-// 发送验证码 传入手机号码, 可发送验证码 
-export function captchaSent (params) {
+// 发送验证码 传入手机号码, 可发送验证码
+export function captchaSent(params) {
   return request({
     url: '/captcha/sent',
     method: 'get',
@@ -52,8 +52,8 @@ export function captchaSent (params) {
   })
 }
 
-// 检测手机号码是否已注册 
-export function cellphoneCheck (params) {
+// 检测手机号码是否已注册
+export function cellphoneCheck(params) {
   return request({
     url: '/cellphone/existence/check',
     method: 'get',
@@ -62,7 +62,7 @@ export function cellphoneCheck (params) {
 }
 
 // 退出登录
-export function logout () {
+export function logout() {
   return request({
     url: '/logout',
     method: 'get'
@@ -70,7 +70,7 @@ export function logout () {
 }
 
 // 登录状态
-export function loginStatus () {
+export function loginStatus() {
   return request({
     url: '/login/status',
     method: 'get'
@@ -78,7 +78,7 @@ export function loginStatus () {
 }
 
 // 获取用户详情
-export function getUserDetail (params) {
+export function getUserDetail(params) {
   return request({
     url: '/user/detail',
     method: 'get',
@@ -87,7 +87,7 @@ export function getUserDetail (params) {
 }
 
 // 获取账号信息
-export function getUserAccount () {
+export function getUserAccount() {
   return request({
     url: '/user/account',
     method: 'get'
@@ -95,7 +95,7 @@ export function getUserAccount () {
 }
 
 // 获取用户信息，歌单，收藏，mv，dj数量
-export function getUserSubcount () {
+export function getUserSubcount() {
   return request({
     url: '/user/subcount',
     method: 'get'
@@ -103,7 +103,7 @@ export function getUserSubcount () {
 }
 
 // 获取用户等级
-export function getUserLevel () {
+export function getUserLevel() {
   return request({
     url: '/user/level',
     method: 'get'
@@ -111,7 +111,7 @@ export function getUserLevel () {
 }
 
 // 获取用户绑定信息
-export function getUserBinding () {
+export function getUserBinding() {
   return request({
     url: '/user/binding',
     method: 'get'
@@ -119,7 +119,7 @@ export function getUserBinding () {
 }
 
 // 更新用户信息
-export function updateUserMessage (params) {
+export function updateUserMessage(params) {
   return request({
     url: '/user/update',
     method: 'get',
@@ -128,7 +128,7 @@ export function updateUserMessage (params) {
 }
 
 // 更新头像
-export function updateAvatar (params) {
+export function updateAvatar(params) {
   return request({
     url: '/avatar/upload',
     method: 'get',
@@ -137,7 +137,7 @@ export function updateAvatar (params) {
 }
 
 // 获取用户歌单
-export function getUserPlaylist (params) {
+export function getUserPlaylist(params) {
   return request({
     url: '/user/playlist',
     method: 'get',
@@ -146,7 +146,7 @@ export function getUserPlaylist (params) {
 }
 
 // 更新歌单
-export function updatePlaylist (params) {
+export function updatePlaylist(params) {
   return request({
     url: '/playlist/update',
     method: 'get',

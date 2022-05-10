@@ -1,5 +1,5 @@
 <template>
-<!-- 歌单详情 -->
+  <!-- 歌单详情 -->
   <div class="basic-container album">
     <el-row>
       <!-- 左侧歌单详情 -->
@@ -7,12 +7,12 @@
         <div class="cnt clearfix">
           <div class="cnt-img ">
             <img :src="albumDetail.coverImgUrl" :alt="albumDetail.description">
-            <span class="cover-bg"></span>
+            <span class="cover-bg" />
           </div>
 
           <div class="cnt-detail">
             <div class="cnt-detail-title">
-              <i class="icon-bg inline-block"></i>
+              <i class="icon-bg inline-block" />
               <h2 class="inline-block">{{ albumDetail.name }}</h2>
             </div>
             <div class="cnt-detail-creator">
@@ -22,7 +22,7 @@
                 <img v-if="albumDetail.creator.avatarDetail" class="inline-block" :src="albumDetail.creator.avatarDetail.identityIconUrl" alt="">
               </span>
               <span class="cnt-detail-creator-time">
-                {{ parseTime(albumDetail.createTime, '{y}-{m}-{d}')}} 创建
+                {{ parseTime(albumDetail.createTime, '{y}-{m}-{d}') }} 创建
               </span>
             </div>
 
@@ -76,8 +76,8 @@
             <p v-else class="cnt-detail-description ellipsis4">
               介绍：{{ albumDetail.description }}
             </p>
-            <span v-if="isExpand !== null" @click="isExpand = !isExpand" class="link-span fr">
-              {{ isExpand ? '收起' : '展开'}}
+            <span v-if="isExpand !== null" class="link-span fr" @click="isExpand = !isExpand">
+              {{ isExpand ? '收起' : '展开' }}
               <svg-icon style="color: #666" :icon-class="isExpand ? 'arrow-up' : 'arrow-down'" />
             </span>
           </div>
@@ -191,10 +191,9 @@
             :current-page.sync="currentPage"
             :total="commentDetail.total"
             prev-text="< 上一页"
-            next-text	="下一页 >"
+            next-text="下一页 >"
             @current-change="handleCurrentChange"
-          >
-          </el-pagination>
+          />
         </div>
       </el-col>
       <el-col :span="6" class="album-right">
@@ -212,7 +211,7 @@
         <div class="hot-play">
           <h5 class="right-title">热门歌单</h5>
           <ul class="hot-play-wrapper">
-            <li class="item" v-for="(item, index) in topPlayList" :key="index">
+            <li v-for="(item, index) in topPlayList" :key="index" class="item">
               <a :title="item.name">
                 <img :src="item.coverImgUrl">
               </a>
@@ -220,7 +219,7 @@
                 <span class="ellipsis" :title="item.name">{{ item.name }}</span>
                 <span class="tc-6">
                   by -{{ item.creator.nickname }}
-                  <img v-if="item.creator.avatarDetail" :src="item.creator.avatarDetail.identityIconUrl" >
+                  <img v-if="item.creator.avatarDetail" :src="item.creator.avatarDetail.identityIconUrl">
                 </span>
               </a>
             </li>
@@ -232,13 +231,13 @@
           <h5 class="right-title mb20">网易云多端下载</h5>
           <ul class="download-bg">
             <li>
-              <a class="ios"></a>
+              <a class="ios" />
             </li>
             <li>
-              <a class="pc"></a>
+              <a class="pc" />
             </li>
             <li>
-              <a class="aos"></a>
+              <a class="aos" />
             </li>
           </ul>
           <p class="tc-9">同步歌单，随时畅听320k好音乐</p>
@@ -253,7 +252,8 @@ import { playListDetail, playListComment, topPlayList } from '@/api/index'
 import { parseTime } from '@/utils/index'
 import CommentItem from '@/views/components/commentItem'
 export default {
-  data () {
+  components: { CommentItem },
+  data() {
     return {
       // 专辑顶部详情
       albumDetail: {},
@@ -271,19 +271,18 @@ export default {
       isExpand: null
     }
   },
-  components: { CommentItem },
-  created () {
+  created() {
     this.getAlbumDetail()
     this.gtePlayListComment()
   },
   methods: {
     parseTime,
     // 获取歌单详情
-    getAlbumDetail () {
+    getAlbumDetail() {
       playListDetail(this.$route.query.id).then(res => {
         this.albumDetail = res.playlist
         this.isExpand = this.albumDetail.description.length > 80 ? false : null
-        console.log(this.albumDetail.description.length, this.isExpand);
+        console.log(this.albumDetail.description.length, this.isExpand)
       })
       topPlayList().then(res => {
         this.topPlayList = res.playlists.slice(0, 5)
@@ -305,11 +304,11 @@ export default {
     },
     // 分页切换
     handleCurrentChange(val) {
-      val = val == 1 ? undefined : (val - 1) * this.pageSize
+      val = val === 1 ? undefined : (val - 1) * this.pageSize
       this.gtePlayListComment(val)
     },
     // 设置表头顶部边框颜色
-    headerClassName () {
+    headerClassName() {
       return 'header-class'
     },
     // 跳转歌曲详情页

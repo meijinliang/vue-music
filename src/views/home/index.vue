@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- <swiper :bannerList="bannerList" /> -->
-    <banner :bannerList="bannerList" />
+    <banner :banner-list="bannerList" />
     <!-- discover-module -->
     <div class="basic-container discover-module">
       <el-row>
@@ -13,7 +13,7 @@
           <!-- 榜单 -->
           <SongList />
         </el-col>
-        <el-col :span="6"></el-col>
+        <el-col :span="6" />
       </el-row>
     </div>
   </div>
@@ -27,21 +27,21 @@ import SongList from './comonents/SongList'
 import { getBanner } from '@/api/index.js'
 export default {
   components: { Banner, HotRecommend, NewDisc, SongList },
-  data () {
+  data() {
     return {
-      bannerList: [],
+      bannerList: []
     }
   },
-  created () {
+  created() {
     this.getBannerData()
   },
   methods: {
     // 获取banner
-    getBannerData () {
+    getBannerData() {
       getBanner().then(res => {
         this.bannerList = res.banners
       })
-    },
+    }
   }
 }
 </script>
