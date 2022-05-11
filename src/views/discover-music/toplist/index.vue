@@ -79,7 +79,7 @@
 
 <script>
 import ListItem from './ListItem.vue'
-import { playListDetail } from '@/api/index'
+import { playListDetail } from '@/api/music'
 import { parseTime } from '@/utils/index'
 export default {
   name: 'DiscoverToplist',

@@ -60,7 +60,7 @@ export default {
   computed: {
   },
   created() {
-    console.log(this.detail)
+    // console.log(this.detail)
   },
   methods: {
     handleCurrentChange(val) {

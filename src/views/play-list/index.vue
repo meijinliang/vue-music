@@ -70,16 +70,7 @@
             </div>
 
             <!-- 歌单描述 -->
-            <p v-if="isExpand" class="cnt-detail-description">
-              介绍：{{ albumDetail.description }}
-            </p>
-            <p v-else class="cnt-detail-description ellipsis4">
-              介绍：{{ albumDetail.description }}
-            </p>
-            <span v-if="isExpand !== null" class="link-span fr" @click="isExpand = !isExpand">
-              {{ isExpand ? '收起' : '展开' }}
-              <svg-icon style="color: #666" :icon-class="isExpand ? 'arrow-up' : 'arrow-down'" />
-            </span>
+            <shrink-wrap :value="albumDetail.description" :height="72" />
           </div>
         </div>
 
@@ -248,11 +239,13 @@
 </template>
 
 <script>
-import { playListDetail, playListComment, topPlayList } from '@/api/index'
+import { topPlayList } from '@/api/index'
+import { playListDetail, playListComment } from '@/api/music'
 import { parseTime } from '@/utils/index'
+import ShrinkWrap from '@/views/components/ShrinkWrap'
 import CommentItem from '@/views/components/commentItem'
 export default {
-  components: { CommentItem },
+  components: { CommentItem, ShrinkWrap },
   data() {
     return {
       // 专辑顶部详情

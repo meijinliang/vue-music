@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { playListDetail } from '@/api/index'
+import { playListDetail } from '@/api/music'
 export default {
   name: 'Listitem',
   props: {

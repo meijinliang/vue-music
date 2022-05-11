@@ -9,7 +9,7 @@
             </template>
 
           </swiper-slide>
-          <div class="swiper-pagination" slot="pagination" />
+          <div slot="pagination" class="swiper-pagination" />
         </swiper>
         <!--左箭头。如果放置在swiper-container外面，需要自定义样式。-->
         <div :class="classPrev" />
@@ -28,6 +28,10 @@ import 'swiper/swiper-bundle.css'
 import { mixins } from './mixins'
 let vm = null
 export default {
+  components: {
+    Swiper,
+    SwiperSlide
+  },
   mixins: [mixins],
   props: {
     bannerList: {
@@ -47,11 +51,7 @@ export default {
       default: 'swiper-button-next'
     }
   },
-  components: {
-    Swiper,
-    SwiperSlide
-  },
-  data () {
+  data() {
     return {
       activeSlide: 0,
       swiperOptions: {
@@ -64,15 +64,15 @@ export default {
         // 显示分页
         pagination: {
           el: '.swiper-pagination',
-          clickable: true, //允许分页点击跳转
+          clickable: true // 允许分页点击跳转
         },
         // 设置点击箭头
         navigation: {
-          nextEl: ".swiper-button-next",
-          prevEl: ".swiper-button-prev"
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
         },
         on: {
-          slideChange () {
+          slideChange() {
             vm.activeSlide = this.activeIndex
           }
         }
@@ -80,28 +80,28 @@ export default {
     }
   },
   computed: {
-    swiper () {
+    swiper() {
       return this.$refs.mySwiper.$swiper
     }
   },
   watch: {
     activeSlide: {
-      handler (val) {
+      handler(val) {
         this.$refs.swiperBg.style.background = `url(${this.bannerbgList[val - 1]})`
       }
     }
   },
-  created () {
+  created() {
     vm = this
   },
-  mounted () {
+  mounted() {
     this.swiper.slideTo(3, 1000, false)
   },
   // directives: {
   //   swiper: directive
   // }
   methods: {
-    swiperBg () {
+    swiperBg() {
       // console.log(this.activeSlide);
       return 'bg'
     }

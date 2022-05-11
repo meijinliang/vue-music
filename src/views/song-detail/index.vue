@@ -2,11 +2,7 @@
   <div class="basic-container song">
     <el-row>
       <!-- 左侧歌单详情 -->
-      <el-col
-        v-if="JSON.stringify(songDetail) != '{}'"
-        :span="18"
-        class="song-left"
-      >
+      <el-col v-loading="loading" :span="18" class="song-left">
         <div class="cnt clearfix">
           <div class="fl pr">
             <div class="cnt-img">
@@ -67,32 +63,12 @@
             </div>
 
             <!-- 歌词 -->
-            <!-- <p v-if="isExpand" class="cnt-detail-description">
-              介绍：{{ albumDetail.description }}
-            </p>
-            <p v-else class="cnt-detail-description ellipsis4">
-              介绍：{{ albumDetail.description }}
-            </p>
-            <span v-if="isExpand !== null" @click="isExpand = !isExpand" class="link-span fr">
-              {{ isExpand ? '收起' : '展开'}}
-              <svg-icon style="color: #666" :icon-class="isExpand ? 'arrow-up' : 'arrow-down'" />
-            </span> -->
+            <shrink-wrap :value="songDetail.lyric" />
           </div>
         </div>
 
         <!-- 评论 -->
-        <comment
-          v-if="JSON.stringify(commentDetail) != '{}'"
-          :detail="commentDetail"
-          @page="handleCurrentChange"
-        />
-        <span
-          v-if="JSON.stringify(commentDetail) != '{}'"
-          :detail="commentDetail"
-          @page="handleCurrentChange"
-        >
-          1
-        </span>
+        <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
       </el-col>
       <el-col :span="6" class="album-right">
         <!-- 喜欢歌单的用户 -->
@@ -147,41 +123,51 @@
 
 <script>
 import Comment from '@/views/components/comment'
-import { getSongDetail, getMusicComment } from '@/api'
+import ShrinkWrap from '@/views/components/ShrinkWrap'
+import { getSongDetail, getMusicComment, getLyric } from '@/api/music'
 export default {
   name: '',
-  components: { Comment },
+  components: { Comment, ShrinkWrap },
   data() {
     return {
       data: '',
       songDetail: {},
-      commentDetail: {}
+      commentDetail: {},
+      isExpand: null,
+      loading: false
     }
   },
   computed: {},
   created() {
     this.getMusicDetail()
-    this.getMusicComment()
   },
   methods: {
     // 获取歌曲详情
-    getMusicDetail() {
-      const params = {
-        ids: this.$route.query.id
-      }
-      getSongDetail(params).then((res) => {
+    async getMusicDetail() {
+      this.loading = true
+      try {
+        const params = {
+          ids: this.$route.query.id
+        }
+        // 获取歌曲详情
+        const res = await getSongDetail(params)
         this.songDetail = res.songs[0]
-      })
+        // 获取歌词
+        const result = await getLyric({ id: this.$route.query.id })
+        const lyric = result.lrc.lyric.replace(/\[.*?\]/g, '') // 正则表达式移除字符串中的所有【】（包括其内容）
+        this.songDetail.lyric = lyric
+        this.getMusicComment()
+      } finally {
+        this.loading = false
+      }
     },
     // 获取歌曲评论
-    getMusicComment(offset) {
+    async getMusicComment(offset) {
       const params = {
         id: this.$route.query.id,
         offset
       }
-      getMusicComment(params).then((res) => {
-        this.commentDetail = res
-      })
+      this.commentDetail = await getMusicComment(params)
     },
     // 分页切换
     handleCurrentChange(val) {
@@ -254,6 +240,13 @@ export default {
               border-radius: 0 5px 5px 0;
             }
           }
+        }
+
+        // 歌词
+        &-lyric {
+          color: #666;
+          white-space: pre-wrap;
+          line-height: 18px;
         }
       }
     }
