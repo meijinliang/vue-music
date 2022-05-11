@@ -150,42 +150,7 @@
         </div>
 
         <!-- 评论 -->
-        <div class="album-comment">
-          <div class="album-comment-header">
-            <h1>评论</h1>
-            <span class="tc-6">共{{ albumDetail.commentCount }}条评论</span>
-          </div>
-          <div class="album-comment-content clearfix">
-            <a class="fl">
-              <img src="../../assets/img/default_avatar.jpg" alt="">
-            </a>
-            <div class="comment">
-              <!-- <input type="textarea"> -->
-              <el-input class="pr" type="textarea" placeholder="评论" :maxlength="140" show-word-limit :rows="3" />
-              <div class="mt8">
-                <a class="submmit fr">提交</a>
-              </div>
-            </div>
-          </div>
-          <!-- 评论 -->
-          <div>
-            <h3 v-if="hotComment.length">精彩评论</h3>
-            <comment-item v-if="hotComment.length" :comment-list="hotComment" />
-            <h3 v-if="comments.length && currentPage == 1">最新评论({{ commentDetail.total }})</h3>
-            <comment-item :comment-list="comments" />
-          </div>
-          <el-pagination
-            small
-            background
-            layout="prev, pager, next"
-            :page-size="pageSize"
-            :current-page.sync="currentPage"
-            :total="commentDetail.total"
-            prev-text="< 上一页"
-            next-text="下一页 >"
-            @current-change="handleCurrentChange"
-          />
-        </div>
+        <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
       </el-col>
       <el-col :span="6" class="album-right">
         <!-- 喜欢歌单的用户 -->
@@ -243,25 +208,16 @@ import { topPlayList } from '@/api/index'
 import { playListDetail, playListComment } from '@/api/music'
 import { parseTime } from '@/utils/index'
 import ShrinkWrap from '@/views/components/ShrinkWrap'
-import CommentItem from '@/views/components/commentItem'
+import Comment from '@/views/components/comment'
 export default {
-  components: { CommentItem, ShrinkWrap },
+  components: { Comment, ShrinkWrap },
   data() {
     return {
       // 专辑顶部详情
       albumDetail: {},
       commentDetail: {},
-      // 评论
-      comments: [],
-      // 热门评论
-      hotComment: [],
-      // 分页条数
-      pageSize: 20,
-      currentPage: 1,
       // 热门歌单
-      topPlayList: [],
-
-      isExpand: null
+      topPlayList: []
     }
   },
   created() {
@@ -274,8 +230,6 @@ export default {
     getAlbumDetail() {
       playListDetail(this.$route.query.id).then(res => {
         this.albumDetail = res.playlist
-        this.isExpand = this.albumDetail.description.length > 80 ? false : null
-        console.log(this.albumDetail.description.length, this.isExpand)
       })
       topPlayList().then(res => {
         this.topPlayList = res.playlists.slice(0, 5)
@@ -291,8 +245,6 @@ export default {
       }
       playListComment(params).then(res => {
         this.commentDetail = res
-        this.comments = res.comments || []
-        this.hotComment = res.hotComments || []
       })
     },
     // 分页切换
@@ -457,61 +409,6 @@ export default {
           background-color: #ff1d12;
         }
       }
-    }
-    .album-comment {
-      &-header {
-        border-bottom: 2px solid #c20c0c;
-        padding-bottom: 5px;
-        h1 {
-          font-weight: 400;
-          display: inline-block;
-          margin-right: 20px;
-        }
-      }
-      &-content {
-        margin: 20px 0;
-        img {
-          width: 50px;
-          height: 50px;
-        }
-        .comment {
-          margin-left: 62px;
-          .submmit {
-            display: block;
-            margin-top: 8px;
-            background-color: #297ac7;
-            color: #fff;
-            border-radius: 2px;
-            padding: 4px 11px;
-          }
-          .submmit:hover {
-            color: #297ac7;
-          }
-
-          .el-textarea::before,.el-textarea::after {
-            content: ' ';
-            position: absolute;
-            right: 100%;
-            width: 0;
-            height: 0;
-            border: solid transparent;
-          }
-          .el-textarea::before {
-            top:14px;
-            border-width:10px;
-            border-right-color:#DCDFE6;
-          }
-          .el-textarea:hover:before {
-            border-right-color:#C0C4CC;
-          }
-          .el-textarea::after {
-            top:16px;
-            border-width:8px;
-            border-right-color:#fff;
-          }
-        }
-      }
-
     }
   }
   &-right {
