@@ -3,7 +3,7 @@
   <div class="basic-container album">
     <el-row>
       <!-- 左侧歌单详情 -->
-      <el-col v-if="JSON.stringify(albumDetail) != '{}'" :span="18" class="album-left">
+      <el-col v-loading="loading" :span="18" class="album-left">
         <div class="cnt clearfix">
           <div class="cnt-img ">
             <img :src="albumDetail.coverImgUrl" :alt="albumDetail.description">
@@ -12,8 +12,10 @@
 
           <div class="cnt-detail">
             <div class="cnt-detail-title">
-              <i class="icon-bg inline-block" />
-              <h2 class="inline-block">{{ albumDetail.name }}</h2>
+              <i class="icon-bg fl" />
+              <div class="tit">
+                <h2>{{ albumDetail.name }}</h2>
+              </div>
             </div>
             <div class="cnt-detail-creator">
               <img class="inline-block pointer" :src="albumDetail.creator.avatarUrl" alt="">
@@ -214,26 +216,34 @@ export default {
   data() {
     return {
       // 专辑顶部详情
-      albumDetail: {},
+      albumDetail: {
+        creator: {
+          avatarUrl: ''
+        }
+      },
       commentDetail: {},
       // 热门歌单
-      topPlayList: []
+      topPlayList: [],
+      loading: false
     }
   },
   created() {
     this.getAlbumDetail()
-    this.gtePlayListComment()
   },
   methods: {
     parseTime,
     // 获取歌单详情
-    getAlbumDetail() {
-      playListDetail(this.$route.query.id).then(res => {
+    async getAlbumDetail() {
+      try {
+        this.loading = true
+        const res = await playListDetail(this.$route.query.id)
         this.albumDetail = res.playlist
-      })
-      topPlayList().then(res => {
-        this.topPlayList = res.playlists.slice(0, 5)
-      })
+        const result = await topPlayList()
+        this.topPlayList = result.playlists.slice(0, 5)
+        await this.gtePlayListComment()
+      } finally {
+        this.loading = false
+      }
     },
 
     // 获取歌单评论
@@ -298,6 +308,10 @@ export default {
         margin-left: 240px;
         // 歌单标题
         &-title {
+          .tit {
+            position: relative;
+            margin-left: 68px;
+          }
           i {
             width: 54px;
             height: 24px;
@@ -308,7 +322,6 @@ export default {
             font-size: 20px;
             line-height: 24px;
             font-weight: normal;
-            margin-left: 10px;
           }
         }
 

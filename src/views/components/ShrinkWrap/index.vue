@@ -1,7 +1,7 @@
 
 // 展开收起
 <template>
-  <div :style="{height: realHeight}">
+  <div :style="{height: isExpand !== null ? realHeight : '', maxHeight: isExpand === null ? realHeight : '', marginBottom: '48px'}">
     <p ref="textRef" class="shrink-wrap">{{ value }}</p>
     <span v-if="isExpand !== null" class="link-span fr" @click="handleExpand">
       {{ isExpand ? '收起' : '展开' }}
@@ -31,7 +31,7 @@ export default {
   },
   watch: {
     value(val, oldVal) {
-      console.log(val)
+      console.log(val, oldVal)
       // prop传进子组件的数据如果是通过接口获取的话 需要通过监听获取到 因为dom渲染时prop传入的数据还未获取到
       this.$nextTick(() => {
         if (this.height < this.$refs.textRef.offsetHeight) {
@@ -39,6 +39,7 @@ export default {
           this.isExpand = false
         }
         this.realHeight = this.height + 'px'
+        console.log(this.realHeight)
       })
     }
   },

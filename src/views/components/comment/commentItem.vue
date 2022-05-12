@@ -4,8 +4,9 @@
       <li class="list-item clearfix">
         <img class="list-item-img fl pointer" :src="item.user.avatarUrl" alt="">
         <div class="content-wrapper">
-          <div>
+          <div class="user">
             <span class="user-name link-span">{{ item.user.nickname }}</span>
+            <img v-if="item.user.avatarDetail && item.user.avatarDetail.identityIconUrl" :src="item.user.avatarDetail.identityIconUrl" alt="">
             :
             <span class="pre-wrap">{{ item.content ? item.content : '该评论已经删除' }}</span>
           </div>
@@ -15,7 +16,7 @@
             <span class="pre-wrap">{{ subItem.content ? subItem.content : '该评论已经删除' }}</span>
           </div>
           <div class="zan">
-            <a class="tc-6">{{ formaterTime(item.time, item.timeStr) }}</a>\
+            <a class="tc-6">{{ formaterTime(item.time, item.timeStr) }}</a>
             <a>
               <svg-icon icon-class="zan" />
               <span v-if="item.likedCount"> ({{ item.likedCount }}) </span>
@@ -49,9 +50,9 @@ export default {
   methods: {
     formaterTime(time, timeStr) {
       const arr = timeStr.split('-')
-      return arr.length == 3
+      return arr.length === 3
         ? parseTime(time, '{y}年{m}月{d}日 {h}:{i}:{s}')
-        : arr.length == 2
+        : arr.length === 2
           ? parseTime(time, '{m}月{d}日 {h}:{i}:{s}')
           : timeStr
     }
@@ -74,6 +75,15 @@ export default {
     // flex-direction: column;
     // justify-content: space-between;
     margin-left: 62px;
+    .user {
+      line-height: 20px;
+      img {
+        width: 13px;
+        height: 13px;
+        margin: 0 5px;
+        vertical-align: -2px;
+      }
+    }
     .reply {
       margin-top: 10px;
       padding: 8px 19px;

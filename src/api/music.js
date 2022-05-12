@@ -46,3 +46,11 @@ export function getLyric(params) {
   })
 }
 
+// 获取相似歌曲
+export function getSimiSong(params) {
+  return request({
+    url: '/simi/song',
+    method: 'get',
+    params
+  })
+}

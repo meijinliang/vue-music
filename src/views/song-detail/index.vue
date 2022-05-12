@@ -17,8 +17,10 @@
 
           <div class="cnt-detail">
             <div class="cnt-detail-title">
-              <i class="icon-bg inline-block" />
-              <h2 class="inline-block">{{ songDetail.name }}</h2>
+              <i class="icon-bg fl" />
+              <div class="tit">
+                <h2>{{ songDetail.name }}</h2>
+              </div>
             </div>
             <p class="tc-9 mtb10">
               歌手: <span class="link-span">{{ songDetail.ar[0].name }}</span>
@@ -70,52 +72,54 @@
         <!-- 评论 -->
         <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
       </el-col>
-      <el-col :span="6" class="album-right">
+      <el-col :span="6" class="song-right">
         <!-- 喜欢歌单的用户 -->
-        <!-- <div class="users">
-          <h5 class="right-title">喜欢这个歌单的人</h5>
+        <div class="users">
+          <h5 class="right-title">包含这首歌的歌单</h5>
           <div class="users-wrapper">
-            <a v-for="item in songDetail.subscribers" :key="item.userId">
+            <!-- <a v-for="item in songDetail.subscribers" :key="item.userId">
               <img :src="item.avatarUrl" :title="item.nickname">
-            </a>
+            </a> -->
           </div>
-        </div> -->
+        </div>
 
         <!-- 热门歌单 -->
-        <!-- <div class="hot-play">
-          <h5 class="right-title">热门歌单</h5>
-          <ul class="hot-play-wrapper">
-            <li class="item" v-for="(item, index) in topPlayList" :key="index">
-              <a :title="item.name">
-                <img :src="item.coverImgUrl">
-              </a>
-              <a class="title">
-                <span class="ellipsis" :title="item.name">{{ item.name }}</span>
-                <span class="tc-6">
-                  by -{{ item.creator.nickname }}
-                  <img v-if="item.creator.avatarDetail" :src="item.creator.avatarDetail.identityIconUrl" >
-                </span>
-              </a>
+        <div class="simi-song">
+          <h5 class="right-title">相似歌曲</h5>
+          <ul class="simi-song-wrapper">
+            <li v-for="(item, index) in simiSongList" :key="index" class="item clearfix">
+              <div class="text">
+                <div class="ellipsis">
+                  <a class="hover-underline">{{ item.name }}</a>
+                </div>
+                <div class="tc-9">
+                  <a class="hover-underline">{{ item.artists[0].name }}</a>
+                </div>
+              </div>
+              <div class="opt">
+                <a class="icon2-bg play" />
+                <a class="icon2-bg add" />
+              </div>
             </li>
           </ul>
-        </div> -->
+        </div>
 
         <!-- 网易云多端下载 -->
-        <!-- <div class="download">
+        <div class="download">
           <h5 class="right-title mb20">网易云多端下载</h5>
           <ul class="download-bg">
             <li>
-              <a class="ios"></a>
+              <a class="ios" />
             </li>
             <li>
-              <a class="pc"></a>
+              <a class="pc" />
             </li>
             <li>
-              <a class="aos"></a>
+              <a class="aos" />
             </li>
           </ul>
           <p class="tc-9">同步歌单，随时畅听320k好音乐</p>
-        </div> -->
+        </div>
       </el-col>
     </el-row>
   </div>
@@ -124,22 +128,28 @@
 <script>
 import Comment from '@/views/components/comment'
 import ShrinkWrap from '@/views/components/ShrinkWrap'
-import { getSongDetail, getMusicComment, getLyric } from '@/api/music'
+import { getSongDetail, getMusicComment, getLyric, getSimiSong } from '@/api/music'
 export default {
   name: '',
   components: { Comment, ShrinkWrap },
   data() {
     return {
       data: '',
-      songDetail: {},
+      songDetail: {
+        al: { picUrl: '' },
+        ar: [{ name: '' }]
+      },
       commentDetail: {},
       isExpand: null,
-      loading: false
+      loading: false,
+      // 获取相似歌曲
+      simiSongList: []
     }
   },
   computed: {},
   created() {
     this.getMusicDetail()
+    this.getSimiSong()
   },
   methods: {
     // 获取歌曲详情
@@ -156,7 +166,7 @@ export default {
         const result = await getLyric({ id: this.$route.query.id })
         const lyric = result.lrc.lyric.replace(/\[.*?\]/g, '') // 正则表达式移除字符串中的所有【】（包括其内容）
         this.songDetail.lyric = lyric
-        this.getMusicComment()
+        await this.getMusicComment()
       } finally {
         this.loading = false
       }
@@ -168,6 +178,12 @@ export default {
         offset
       }
       this.commentDetail = await getMusicComment(params)
+    },
+    // 获取相似歌曲
+    getSimiSong() {
+      getSimiSong({ id: this.$route.query.id }).then(res => {
+        this.simiSongList = res.songs
+      })
     },
     // 分页切换
     handleCurrentChange(val) {
@@ -206,6 +222,10 @@ export default {
         margin-left: 240px;
         // 歌单标题
         &-title {
+          .tit {
+            position: relative;
+            margin-left: 68px;
+          }
           i {
             width: 54px;
             height: 24px;
@@ -216,7 +236,6 @@ export default {
             font-size: 20px;
             line-height: 24px;
             font-weight: normal;
-            margin-left: 10px;
           }
         }
 
@@ -268,26 +287,32 @@ export default {
         }
       }
     }
-    .hot-play {
+    .simi-song {
       &-wrapper {
-        padding: 20px 0;
+        padding:10px 0;
         .item {
-          display: flex;
-          height: 50px;
-          margin-bottom: 15px;
-          img {
-            width: 50px;
-            height: 50px;
+          margin-top: 10px;
+          .text {
+            float: left;
+            width: 156px;
+            line-height: 16px;
           }
-          .title {
-            width: 140px;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-            margin-left: 10px;
-            img {
-              width: 13px;
-              height: 13px;
+          .opt {
+            float: right;
+            position: relative;
+            top: 10px;
+            line-height: 32px;
+            a {
+              float: left;
+              width: 10px;
+              height: 11px;
+            }
+            .play {
+              margin-right: 16px;
+              background-position: -69px -455px;
+            }
+            .add {
+              background-position: -87px -454px;
             }
           }
         }
@@ -322,5 +347,10 @@ export default {
       }
     }
   }
+}
+
+.right-title {
+  padding: 5px 0;
+  border-bottom: 1px solid #d3d3d3;
 }
 </style>
