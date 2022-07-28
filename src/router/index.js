@@ -35,9 +35,9 @@ const routes = [
     }
   },
   {
-    path: 'playlist',
-    name: 'playlist',
-    component: () => import('@/views/play-list')
+    path: 'echart',
+    name: 'echart',
+    component: () => import('@/views/echarts')
   }
 ]
 
