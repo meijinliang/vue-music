@@ -2,13 +2,13 @@
   <div class="login-content">
     <el-row :gutter="30">
       <el-col :span="11" class="left">
-        <div class="code-phone-guide fr"></div>
+        <div class="code-phone-guide fr" />
       </el-col>
       <el-col :span="13" class="right">
         <span>扫码登录</span>
         <div class="code-box pr">
           <img :src="qrimg" alt="">
-          <div class="cover-box h-100 w-100" v-if="isOver">
+          <div v-if="isOver" class="cover-box h-100 w-100">
             <div class="cover-box-inner">
               <p>二维码已失效</p>
               <span class="code-overdue pointer" @click="getQrCode">点击刷新</span>
@@ -29,7 +29,7 @@
 import { loginQrKey, loginQrCreate, loginQrCheck } from '@/api/login'
 import { setToken } from '@/utils/auth'
 export default {
-  data () {
+  data() {
     return {
       qrimg: '',
       // 二维码是否过期
@@ -38,11 +38,15 @@ export default {
       timer: null
     }
   },
-  created () {
+  created() {
     this.getQrCode()
   },
+  beforeDestroy() {
+    // 销毁组件之前先清除定时器
+    clearInterval(this.timer)
+  },
   methods: {
-    getQrCode () {
+    getQrCode() {
       this.isOver = false
       clearInterval(this.timer)
       loginQrKey().then(res1 => {
@@ -53,26 +57,22 @@ export default {
       })
     },
     // 定时器轮询检测二维码扫码状态
-    checkQrStatu (key) {
+    checkQrStatu(key) {
       this.timer = setInterval(() => {
         loginQrCheck({ key }).then(res => {
           if (res.code === 800) {
             this.isOver = true
           } else if (res.code === 803) {
             setToken(res.cookie)
-            console.log(this.$store);
+            console.log(this.$store)
             this.$store.commit('SET_TOKEN', res.cookie)
             clearInterval(this.timer)
-            console.log(this.$store);
+            console.log(this.$store)
             this.$store.dispatch('loginByQrcode')
           }
         })
       }, 2000)
     }
-  },
-  beforeDestroy () {
-    //销毁组件之前先清除定时器
-    clearInterval(this.timer)
   }
 }
 </script>

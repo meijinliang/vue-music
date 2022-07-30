@@ -1,11 +1,11 @@
 <template>
-  <div ref="login" class="login" :style="{width:width}" v-if="show">
+  <div v-if="show" ref="login" class="login" :style="{width:width}">
     <div class="login-header" @mousedown="move">
       <span>{{ loginTitle }}</span>
-      <i class="el-icon-close pointer" @click="handleClose"></i>
+      <i class="el-icon-close pointer" @click="handleClose" />
     </div>
     <div class="login-content h-100">
-      <component :is="currentComponent" :type.sync="type"></component>
+      <component :is="currentComponent" :type.sync="type" />
     </div>
   </div>
 </template>
@@ -19,24 +19,24 @@ export default {
     width: {
       type: String,
       default: '550px'
-    },
+    }
   },
-  data () {
+  data() {
     return {
-      type: 1, //用于区分登录类型
+      type: 1 // 用于区分登录类型
     }
   },
   computed: {
     show: {
-      get () {
+      get() {
         return this.visible
       },
-      set (val) {
-        console.log(val);
+      set(val) {
+        console.log(val)
         this.$emit('update:visible', val)
       }
     },
-    currentComponent () {
+    currentComponent() {
       switch (this.type) {
         case 1:
           return () => import('./components/QrcodeLogin')
@@ -44,17 +44,17 @@ export default {
           return () => import('./components/ChooseLogin')
         case 3:
           return () => import('./components/PhoneLogin')
-        case 4 : 
+        case 4 :
           return () => import('./components/Register')
         default :
           return () => import('./components/QrcodeLogin')
       }
     },
     loginTitle() {
-      switch(this.type) {
+      switch (this.type) {
         case 3 :
           return '手机号登录'
-        case 4: 
+        case 4:
           return '手机号注册'
         default :
           return '登录'
@@ -62,12 +62,12 @@ export default {
     }
   },
   methods: {
-    handleClose () {
+    handleClose() {
       this.show = false
       this.type = 1
     },
-    move () {
-      console.log(this.$el);
+    move() {
+      console.log(this.$el)
       // let loginBox = document.querySelector('#login')
       // console.log(e,loginBox);
       // 获取鼠标的位置
@@ -85,10 +85,9 @@ export default {
       // document.onmouseup = () => {
       //   //鼠标弹起来的时候不再移动
       //   document.onmousemove = null;
-      //   //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）  
+      //   //预防鼠标弹起来后还会循环（即预防鼠标放上去的时候还会移动）
       //   document.onmouseup = null;
       // };
-
     }
   }
 }

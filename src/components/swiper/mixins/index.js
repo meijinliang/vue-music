@@ -1,5 +1,5 @@
 export const mixins = {
-  data () {
+  data() {
     return {
       bannerbgList: ['http://p1.music.126.net/ODT7H8vBFlRB1Us9ZF_bfA==/109951165985110152.jpg?imageView&blur=40x20', 'http://p1.music.126.net/ODT7H8vBFlRB1Us9ZF_bfA==/109951165985110152.jpg?imageView&blur=40x20',
         'http://p1.music.126.net/QqRw2zCKSUvJnDFbC8OrXw==/109951165983472361.jpg?imageView&blur=40x20', 'http://p1.music.126.net/5UVvc_FhIQFdiz1ZPyZvCw==/109951165983325195.jpg?imageView&blur=40x20',

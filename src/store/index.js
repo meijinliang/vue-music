@@ -5,7 +5,7 @@ import music from './modules/music'
 
 Vue.use(Vuex)
 
-const store =  new Vuex.Store({
+const store = new Vuex.Store({
   modules: {
     user,
     music

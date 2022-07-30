@@ -10,7 +10,7 @@ module.exports = {
   // outputDir： 生产环境构建的项目目录 默认dist目录
   assetsDir: 'static', // 放置生成的静态资源文件（js、css、img、fonts）的目录（相对于outputDir）
   // indexPath: 'main.html', // 指定生成的index.html的输出路径（相当于outputDir）
-  // lintOnSave: 'error',  // 
+  // lintOnSave: 'error',  //
   /**
    *  boolean | 'warning' | 'default' | 'error' 每次保存时lint代码， 这个值会在@vue/cli-plugin-eslint被安装之后生效
    *  设置为true 或 'warning'时， eslint-loader会将lint错误输出为编辑警告。默认情况下仅会被输出到命令行
@@ -21,7 +21,7 @@ module.exports = {
 
   devServer: {
     // port: 9527, //设置项目启动的端口号
-    proxy: {//解决跨域问题
+    proxy: { // 解决跨域问题
       // '/api': {
       //   // 此处的写法，目的是为了 将 /api 替换成 https://autumnfish.cn/
       //   // target: 'https://autumnfish.cn/',
@@ -41,7 +41,7 @@ module.exports = {
         ws: true,
         pathRewrite: { // 路径重写 请求的时候不希望传递/api
           '^/api': ''
-        },
+        }
       }
     }
   },

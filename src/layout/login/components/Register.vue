@@ -3,13 +3,13 @@
     <el-form :model="registerParams" class="phone-register-content">
       <el-form-item label="手机号：">
         <el-input v-model="registerParams.phone" placeholder="请输入手机号码">
-          <el-select v-model="select" slot="prepend">
-            <el-option v-for="(item, index) in preList" :label="item.name" :value="item.name" :key="index"></el-option>
+          <el-select slot="prepend" v-model="select">
+            <el-option v-for="(item, index) in preList" :key="index" :label="item.name" :value="item.name" />
           </el-select>
         </el-input>
       </el-form-item>
       <el-form-item label="密码：" prop="password">
-        <el-input v-model="registerParams.password" show-password placeholder="设置登录密码，不少于8位"/>
+        <el-input v-model="registerParams.password" show-password placeholder="设置登录密码，不少于8位" />
       </el-form-item>
       <el-form-item>
         <el-button class="w-100" type="primary">下一步</el-button>
@@ -24,13 +24,13 @@
 <script>
 export default {
   name: '',
-  data () {
+  data() {
     return {
       registerParams: {},
       select: '+86',
-      preList:[{name: '+86'}],
+      preList: [{ name: '+86' }]
     }
-  },
+  }
 }
 </script>
 

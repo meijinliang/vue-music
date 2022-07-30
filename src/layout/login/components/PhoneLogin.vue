@@ -1,15 +1,15 @@
 <template>
-  <div >
-    <el-form :model="loginParams" :rules="rules" ref="loginRef" class="phone-login-content">
+  <div>
+    <el-form ref="loginRef" :model="loginParams" :rules="rules" class="phone-login-content">
       <el-form-item prop="phone">
         <el-input v-model="loginParams.phone" placeholder="请输入手机号码">
-          <el-select v-model="select" slot="prepend">
-            <el-option v-for="(item, index) in preList" :label="item.name" :value="item.name" :key="index"></el-option>
+          <el-select slot="prepend" v-model="select">
+            <el-option v-for="(item, index) in preList" :key="index" :label="item.name" :value="item.name" />
           </el-select>
         </el-input>
       </el-form-item>
       <el-form-item prop="password">
-        <el-input v-model="loginParams.password" show-password placeholder="请输入密码"/>
+        <el-input v-model="loginParams.password" show-password placeholder="请输入密码" />
       </el-form-item>
       <el-form-item>
         <el-button class="w-100" type="primary" @click="handleLogin">登 录</el-button>
@@ -26,16 +26,16 @@
 import { loginCellPhone } from '@/api/login'
 export default {
   name: '',
-  data () {
+  data() {
     var validatePhone = (rule, value, callback) => {
       const reg = /^[1][3,4,5,7,8][0-9]{9}$/
       if (value === '') {
-        callback(new Error('请输入手机号码'));
+        callback(new Error('请输入手机号码'))
       } else {
         if (!reg.test(value)) {
-          callback(new Error('请正确输入手机号码'));
+          callback(new Error('请正确输入手机号码'))
         }
-        callback();
+        callback()
       }
     }
     return {
@@ -44,7 +44,7 @@ export default {
         password: ''
       },
       select: '+86',
-      preList:[{name: '+86'}],
+      preList: [{ name: '+86' }],
       rules: {
         phone: [{
           required: true, validator: validatePhone, trigger: 'blur'
@@ -60,7 +60,7 @@ export default {
       this.$refs.loginRef.validate(valid => {
         if (valid) {
           loginCellPhone(this.loginParams).then(res => {
-            console.log(res);
+            console.log(res)
             this.$store.commit('SET_ACCOUNT', res?.account)
             this.$store.commit('SET_PROFILE', res?.profile)
             this.$store.commit('SET_PROFILE', res?.profile)
