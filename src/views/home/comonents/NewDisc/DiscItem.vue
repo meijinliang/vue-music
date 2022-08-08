@@ -5,7 +5,7 @@
         <template>
           <div class="inner-box">
             <ul>
-              <li v-for="(subItem, index) in item" :key="index" class="li-item">
+              <li v-for="(subItem, subIndex) in item" :key="subIndex" class="li-item">
                 <div class="cover pr">
                   <img :src="subItem.picUrl" alt="">
                   <a href="javascript:;" class="msk " />

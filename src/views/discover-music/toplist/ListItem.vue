@@ -23,7 +23,8 @@ export default {
       }
     },
     currentListId: {
-      type: Number
+      type: Number,
+      default: null
     }
   },
   data() {

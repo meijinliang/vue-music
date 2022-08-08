@@ -33,12 +33,12 @@ const routes = [
     meta: {
       title: 'icons'
     }
-  },
-  {
-    path: 'demo',
-    name: 'demo',
-    component: () => import('@/demo')
   }
+  // {
+  //   path: 'demo',
+  //   name: 'demo',
+  //   component: () => import('@/demo')
+  // }
 ]
 
 const router = new VueRouter({

@@ -71,9 +71,7 @@ export function deepClone(obj) {
   // 判断当前传入的数据是不是简单数据类型 是的话直接赋值就可以
   if (obj && typeof obj !== 'object') {
     cloneObj = obj
-  }
-  // 当输入的数据是数组或对象的时候
-  else if (obj && typeof obj === 'object') {
+  } else if (obj && typeof obj === 'object') { // 当输入的数据是数组或对象的时候
     cloneObj = Array.isArray(obj) ? [] : {}
     // 遍历数据对象
     for (const key in obj) {

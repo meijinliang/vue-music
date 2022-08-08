@@ -56,5 +56,10 @@ export const HomeRouter = [
     path: 'song',
     name: 'song',
     component: () => import('@/views/song-detail')
+  },
+  {
+    path: 'demo',
+    name: 'demo',
+    component: () => import('@/demo')
   }
 ]

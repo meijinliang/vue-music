@@ -35,6 +35,13 @@ export function getTopList() {
   })
 }
 
+// 获取歌单分类 中文名称
+export function getCatList() {
+  return request({
+    url: '/playlist/catlist'
+  })
+}
+
 // 热门歌单分类
 export function topPlayList() {
   return request({

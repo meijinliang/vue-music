@@ -42,6 +42,7 @@
 
 <script>
 import SeriesItem from '@/views/home/comonents/HotRecommend/SeriesItem'
+import { getCatList } from '@/api'
 export default {
   name: '',
   components: { SeriesItem },
@@ -54,7 +55,7 @@ export default {
 
   },
   created() {
-    this.arrSort()
+    this.getInitData()
   },
   methods: {
     // 冒泡排序
@@ -69,6 +70,11 @@ export default {
           }
         }
       }
+    },
+    // 获取数据
+    async getInitData() {
+      const res = await getCatList()
+      console.log(res)
     }
   }
 }

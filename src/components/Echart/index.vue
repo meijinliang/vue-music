@@ -4,14 +4,14 @@
 
 <script>
 import * as echarts from 'echarts'
-import mixin from './mixins'
+import resize from './mixins/resize'
 export default {
   name: 'Chart',
-  mixins: [mixin],
+  mixins: [resize],
   props: {
     className: {
       type: String,
-      default: 'echart'
+      default: 'chart'
     },
     width: {
       type: String,
@@ -28,7 +28,7 @@ export default {
   },
   data() {
     return {
-      echart: null
+      chart: null
     }
   },
   watch: {
@@ -55,8 +55,7 @@ export default {
     initChartt() {
       // echarts.registerTheme('custom', theme) 注册自定义主题
       // this.chart = echarts.init(this.$el, 'custom')
-      console.log(this.$el)
-      this.echart = echarts.init(this.$el)
+      this.chart = echarts.init(this.$el)
       this.setOptions(this.option, true)
       // 点击事件
       this.chart.on('click', params => {
@@ -74,9 +73,9 @@ export default {
       })
     },
     setOptions(options) {
-      this.echart.setOptions(options, true) // 第二个参数option是否合并 ，默认合并， 设置true option 不合并
+      this.chart.setOption(options, true) // 第二个参数option是否合并 ，默认合并， 设置true option 不合并
       this.$nextTick(() => {
-        this.echart.resize()
+        this.chart.resize()
       })
     }
   }

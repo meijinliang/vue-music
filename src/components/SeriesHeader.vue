@@ -13,7 +13,7 @@
 export default {
   props: {
     title: {
-      typeof: String,
+      type: String,
       required: true
     }
   }
