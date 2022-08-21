@@ -64,11 +64,10 @@ export default {
             this.isOver = true
           } else if (res.code === 803) {
             setToken(res.cookie)
-            console.log(this.$store)
             this.$store.commit('SET_TOKEN', res.cookie)
             clearInterval(this.timer)
-            console.log(this.$store)
             this.$store.dispatch('loginByQrcode')
+            this.$emit('isLogin')
           }
         })
       }, 2000)

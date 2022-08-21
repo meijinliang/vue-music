@@ -10,5 +10,5 @@ export function setToken(token) {
 }
 
 export function removeToken() {
-  return Cookie.remove(Cookie)
+  return Cookies.remove(Cookie)
 }

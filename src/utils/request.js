@@ -16,7 +16,8 @@ service.interceptors.request.use(config => {
 
 // 响应拦截器
 service.interceptors.response.use(res => {
-  if ([200, 800, 801, 802, 803].includes(res.data.code)) {
+  // [200].includes(res.data.data.code)登入状态的接口又包了一层data
+  if ([200, 800, 801, 802, 803].includes(res.data.code) || [200].includes(res.data.data.code)) {
     return res.data
   } else {
     throw new Error(res.data.message)

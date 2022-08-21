@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import TopBar from './components/TopBar.vue'
+import TopBar from './components/TopBar'
 import Login from './login/index.vue'
 import PlayProcessBar from './components/playProcessBar.vue'
 export default {

@@ -171,7 +171,6 @@ export default {
         }
         return e
       })
-      console.log(range)
       return range
     },
     // getRange() {
@@ -306,6 +305,9 @@ export default {
             cursor: pointer;
             background-color: #f2f8fe;
           }
+          &:active {
+            background-color: #f2f8fe;
+          }
         }
         &.prev, &.next {
           color: #c0c4cc;
@@ -313,11 +315,11 @@ export default {
         &.today {
           color: #617aeb;
         }
-        &.selected {
-          .cell {
-            background-color: #f2f8fe;
-          }
-        }
+        // &.selected {
+        //   .cell {
+        //     background-color: #f2f8fe;
+        //   }
+        // }
       }
 
     }

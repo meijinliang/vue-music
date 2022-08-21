@@ -5,9 +5,9 @@
       <span class="tc-6">共{{ detail.total }}条评论</span>
     </div>
     <div class="album-comment-content clearfix">
-      <a class="fl">
-        <img src="../../../assets/img/default_avatar.jpg" alt="">
-      </a>
+      <span class="fl">
+        <img :src="avatarUrl" alt="">
+      </span>
       <div class="comment">
         <!-- <input type="textarea"> -->
         <el-input class="pr" type="textarea" placeholder="评论" :maxlength="140" show-word-limit :rows="3" />
@@ -58,6 +58,9 @@ export default {
     }
   },
   computed: {
+    avatarUrl() {
+      return this.$store.state.user.profile?.avatarUrl || '../../../assets/img/default_avatar.jpg'
+    }
   },
   created() {
     // console.log(this.detail)

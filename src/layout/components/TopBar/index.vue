@@ -19,7 +19,8 @@
         <el-input v-model="serachValue" class="top-input mr16" placeholder="音乐/视频/电台/用户" p prefix-icon="el-icon-search" />
         <!-- <el-button>创作者中心</el-button> -->
         <button class="top-btn pointer">创作者中心</button>
-        <el-button type="text" style="margin-left:16px;" @click="handleClickLogin">登录</el-button>
+        <el-button v-if="isLogin" type="text" style="margin-left:16px;" @click="handleClickLogin">登录</el-button>
+        <information v-else />
       </div>
     </div>
     <!-- 发现音乐导航栏 -->
@@ -36,7 +37,9 @@
   </div>
 </template>
 <script>
+import Information from './information.vue'
 export default {
+  components: { Information },
   data() {
     return {
       topItems: ['发现音乐', '我的音乐', '朋友', '商城', '音乐人', '下载客户端'],
@@ -46,6 +49,12 @@ export default {
       selectSubItem: '',
       subNavRouter: this.$router.options.routes[1].children.slice(0, 6),
       serachValue: ''
+    }
+  },
+  computed: {
+    isLogin() {
+      console.log(this.$store)
+      return !this.$store.state.user.cookie
     }
   },
   methods: {
@@ -198,4 +207,5 @@ export default {
     }
   }
 }
+
 </style>

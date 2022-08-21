@@ -5,7 +5,7 @@
       <i class="el-icon-close pointer" @click="handleClose" />
     </div>
     <div class="login-content h-100">
-      <component :is="currentComponent" :type.sync="type" />
+      <component :is="currentComponent" :type.sync="type" @isLogin="loginSuccess" />
     </div>
   </div>
 </template>
@@ -65,6 +65,11 @@ export default {
     handleClose() {
       this.show = false
       this.type = 1
+    },
+    // 登录成功
+    loginSuccess() {
+      console.log('登录成功')
+      this.show = false
     },
     move() {
       console.log(this.$el)
