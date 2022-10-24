@@ -51,7 +51,7 @@ proxy：
   2.DOM做递归组件时需要调用自身name
   3.vue-devtools调试工具里显示得组件名称是由组件name决定得
 
-# 12.$route 和 $router的区别
+# 12. $route 和 $router的区别
   $route是当前激活路由的对象包含当前路由的信息 $router是全局的路由对象（具有实现路由跳转的方法）
 
 # 13 路由导航守卫
@@ -94,3 +94,11 @@ vue源码解析 自我认识
 的钩子函数中不能获取到props、打他、中定义的值，也不能调用methods中的函数
 4.在执行vm._render()函数渲染vnode之前，执行了beforeMount钩子函数，在执行玩vm._update()把Vnode patch到真是DOM后执行mouted
 钩子函数zhi'xing
+
+# 17. Vue创建的整个过程（2.6.17版本）
+## 17.1 初始化Vue(new Vue之前)
+1. 在new Vue之前会给Vue的原型上加上实例方法，initMixin(_init)、stateMixin($set、$delete、$watch、$data、$prop)、eventsMixin($on、 $once、$off 、$emit)、lifecycleMixin(_update、$forceUpdate、$destory)、renderMixin($nextTick、_render)
+2. 在导出Vue之前会对Vue添加全局方法在initGrobalApi的文件中（vue构造函数上的方法都是在该文件中执行）
+
+## 17.2 new Vue
+1. 

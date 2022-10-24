@@ -30,7 +30,7 @@
       </div>
       <div class="toplist-wrap2">
         <!-- 表格顶部信息 -->
-        <el-row type="flex" justify="space-between">
+        <el-row class="toplist-wrap2-top" type="flex" justify="space-between">
           <el-col>
             <h2 class="inline-block mr16">歌曲列表</h2>
             <span v-if="playList.tracks"> {{ playList.tracks.length }}首歌</span>
@@ -42,7 +42,7 @@
           </el-col>
         </el-row>
         <!-- 歌单列表 -->
-        <el-table v-loading="loading" :data="tableData" stripe :header-row-class-name="headerClassName">
+        <el-table v-loading="loading" :data="tableData" stripe>
           <el-table-column type="index" width="100">
             <template v-slot="{row, $index}">
               <span>{{ $index + 1 }}</span>
@@ -58,7 +58,7 @@
           </el-table-column>
           <el-table-column label="时长" width="80">
             <template v-slot="{row}">
-              <span> {{ formatTime(row.dt) }} </span>
+              <span v-time> {{ row.dt }} </span>
             </template>
           </el-table-column>
           <el-table-column label="歌手" width="180">
@@ -71,6 +71,7 @@
             </template>
           </el-table-column>
         </el-table>
+        <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
       </div>
       <!-- <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop> -->
     </div>
@@ -79,12 +80,14 @@
 
 <script>
 import ListItem from './ListItem.vue'
-import { playListDetail } from '@/api/music'
+import { playListDetail, playListComment } from '@/api/music'
 import { parseTime } from '@/utils/index'
+import Comment from '@/views/components/comment'
 export default {
   name: 'DiscoverToplist',
   components: {
-    ListItem
+    ListItem,
+    Comment
   },
   data() {
     return {
@@ -99,7 +102,8 @@ export default {
       // 加载表格列表
       loading: false,
       // 表格数据
-      tableData: []
+      tableData: [],
+      commentDetail: {}
     }
   },
   computed: {
@@ -129,6 +133,7 @@ export default {
       this.topList = res.list || []
       this.currentListId = res.list[0]?.id
       this.getListDetail()
+      await this.gtePlayListComment()
     },
     // 切换排行榜榜单
     changeCurrentListId(id) {
@@ -146,15 +151,21 @@ export default {
         this.loading = false
       })
     },
-    // 总毫秒处理成分秒
-    formatTime(val) {
-      let m, s
-      m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
-      s = val % 60 < 10 ? '0' + val % 60 : val % 60
-      return m + ':' + s
+    // 获取歌单评论
+    gtePlayListComment(offset) {
+      // limit 默认取20条评论
+      const params = {
+        id: this.currentListId,
+        offset
+      }
+      playListComment(params).then(res => {
+        this.commentDetail = res
+      })
     },
-    headerClassName() {
-      return 'header-class'
+    // 分页切换
+    handleCurrentChange(val) {
+      val = val === 1 ? undefined : (val - 1) * this.pageSize
+      this.gtePlayListComment(val)
     }
   }
 }
@@ -205,16 +216,16 @@ export default {
           margin-right: 15px;
         }
       }
+      &-top {
+        height: 33px;
+        align-items: center;
+      }
     }
   }
 }
-// .el-table__header-wrapper {
-//   /deep/ .header-class {
-//     border: 1px solid #ccc;
-//   }
-// }
 .el-table {
   border: 1px solid #ccc;
   border-top: 2px solid #c20c0c;
+  margin-bottom: 40px;
 }
 </style>

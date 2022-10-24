@@ -11,15 +11,15 @@
                   <el-button plain>全部风格</el-button>
                 </el-row>
                 <el-row>
-                  <el-col :span="6">
+                  <div class="categories-left">
                     <ul>
-                      <li>语种</li>
-                      <li>风格</li>
-                      <li>场景</li>
-                      <li>情感</li>
+                      <li v-for="(item, index) in catObj.categories" :key="index">
+                        <i />
+                        {{ item }}
+                      </li>
                     </ul>
-                  </el-col>
-                  <el-col :span="18" />
+                  </div>
+                  <div class="categories-right" />
                 </el-row>
               </div>
               <el-button slot="reference" class="ml20" plain>
@@ -30,25 +30,55 @@
           </el-row>
         </el-col>
         <el-col align="right">
-          <el-button>热门</el-button>
+          <el-button size="mini" style="backgroundColor: #b70a0b; color: #fff; border-radius: 5px">热门</el-button>
         </el-col>
       </el-row>
     </div>
     <div class="list-container">
-      <series-item />
+      <div v-for="item in toplistData" :key="item.id" class="list-item">
+        <play-list-item :item-obj="item">
+          <template slot="title">
+            <div class=" hover-underline pointer ellipsis" @click="gotoPlayDetail(item)">{{ item.name }}</div>
+            <div class="hover-underline pointer">by</div>
+          </template>
+        </play-list-item>
+      </div>
+      <el-pagination
+        class="pagination"
+        small
+        background
+        layout="prev, pager, next"
+        :page-size="pageParams.pageSize"
+        :current-page.sync="pageParams.currentPage"
+        :total="pageParams.total"
+        prev-text="< 上一页"
+        next-text="下一页 >"
+        @current-change="handleCurrentChange"
+      />
     </div>
   </div>
 </template>
 
 <script>
-import SeriesItem from '@/views/home/comonents/HotRecommend/SeriesItem'
-import { getCatList } from '@/api'
+import PlayListItem from '@/views/components/PlayListItem'
+import { getCatList, topPlayList } from '@/api'
 export default {
   name: '',
-  components: { SeriesItem },
+  components: { PlayListItem },
   data() {
     return {
-      toplistData: []
+      // 选择分类的数据
+      catObj: {
+        all: {},
+        categories: {},
+        sub: {}
+      },
+      toplistData: [],
+      pageParams: {
+        currentPage: 1,
+        pageSize: 50,
+        total: 0
+      }
     }
   },
   computed: {
@@ -56,25 +86,46 @@ export default {
   },
   created() {
     this.getInitData()
+    this.getTopListData()
   },
   methods: {
-    // 冒泡排序
-    arrSort(arr) {
-      arr = [2, 34, 5, 1, 9, 334] // arr.length = 6
-      for (let i = 0; i < arr.length - 1; i++) { // 这里少遍历一次是因为最后一次不用循环了
-        for (let j = 0; j < arr.length - i; j++) {
-          if (arr[j] < arr[j - 1]) { // 如果右边小于左边，那么交换位置
-            const temp = arr[j]
-            arr[j] = arr[j - 1]
-            arr[j - 1] = temp
-          }
-        }
-      }
-    },
     // 获取数据
     async getInitData() {
       const res = await getCatList()
-      console.log(res)
+      this.catObj.all = res.all
+      this.catObj.categories = res.categories
+      this.catObj.sub = res.sub
+    },
+    getTopListData(params) {
+      topPlayList(params).then(res => {
+        this.pageParams.total = res.total
+        this.toplistData = res.playlists.map(x => {
+          return {
+            ...x,
+            picUrl: x.coverImgUrl,
+            playCount: (x.playCount / 10000).toFixed(1)
+          }
+        })
+      })
+    },
+    handleCurrentChange(val) {
+      const params = {
+        offset: val * 50
+      }
+      console.log(params)
+      this.getTopListData(params)
+    },
+    // 跳转歌单详情
+    gotoPlayDetail(item) {
+      this.$router.push(
+        {
+          path: '/playlist',
+          query: {
+            id: item.id,
+            title: item.name
+          }
+        }
+      )
     }
   }
 }
@@ -85,12 +136,19 @@ export default {
   border: 1px solid #ccc;
   border-top: 0px;
   padding: 40px;
+  padding-bottom: 100px;
   .list-title {
     padding-bottom: 8px;
     border-bottom: 2px solid #c20c0c;
-    // .right .el-button {
-    //   background-color: #b70a0b;
-    //   color: #fff;
+  }
+  .list-item {
+    width: 20%;
+    display: inline-block;
+  }
+  .pagination {
+    text-align: center;
+    // /deep/.el-pager li:not(.disabled).active{
+    //   background-color: #A2161B !important;
     // }
   }
 }
@@ -99,6 +157,20 @@ export default {
   &-title {
     padding: 30px 20px 15px 26px;
     border-bottom: 1px solid #ccc;
+  }
+  .categories-left {
+    width: 96px;
+    text-align: right;
+    border-right: 1px solid #e6e6e6;
+    li {
+      display: inline-block;
+      width: 71px;
+      padding: 15px 0 0;
+      text-align: center;
+    }
+  }
+  .categories-right {
+    width: calc(100% - 96px);
   }
 }
 </style>

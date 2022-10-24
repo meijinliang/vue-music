@@ -19,10 +19,11 @@
 
 export default {
   inserted(el, binding) {
+    // 获取到文本内容
     const value = Number(el.innerText)
-    let m, s
-    m = Math.floor(value / 1000 / 60) < 10 ? '0' + Math.floor(value / 1000 / 60) : Math.floor(value / 1000 / 60)
-    s = value % 60 < 10 ? '0' + value % 60 : value % 60
-    el.innerText = `${m} : ${s}`
+    const m = Math.floor(value / 1000 / 60)
+    // 时间处理成秒 向下取整
+    const s = Math.floor(value / 1000) % 60
+    el.innerText = `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`
   }
 }

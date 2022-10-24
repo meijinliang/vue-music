@@ -5,7 +5,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '',
+    path: '/',
     name: 'topnav',
     redirect: 'home',
     component: () => import('@/layout'),
