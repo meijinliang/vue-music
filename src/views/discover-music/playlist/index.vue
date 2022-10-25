@@ -35,7 +35,7 @@
       </el-row>
     </div>
     <div class="list-container">
-      <div v-for="item in toplistData" :key="item.id" class="list-item">
+      <div v-for="item in playListData" :key="item.id" class="list-item">
         <play-list-item :item-obj="item">
           <template slot="title">
             <div class=" hover-underline pointer ellipsis" @click="gotoPlayDetail(item)">{{ item.name }}</div>
@@ -73,7 +73,8 @@ export default {
         categories: {},
         sub: {}
       },
-      toplistData: [],
+      // 歌单数据
+      playListData: [],
       pageParams: {
         currentPage: 1,
         pageSize: 50,
@@ -86,7 +87,7 @@ export default {
   },
   created() {
     this.getInitData()
-    this.getTopListData()
+    this.getplayListData()
   },
   methods: {
     // 获取数据
@@ -96,10 +97,10 @@ export default {
       this.catObj.categories = res.categories
       this.catObj.sub = res.sub
     },
-    getTopListData(params) {
+    getplayListData(params) {
       topPlayList(params).then(res => {
         this.pageParams.total = res.total
-        this.toplistData = res.playlists.map(x => {
+        this.playListData = res.playlists.map(x => {
           return {
             ...x,
             picUrl: x.coverImgUrl,
@@ -112,8 +113,7 @@ export default {
       const params = {
         offset: val * 50
       }
-      console.log(params)
-      this.getTopListData(params)
+      this.getplayListData(params)
     },
     // 跳转歌单详情
     gotoPlayDetail(item) {

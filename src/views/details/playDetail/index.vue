@@ -127,9 +127,7 @@
               <el-table-column label="歌手" width="90">
                 <template v-slot="{row}">
                   <div class="ellipsis">
-                    <span v-for="(item, index) in row.ar" :key="item.id">{{ item.name }}
-                      <span v-if="index !== row.ar.length - 1"> / </span>
-                    </span>
+                    <span :title="row.ar.map(x => x.name).join('/')">{{row.ar.map(x => x.name).join('/')}}</span>
                   </div>
                 </template>
               </el-table-column>
@@ -269,10 +267,12 @@ export default {
     // 跳转歌曲详情页
     checkSongDetail(row) {
       this.$router.push({
-        path: 'song',
+        name: 'song',
         query: {
-          id: row.id,
-          title: row.name
+          id: row.id
+        },
+        params: {
+          pageTitle: `${row.name} - ${row.ar.map(x => x.name).join('/')}`
         }
       })
     }

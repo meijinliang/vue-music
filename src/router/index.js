@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { HomeRouter } from './home-router'
+import { getPageTitle } from '@/utils/getTitle.js'
 Vue.use(VueRouter)
 
 const routes = [
@@ -12,9 +13,6 @@ const routes = [
     children: [{
       path: 'home',
       name: 'home',
-      meta: {
-        title: '首页'
-      },
       // import 异步加载
       component: () => import('@/views/home')
     }]
@@ -46,12 +44,15 @@ const router = new VueRouter({
   // base: process.env.BASE_URL,
   routes
 })
+
 router.beforeEach((to, from, next) => {
-  if (['/playlist', '/song'].includes(to.path)) {
-    document.title = to.query.title
-  }
-  if (to.meta.title) {
-    document.title = to.meta.title
+  if (to.params.pageTitle) { // 页面跳转带的参数展示到浏览器标题中
+    let title = ''
+    title = to?.meta?.title ? `${to.params.pageTitle} - ${to.meta.title}` : to.params.pageTitle
+    document.title = getPageTitle(title)
+  } else {
+    // 设置浏览器的标题
+    document.title = getPageTitle(to?.meta?.title)
   }
   next()
 })

@@ -50,11 +50,17 @@ export const HomeRouter = [
   {
     path: 'playlist', // 歌单详情
     name: 'playlist',
+    meta: {
+      title: '歌单'
+    },
     component: () => import('@/views/details/playDetail')
   },
   {
     path: 'song', // 歌曲详情
     name: 'song',
+    meta: {
+      title: '单曲'
+    },
     component: () => import('@/views/details/songDetail')
   },
   {

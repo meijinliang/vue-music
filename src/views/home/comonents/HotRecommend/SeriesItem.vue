@@ -35,13 +35,14 @@ export default {
   },
   methods: {
     handleClick(item) {
-      console.log(item)
       this.$router.push(
         {
-          path: `playlist`,
+          name: 'playlist',
           query: {
-            id: item.id,
-            title: item.name
+            id: item.id
+          },
+          params: {
+            pageTitle: item.name
           }
         }
       )
