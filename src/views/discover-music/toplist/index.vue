@@ -123,6 +123,14 @@ export default {
       })
     }
   },
+  watch: {
+    '$route.query.id'(val, oldVal) {
+      if (val && val !== oldVal) {
+        this.currentListId = Number(val)
+        this.getListDetail()
+      }
+    }
+  },
   async created() {
     await this.getTopList()
   },
@@ -137,8 +145,12 @@ export default {
     },
     // 切换排行榜榜单
     changeCurrentListId(id) {
-      this.currentListId = id
-      this.getListDetail()
+      this.$router.push({
+        path: '/discover/toplist',
+        query: {
+          id
+        }
+      })
     },
     // 获取榜单详情
     getListDetail() {

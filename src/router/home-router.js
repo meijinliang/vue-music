@@ -48,14 +48,19 @@ export const HomeRouter = [
     component: () => import('@/views/discover-music/album')
   },
   {
-    path: 'playlist',
+    path: 'playlist', // 歌单详情
     name: 'playlist',
-    component: () => import('@/views/play-list')
+    component: () => import('@/views/details/playDetail')
   },
   {
-    path: 'song',
+    path: 'song', // 歌曲详情
     name: 'song',
-    component: () => import('@/views/song-detail')
+    component: () => import('@/views/details/songDetail')
+  },
+  {
+    path: 'artist', // 歌曲详情
+    name: 'artist',
+    component: () => import('@/views/details/artistDetail')
   },
   {
     path: 'demo',
