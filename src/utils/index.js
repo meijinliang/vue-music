@@ -106,6 +106,28 @@ export function extendDownload(data, fileName) {
   window.URL.revokeObjectURL(link)
 }
 
+export function downloadFile(response, fileNameIn, blobTyype) {
+  let fileName = fileNameIn
+  let blob
+  blob = blobTyype ? new Blob([response.data], { type: blobTyype }) : new Blob([response.data])
+  if (!fileName) {
+    // decodeURI mdn上只有一个传参 所有后面的utf-8的作用是什么
+    fileName = window.decodeURI(response.header['content-disposition'].split('fileName=')[1], 'UTF-8')
+  }
+  if (typeof window.navigator.msSaveBlob !== 'undefined') {
+    window.navigator.msSaveBlob(blob, fileName)
+  } else {
+    const url = window.URL.createObjectURL(blob) // 将blob对象转为一个url
+    const link = document.createElement('a') // 创建一个a标签
+    link.href = url
+    link.setAttribute('download', fileName) // 给a标签添加下载属性
+    document.body.appendChild(link) // 将a标签添加到body当中
+    link.click()
+    document.body.removeChild(link) // 下载完毕删除a标签
+    window.URL.revokeObjectURL(link)
+  }
+}
+
 /**
  * 歌曲的总毫秒数转换成分秒
  * @param val 总毫秒数

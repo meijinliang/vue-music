@@ -43,9 +43,11 @@ export function getCatList() {
 }
 
 // 热门歌单分类
-export function topPlayList() {
+export function topPlayList(params) {
   return request({
-    url: '/top/playlist'
+    url: '/top/playlist',
+    method: 'get',
+    params
   })
 }
 
