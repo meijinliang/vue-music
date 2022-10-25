@@ -498,7 +498,7 @@ export default {
 }
 .icon {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
   vertical-align: -5px;
 }
 .index {
