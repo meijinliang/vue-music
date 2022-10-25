@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-for="item in dataSource" :key="item.id" class="item pointer" :class="currentListId === item.id ? 'selected' : ''" @click="chooseList(item.id)">
+    <div v-for="item in dataSource" :key="item.id" class="item pointer" :class="{selected: currentListId === item.id}" @click="chooseList(item.id)">
       <div class="item-left">
         <img :src="item.coverImgUrl" alt="">
       </div>
