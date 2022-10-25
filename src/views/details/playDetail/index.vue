@@ -127,7 +127,7 @@
               <el-table-column label="歌手" width="90">
                 <template v-slot="{row}">
                   <div class="ellipsis">
-                    <span :title="row.ar.map(x => x.name).join('/')">{{row.ar.map(x => x.name).join('/')}}</span>
+                    <span :title="row.ar.map(x => x.name).join('/')">{{ row.ar.map(x => x.name).join('/') }}</span>
                   </div>
                 </template>
               </el-table-column>

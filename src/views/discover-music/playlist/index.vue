@@ -11,15 +11,20 @@
                   <el-button plain>全部风格</el-button>
                 </el-row>
                 <el-row>
-                  <div class="categories-left">
-                    <ul>
-                      <li v-for="(item, index) in catObj.categories" :key="index">
-                        <i />
+                  <div class="categories">
+                    <dl v-for="(item, index) in catObj.categories" :key="index">
+                      <dt>
+                        <!-- <i class="categories-icon" /> -->
                         {{ item }}
-                      </li>
-                    </ul>
+                      </dt>
+                      <dd :class="{mb24: Object.keys(catObj.categories).length - 1 == index}">
+                        <span v-for="(subItem, subIndex) in catObj.sub[index]" :key="subIndex">
+                          <a class="hover-underline" @click="choiceCategory(subItem)">{{ subItem.name }}</a>
+                          <span class="line">|</span>
+                        </span>
+                      </dd>
+                    </dl>
                   </div>
-                  <div class="categories-right" />
                 </el-row>
               </div>
               <el-button slot="reference" class="ml20" plain>
@@ -38,8 +43,12 @@
       <div v-for="item in playListData" :key="item.id" class="list-item">
         <play-list-item :item-obj="item">
           <template slot="title">
-            <div class=" hover-underline pointer ellipsis" @click="gotoPlayDetail(item)">{{ item.name }}</div>
-            <div class="hover-underline pointer">by</div>
+            <div class="hover-underline ellipsis" @click="gotoPlayDetail(item)">{{ item.name }}</div>
+            <div class="play-creator">
+              <span>by </span>
+              <a class="hover-underline ellipsis" :title="item.creator.nickname">{{ item.creator.nickname }}</a>
+              <img v-if="item.creator.avatarDetail" class="inline-block" :src="item.creator.avatarDetail.identityIconUrl" alt="">
+            </div>
           </template>
         </play-list-item>
       </div>
@@ -82,21 +91,33 @@ export default {
       }
     }
   },
-  computed: {
-
+  watch: {
+    '$route.query'(val, oldVal) {
+      // 监听$route.query 点击同一个的话会出现控制台报错
+      let isChange = false
+      for (const k in val) {
+        if (val[k] !== oldVal[k]) {
+          isChange = true
+        }
+      }
+      console.log(isChange)
+    }
   },
   created() {
     this.getInitData()
     this.getplayListData()
   },
   methods: {
-    // 获取数据
+    // 获取分类数据
     async getInitData() {
       const res = await getCatList()
       this.catObj.all = res.all
       this.catObj.categories = res.categories
-      this.catObj.sub = res.sub
+      for (const k in res.categories) {
+        this.catObj.sub[k] = res.sub.filter(x => x.category === Number(k))
+      }
     },
+    // 获取歌单数据
     getplayListData(params) {
       topPlayList(params).then(res => {
         this.pageParams.total = res.total
@@ -115,14 +136,27 @@ export default {
       }
       this.getplayListData(params)
     },
+    // 选择分类
+    choiceCategory(item) {
+      this.$router.push({
+        name: 'discover-playlist',
+        query: {
+          cat: item.name,
+          order: 'hot'
+        }
+      })
+      location.reload()
+    },
     // 跳转歌单详情
     gotoPlayDetail(item) {
       this.$router.push(
         {
-          path: '/playlist',
+          name: 'playlist',
           query: {
-            id: item.id,
-            title: item.name
+            id: item.id
+          },
+          params: {
+            pageTitle: item.name
           }
         }
       )
@@ -145,11 +179,25 @@ export default {
     width: 20%;
     display: inline-block;
   }
+  .play-creator {
+    span {
+      color: #999;
+      vertical-align: bottom;
+    }
+    a {
+      display: inline-block;
+      max-width: 90px;
+      vertical-align: middle;
+      margin-right: 3px;
+    }
+    img {
+      width: 13px;
+      height: 13px;
+      vertical-align: middle;
+    }
+  }
   .pagination {
     text-align: center;
-    // /deep/.el-pager li:not(.disabled).active{
-    //   background-color: #A2161B !important;
-    // }
   }
 }
 .popover-class {
@@ -158,19 +206,34 @@ export default {
     padding: 30px 20px 15px 26px;
     border-bottom: 1px solid #ccc;
   }
-  .categories-left {
-    width: 96px;
-    text-align: right;
-    border-right: 1px solid #e6e6e6;
-    li {
+  .categories {
+    &-icon {
       display: inline-block;
-      width: 71px;
-      padding: 15px 0 0;
-      text-align: center;
+      width: 23px;
+      height: 23px;
+      background-position: -20px -735px;
     }
-  }
-  .categories-right {
-    width: calc(100% - 96px);
+    dt {
+      float: left;
+      display: inline;
+      text-align: center;
+      width: 70px;
+      margin: 0 -100px 0 26px;
+      padding-top: 15px;
+      border-right: 1px solid #e6e6e6;
+      font-weight: bold;
+    }
+    dd {
+      margin-left: 96px;
+      padding: 16px 15px 0 15px;
+      border-left: 1px solid #e6e6e6;
+      line-height: 24px;
+      font-size: 12px;
+      .line {
+        margin: 0 8px 0 10px;
+        color: #d8d8d8;
+      }
+    }
   }
 }
 </style>
