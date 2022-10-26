@@ -6,25 +6,26 @@
       <div class="g-sd">
         <div>
           <h2 class="g-sd-1">云音乐特色榜</h2>
-          <list-item :data-source="musicFeaturelist" :current-list-id="currentListId" @choose="changeCurrentListId" />
+          <list-item :data-source="musicFeaturelist" :current-list-id="currentListId" @choose="changeCurrentList" />
         </div>
         <div>
           <h2 class="g-sd-1 mt16">全球媒体榜</h2>
-          <list-item :data-source="globalMediaList" :current-list-id="currentListId" @choose="changeCurrentListId" />
+          <list-item :data-source="globalMediaList" :current-list-id="currentListId" @choose="changeCurrentList" />
         </div>
       </div>
     </div>
     <!-- 右边榜单详情 -->
     <div class="toplist-right">
-      <div class="toplist-wrap1">
-        <div class="cover-bg cover text-center">
-          <img :src="playList.coverImgUrl" alt="">
+      <div class="toplist-wrap1 clearfix">
+        <div class="cover">
+          <img :src="current.coverImgUrl" alt="">
         </div>
-        <div>
-          <h3>{{ playList.name }}</h3>
-          <div>
-            <i />
-            <span>最近更新：{{ updateTime }}</span>
+        <div class="toplist-wrap1-detail">
+          <h3>{{ current.name }}</h3>
+          <div class="update-time">
+            <i class="el-icon-time" />
+            <span class="ml8">最近更新：{{ formatDate(current.updateTime) }}</span>
+            <span class="tc-9">（{{ current.updateFrequency }}）</span>
           </div>
         </div>
       </div>
@@ -95,10 +96,9 @@ export default {
       topList: [],
       // 当前选中的榜单
       currentListId: -1,
+      current: {},
       // 右边对应榜单的详情
       playList: {},
-      // 榜单最近更新时间
-      updateTime: '',
       // 加载表格列表
       loading: false,
       // 表格数据
@@ -127,7 +127,7 @@ export default {
     '$route.query.id'(val, oldVal) {
       if (val && val !== oldVal) {
         this.currentListId = Number(val)
-        this.getListDetail()
+        this.getPlayDetailAndComment()
       }
     }
   },
@@ -135,43 +135,41 @@ export default {
     await this.getTopList()
   },
   methods: {
+    formatDate(val) {
+      return parseTime(new Date(val), '{y}年{m}月{d}日')
+    },
     // 发现音乐-排行榜-各榜单列表
     async getTopList() {
       const res = await this.$store.dispatch('getToplist')
       this.topList = res.list || []
       this.currentListId = res.list[0]?.id
-      this.getListDetail()
-      await this.gtePlayListComment()
+      this.current = res.list[0]
+      console.log(this.current)
+      this.getPlayDetailAndComment()
     },
     // 切换排行榜榜单
-    changeCurrentListId(id) {
+    changeCurrentList(row) {
+      this.current = row
       this.$router.push({
         path: '/discover/toplist',
         query: {
-          id
+          id: row.id
         }
       })
     },
-    // 获取榜单详情
-    getListDetail() {
+
+    // 获取歌单详情和评论
+    getPlayDetailAndComment(offset) {
       this.loading = true
-      playListDetail(this.currentListId).then(res => {
-        this.playList = res?.playlist
-        this.tableData = res?.playlist.tracks
-        this.updateTime = parseTime(new Date(this.playList.trackUpdateTime), '{y}年{m}月{d}日')
-      }).finally(() => {
-        this.loading = false
-      })
-    },
-    // 获取歌单评论
-    gtePlayListComment(offset) {
-      // limit 默认取20条评论
-      const params = {
+      Promise.all([playListDetail(this.currentListId), playListComment({
         id: this.currentListId,
         offset
-      }
-      playListComment(params).then(res => {
-        this.commentDetail = res
+      })]).then(res => {
+        this.playList = res[0]?.playlist
+        this.tableData = res[0]?.playlist.tracks
+        this.commentDetail = res[1]
+      }).finally(() => {
+        this.loading = false
       })
     },
     // 分页切换
@@ -200,22 +198,35 @@ export default {
     flex: 1;
     border-right: 1px solid #ccc;
     .toplist-wrap1 {
-      padding: 24px;
-      display: flex;
+      padding: 40px;
       .cover {
+        float: left;
+        box-sizing: border-box;
         width: 158px;
         height: 158px;
-        background-position: -230px -380px;
+        padding: 3px;
+        border: 1px solid #ccc;
         img {
           width: 150px;
           height: 150px;
-          margin-top: 50%;
-          transform: translateY(-50%);
+        }
+      }
+      &-detail {
+        margin-left: 187px;
+        h3 {
+          line-height: 24px;
+          font-size: 20px;
+          font-weight: normal;
+          margin: 16px 0 4px;
+        }
+        .update-time {
+          margin: 0 0 20px;
+          line-height: 35px;
         }
       }
     }
     .toplist-wrap2 {
-      padding: 0 24px;
+      padding: 0 30px 40px 40px;
       .play-count {
         line-height: 24px;
       }
