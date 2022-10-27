@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 
+import LinkTo from '@/components/LinkTo'
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import './assets/icons' // icon
@@ -18,6 +19,8 @@ import '@/assets/style/index.scss'
 
 Vue.prototype.$moment = moment
 Vue.prototype._ = lodash
+
+Vue.component('LinkTo', LinkTo)
 // Vue.use(moment)
 Vue.use(install)
 Vue.use(Element, { size: 'small' })

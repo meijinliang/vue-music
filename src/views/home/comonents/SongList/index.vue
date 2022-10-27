@@ -1,7 +1,13 @@
 <template>
   <div class="song-list">
-    <series-header title="榜单" />
-    <list-item v-if="topList.length !== 0" :top-list="topList" />
+    <series-header
+      title="榜单"
+      type="discover-toplist"
+    />
+    <list-item
+      v-if="topList.length !== 0"
+      :top-list="topList"
+    />
   </div>
 </template>
 

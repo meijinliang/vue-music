@@ -2,15 +2,25 @@
   <div class="basic-container song">
     <el-row>
       <!-- 左侧歌单详情 -->
-      <el-col v-loading="loading" :span="18" class="song-left">
+      <el-col
+        v-loading="loading"
+        :span="18"
+        class="song-left"
+      >
         <div class="cnt clearfix">
           <div class="fl pr">
             <div class="cnt-img">
-              <img :src="songDetail.al.picUrl" :alt="songDetail.al.name">
+              <img
+                :src="songDetail.al.picUrl"
+                :alt="songDetail.al.name"
+              >
               <span class="cover-bg" />
             </div>
             <div class="mt20 text-center">
-              <svg-icon style="font-size: 14px; margin-right: 2px" icon-class="music" />
+              <svg-icon
+                style="font-size: 14px; margin-right: 2px"
+                icon-class="music"
+              />
               <a class="link">生成外链播放器</a>
             </div>
           </div>
@@ -33,32 +43,50 @@
             <div class="cnt-detail-opration-btn">
               <span class="play mr8">
                 <a title="播放">
-                  <svg-icon class="icon" icon-class="play" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="play"
+                  />
                   播放
                 </a>
-                <a class="plus" title="添加到播放列表"> + </a>
+                <a
+                  class="plus"
+                  title="添加到播放列表"
+                > + </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="file" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="file"
+                  />
                   (收藏)
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="share" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="share"
+                  />
                   (分享)
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="download" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="download"
+                  />
                   下载
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="chat-dot-square" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="chat-dot-square"
+                  />
                   ({{ commentDetail.total }})
                 </a>
               </span>
@@ -70,9 +98,16 @@
         </div>
 
         <!-- 评论 -->
-        <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
+        <comment
+          v-if="JSON.stringify(commentDetail) != '{}'"
+          :detail="commentDetail"
+          @page="handleCurrentChange"
+        />
       </el-col>
-      <el-col :span="6" class="song-right">
+      <el-col
+        :span="6"
+        class="song-right"
+      >
         <!-- 喜欢歌单的用户 -->
         <div class="users">
           <h5 class="right-title">包含这首歌的歌单</h5>
@@ -87,10 +122,26 @@
         <div class="simi-song">
           <h5 class="right-title">相似歌曲</h5>
           <ul class="simi-song-wrapper">
-            <li v-for="(item, index) in simiSongList" :key="index" class="item clearfix">
+            <li
+              v-for="(item, index) in simiSongList"
+              :key="index"
+              class="item clearfix"
+            >
               <div class="text">
                 <div class="ellipsis">
-                  <a class="hover-underline">{{ item.name }}</a>
+                  <!-- <link-to
+                    type="song"
+                    :title="item.name"
+                    :data="{
+                      query: {
+                        id: item.id
+                      },
+                      params: {
+                        pageTitle: `${item.name} - ${item.artists[0].name}`
+                      }
+                    }"
+                  /> -->
+                  <a>{{item.name}}</a>
                 </div>
                 <div class="tc-9">
                   <a class="hover-underline">{{ item.artists[0].name }}</a>
@@ -128,7 +179,12 @@
 <script>
 import Comment from '@/views/components/comment'
 import ShrinkWrap from '@/views/components/ShrinkWrap'
-import { getSongDetail, getMusicComment, getLyric, getSimiSong } from '@/api/music'
+import {
+  getSongDetail,
+  getMusicComment,
+  getLyric,
+  getSimiSong
+} from '@/api/music'
 export default {
   name: '',
   components: { Comment, ShrinkWrap },
@@ -181,8 +237,9 @@ export default {
     },
     // 获取相似歌曲
     getSimiSong() {
-      getSimiSong({ id: this.$route.query.id }).then(res => {
+      getSimiSong({ id: this.$route.query.id }).then((res) => {
         this.simiSongList = res.songs
+        console.log(this.simiSongList)
       })
     },
     // 分页切换
@@ -289,7 +346,7 @@ export default {
     }
     .simi-song {
       &-wrapper {
-        padding:10px 0;
+        padding: 10px 0;
         .item {
           margin-top: 10px;
           .text {

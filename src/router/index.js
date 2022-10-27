@@ -2,7 +2,14 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import { HomeRouter } from './home-router'
 import { getPageTitle } from '@/utils/getTitle.js'
+
 Vue.use(VueRouter)
+// 解决路由重复跳转，控制台报错问题
+const originalPush = VueRouter.prototype.push
+VueRouter.prototype.push = function push(location, onResolve, onReject) {
+  if (onResolve || onReject) { return originalPush.call(this, location, onResolve, onReject) }
+  return originalPush.call(this, location).catch(err => err)
+}
 
 const routes = [
   {

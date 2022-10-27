@@ -1,3 +1,5 @@
+
+/*评论*/
 <template>
   <div class="album-comment">
     <div class="album-comment-header">
@@ -6,11 +8,18 @@
     </div>
     <div class="album-comment-content clearfix">
       <span class="fl">
-        <img :src="avatarUrl" alt="">
+        <img :src="avatarUrl">
       </span>
       <div class="comment">
         <!-- <input type="textarea"> -->
-        <el-input class="pr" type="textarea" placeholder="评论" :maxlength="140" show-word-limit :rows="3" />
+        <el-input
+          class="pr"
+          type="textarea"
+          placeholder="评论"
+          :maxlength="140"
+          show-word-limit
+          :rows="3"
+        />
         <div class="mt8">
           <a class="submmit fr">提交</a>
         </div>
@@ -19,7 +28,10 @@
     <!-- 评论 -->
     <div>
       <h3 v-if="detail.hotComments.length">精彩评论</h3>
-      <comment-item v-if="detail.hotComments.length" :comment-list="detail.hotComments" />
+      <comment-item
+        v-if="detail.hotComments.length"
+        :comment-list="detail.hotComments"
+      />
       <h3 v-if="detail.comments.length && currentPage == 1">最新评论({{ detail.total }})</h3>
       <comment-item :comment-list="detail.comments" />
     </div>
@@ -59,7 +71,10 @@ export default {
   },
   computed: {
     avatarUrl() {
-      return this.$store.state.user.profile?.avatarUrl || '../../../assets/img/default_avatar.jpg'
+      return (
+        this.$store.state.user.profile?.avatarUrl ||
+        require('../../../assets/img/default_avatar.jpg')
+      )
     }
   },
   created() {
@@ -103,8 +118,8 @@ export default {
       .submmit:hover {
         color: #297ac7;
       }
-
-      .el-textarea::before,.el-textarea::after {
+      .el-textarea::before,
+      .el-textarea::after {
         content: ' ';
         position: absolute;
         right: 100%;
@@ -113,20 +128,19 @@ export default {
         border: solid transparent;
       }
       .el-textarea::before {
-        top:14px;
-        border-width:10px;
-        border-right-color:#DCDFE6;
+        top: 14px;
+        border-width: 10px;
+        border-right-color: #dcdfe6;
       }
       .el-textarea:hover:before {
-        border-right-color:#C0C4CC;
+        border-right-color: #c0c4cc;
       }
       .el-textarea::after {
-        top:16px;
-        border-width:8px;
-        border-right-color:#fff;
+        top: 16px;
+        border-width: 8px;
+        border-right-color: #fff;
       }
     }
   }
-
 }
 </style>

@@ -3,16 +3,28 @@
     <div class="left">
       <span class="header-title ">{{ title }}</span>
     </div>
-    <div ref="items" class="center">
+    <div
+      ref="items"
+      class="center"
+    >
       <slot name="items" />
     </div>
-    <div class="more pointer v-bg">更多</div>
+    <div class="more v-bg">
+      <link-to
+        :type="type"
+        title="更多"
+      />
+    </div>
   </div>
 </template>
 <script>
 export default {
   props: {
     title: {
+      type: String,
+      required: true
+    },
+    type: {
       type: String,
       required: true
     }

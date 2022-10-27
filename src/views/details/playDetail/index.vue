@@ -3,10 +3,17 @@
   <div class="basic-container album">
     <el-row>
       <!-- 左侧歌单详情 -->
-      <el-col v-loading="loading" :span="18" class="album-left">
+      <el-col
+        v-loading="loading"
+        :span="18"
+        class="album-left"
+      >
         <div class="cnt clearfix">
           <div class="cnt-img ">
-            <img :src="albumDetail.coverImgUrl" :alt="albumDetail.description">
+            <img
+              :src="albumDetail.coverImgUrl"
+              :alt="albumDetail.description"
+            >
             <span class="cover-bg" />
           </div>
 
@@ -18,10 +25,19 @@
               </div>
             </div>
             <div class="cnt-detail-creator">
-              <img class="inline-block pointer" :src="albumDetail.creator.avatarUrl" alt="">
+              <img
+                class="inline-block pointer"
+                :src="albumDetail.creator.avatarUrl"
+                alt=""
+              >
               <span class="cnt-detail-creator-name">
                 <a> {{ albumDetail.creator.nickname }} </a>
-                <img v-if="albumDetail.creator.avatarDetail" class="inline-block" :src="albumDetail.creator.avatarDetail.identityIconUrl" alt="">
+                <img
+                  v-if="albumDetail.creator.avatarDetail"
+                  class="inline-block"
+                  :src="albumDetail.creator.avatarDetail.identityIconUrl"
+                  alt=""
+                >
               </span>
               <span class="cnt-detail-creator-time">
                 {{ parseTime(albumDetail.createTime, '{y}-{m}-{d}') }} 创建
@@ -32,34 +48,52 @@
             <div class="cnt-detail-opration-btn">
               <span class="play mr8">
                 <a title="播放">
-                  <svg-icon class="icon" icon-class="play" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="play"
+                  />
                   播放
                 </a>
-                <a class="plus" title="添加到播放列表">
+                <a
+                  class="plus"
+                  title="添加到播放列表"
+                >
                   +
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="file" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="file"
+                  />
                   ({{ albumDetail.subscribedCount }})
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="share" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="share"
+                  />
                   ({{ albumDetail.shareCount }})
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="download" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="download"
+                  />
                   下载
                 </a>
               </span>
               <span class="button mr8">
                 <a>
-                  <svg-icon class="icon" icon-class="chat-dot-square" />
+                  <svg-icon
+                    class="icon"
+                    icon-class="chat-dot-square"
+                  />
                   ({{ albumDetail.commentCount }})
                 </a>
               </span>
@@ -68,11 +102,18 @@
             <!-- 歌单标签 -->
             <div class="cnt-detail-tags">
               <span>标签：</span>
-              <a v-for="(item, index) in albumDetail.tags" :key="index" class="cnt-detail-tags-item mr8"> {{ item }}</a>
+              <a
+                v-for="(item, index) in albumDetail.tags"
+                :key="index"
+                class="cnt-detail-tags-item mr8"
+              > {{ item }}</a>
             </div>
 
             <!-- 歌单描述 -->
-            <shrink-wrap :value="albumDetail.description" :height="72" />
+            <shrink-wrap
+              :value="albumDetail.description"
+              :height="72"
+            />
           </div>
         </div>
 
@@ -91,50 +132,102 @@
           <!-- 具体歌曲 -->
           <div class="album-list-content">
             <!-- 歌单歌曲列表 -->
-            <el-table class="my-table" :data="albumDetail.tracks" stripe :header-row-class-name="headerClassName">
-              <el-table-column type="index" width="80">
+            <el-table
+              class="my-table"
+              :data="albumDetail.tracks"
+              stripe
+              :header-row-class-name="headerClassName"
+            >
+              <el-table-column
+                type="index"
+                width="80"
+              >
                 <template v-slot="{row, $index}">
                   <span class="index">{{ $index + 1 }}</span>
-                  <svg-icon class="icon fr pointer a-icon" icon-class="play-black" />
+                  <svg-icon
+                    class="icon fr pointer a-icon"
+                    icon-class="play-black"
+                  />
                 </template>
               </el-table-column>
-              <el-table-column label="歌曲标题" prop="name">
+              <el-table-column
+                label="歌曲标题"
+                prop="name"
+              >
                 <template v-slot="{row}">
                   <div class="ellipsis">
-                    <a class="hover-underline" :title="row.name" @click="checkSongDetail(row)">{{ row.name }}</a>
+                    <link-to
+                      type="song"
+                      :title="row.name"
+                      :data="{
+                        query: {
+                          id: row.id
+                        },
+                        params: {
+                          pageTitle: `${row.name} - ${row.ar.map((x) => x.name).join('/')}`
+                        }
+                      }"
+                    />
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="时长" width="110">
+              <el-table-column
+                label="时长"
+                width="110"
+              >
                 <template v-slot="{row}">
-                  <span v-time class="table-oprate-time"> {{ row.dt }} </span>
+                  <span
+                    v-time
+                    class="table-oprate-time"
+                  > {{ row.dt }} </span>
                   <div class="table-oprate-btn">
-                    <a class="a-icon" title="添加到播放列表">
+                    <a
+                      class="a-icon"
+                      title="添加到播放列表"
+                    >
                       +
                     </a>
-                    <a class="a-icon" title="收藏">
+                    <a
+                      class="a-icon"
+                      title="收藏"
+                    >
                       <svg-icon icon-class="file" />
                     </a>
-                    <a class="a-icon" title="分享">
+                    <a
+                      class="a-icon"
+                      title="分享"
+                    >
                       <svg-icon icon-class="share" />
                     </a>
-                    <a class="a-icon" title="下载">
+                    <a
+                      class="a-icon"
+                      title="下载"
+                    >
                       <svg-icon icon-class="download" />
                     </a>
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="歌手" width="90">
+              <el-table-column
+                label="歌手"
+                width="90"
+              >
                 <template v-slot="{row}">
                   <div class="ellipsis">
                     <span :title="row.ar.map(x => x.name).join('/')">{{ row.ar.map(x => x.name).join('/') }}</span>
                   </div>
                 </template>
               </el-table-column>
-              <el-table-column label="专辑" width="130">
+              <el-table-column
+                label="专辑"
+                width="130"
+              >
                 <template v-slot="{row}">
                   <div class="ellipsis">
-                    <a class="hover-underline" :title="row.al.name">{{ row.al.name }}</a>
+                    <a
+                      class="hover-underline"
+                      :title="row.al.name"
+                    >{{ row.al.name }}</a>
                   </div>
                 </template>
               </el-table-column>
@@ -150,15 +243,28 @@
         </div>
 
         <!-- 评论 -->
-        <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
+        <comment
+          v-if="JSON.stringify(commentDetail) != '{}'"
+          :detail="commentDetail"
+          @page="handleCurrentChange"
+        />
       </el-col>
-      <el-col :span="6" class="album-right">
+      <el-col
+        :span="6"
+        class="album-right"
+      >
         <!-- 喜欢歌单的用户 -->
         <div class="users">
           <h5 class="right-title">喜欢这个歌单的人</h5>
           <div class="users-wrapper">
-            <a v-for="item in albumDetail.subscribers" :key="item.userId">
-              <img :src="item.avatarUrl" :title="item.nickname">
+            <a
+              v-for="item in albumDetail.subscribers"
+              :key="item.userId"
+            >
+              <img
+                :src="item.avatarUrl"
+                :title="item.nickname"
+              >
             </a>
           </div>
         </div>
@@ -167,15 +273,25 @@
         <div class="hot-play">
           <h5 class="right-title">热门歌单</h5>
           <ul class="hot-play-wrapper">
-            <li v-for="(item, index) in topPlayList" :key="index" class="item">
+            <li
+              v-for="(item, index) in topPlayList"
+              :key="index"
+              class="item"
+            >
               <a :title="item.name">
                 <img :src="item.coverImgUrl">
               </a>
               <a class="title">
-                <span class="ellipsis" :title="item.name">{{ item.name }}</span>
+                <span
+                  class="ellipsis"
+                  :title="item.name"
+                >{{ item.name }}</span>
                 <span class="tc-6">
                   by -{{ item.creator.nickname }}
-                  <img v-if="item.creator.avatarDetail" :src="item.creator.avatarDetail.identityIconUrl">
+                  <img
+                    v-if="item.creator.avatarDetail"
+                    :src="item.creator.avatarDetail.identityIconUrl"
+                  >
                 </span>
               </a>
             </li>
@@ -251,7 +367,7 @@ export default {
         id: this.$route.query.id,
         offset
       }
-      playListComment(params).then(res => {
+      playListComment(params).then((res) => {
         this.commentDetail = res
       })
     },
@@ -272,13 +388,12 @@ export default {
           id: row.id
         },
         params: {
-          pageTitle: `${row.name} - ${row.ar.map(x => x.name).join('/')}`
+          pageTitle: `${row.name} - ${row.ar.map((x) => x.name).join('/')}`
         }
       })
     }
   }
 }
-
 </script>
 <style lang="scss" scoped>
 .album {
@@ -442,7 +557,7 @@ export default {
       }
     }
     .hot-play {
-      &-wrapper{
+      &-wrapper {
         padding: 20px 0;
         .item {
           display: flex;
@@ -498,7 +613,7 @@ export default {
 }
 .icon {
   font-weight: 600;
-  font-size: 18px;
+  font-size: 16px;
   vertical-align: -5px;
 }
 .index {
