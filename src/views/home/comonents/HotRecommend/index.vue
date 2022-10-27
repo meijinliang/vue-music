@@ -1,9 +1,15 @@
 <template>
   <div class="hot-recmend">
-    <series-header title="热门推荐">
+    <series-header
+      title="热门推荐"
+      type="discover-playlist"
+    >
       <div slot="items">
         <ul>
-          <li v-for="(item,index) in hotRecmendItem" :key="index">
+          <li
+            v-for="(item,index) in hotRecmendItem"
+            :key="index"
+          >
             <span class="pointer">{{ item }}</span>
           </li>
         </ul>
@@ -34,7 +40,7 @@ export default {
       const params = 8
       const res = await personalized(params)
       this.recommendedSongList = res.result
-      this.recommendedSongList.forEach(item => {
+      this.recommendedSongList.forEach((item) => {
         item.playCount = (item.playCount / 10000).toFixed(1)
       })
     }
