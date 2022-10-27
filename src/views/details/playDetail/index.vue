@@ -156,22 +156,17 @@
               >
                 <template v-slot="{row}">
                   <div class="ellipsis">
-                    <!-- <a
-                      class="hover-underline"
-                      :title="row.name"
-                      @click="checkSongDetail(row)"
-                    >{{ row.name }}</a> -->
                     <link-to
                       type="song"
                       :title="row.name"
                       :data="{
-                      query: {
-                        id: row.id
-                      },
-                      params: {
-                        pageTitle: `${row.name} - ${row.ar.map((x) => x.name).join('/')}`
-                      }
-                    }"
+                        query: {
+                          id: row.id
+                        },
+                        params: {
+                          pageTitle: `${row.name} - ${row.ar.map((x) => x.name).join('/')}`
+                        }
+                      }"
                     />
                   </div>
                 </template>

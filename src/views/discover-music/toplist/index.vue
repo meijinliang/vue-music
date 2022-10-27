@@ -6,11 +6,19 @@
       <div class="g-sd">
         <div>
           <h2 class="g-sd-1">云音乐特色榜</h2>
-          <list-item :data-source="musicFeaturelist" :current-list-id="currentListId" @choose="changeCurrentList" />
+          <list-item
+            :data-source="musicFeaturelist"
+            :current-list-id="currentListId"
+            @choose="changeCurrentList"
+          />
         </div>
         <div>
           <h2 class="g-sd-1 mt16">全球媒体榜</h2>
-          <list-item :data-source="globalMediaList" :current-list-id="currentListId" @choose="changeCurrentList" />
+          <list-item
+            :data-source="globalMediaList"
+            :current-list-id="currentListId"
+            @choose="changeCurrentList"
+          />
         </div>
       </div>
     </div>
@@ -18,7 +26,10 @@
     <div class="toplist-right">
       <div class="toplist-wrap1 clearfix">
         <div class="cover">
-          <img :src="current.coverImgUrl" alt="">
+          <img
+            :src="current.coverImgUrl"
+            alt=""
+          >
         </div>
         <div class="toplist-wrap1-detail">
           <h3>{{ current.name }}</h3>
@@ -27,14 +38,21 @@
             <span class="ml8">最近更新：{{ formatDate(current.updateTime) }}</span>
             <span class="tc-9">（{{ current.updateFrequency }}）</span>
           </div>
+          <!-- 操作控制栏 -->
+          <play-contral :data="playList" />
         </div>
       </div>
       <div class="toplist-wrap2">
         <!-- 表格顶部信息 -->
-        <el-row class="toplist-wrap2-top" type="flex" justify="space-between">
+        <el-row
+          class="toplist-wrap2-top"
+          type="flex"
+          justify="space-between"
+        >
           <el-col>
             <h2 class="inline-block mr16">歌曲列表</h2>
-            <span v-if="playList.tracks"> {{ playList.tracks.length }}首歌</span>
+            <span v-if="playList.tracks">
+              {{ playList.tracks.length }}首歌</span>
           </el-col>
           <el-col align="right">
             <div class="play-count">
@@ -43,36 +61,99 @@
           </el-col>
         </el-row>
         <!-- 歌单列表 -->
-        <el-table v-loading="loading" :data="tableData" stripe>
-          <el-table-column type="index" width="100">
-            <template v-slot="{row, $index}">
+        <el-table
+          v-loading="loading"
+          :data="tableData"
+          class="my-table"
+          stripe
+        >
+          <el-table-column
+            type="index"
+            width="100"
+          >
+            <template v-slot="{ row, $index }">
               <span>{{ $index + 1 }}</span>
             </template>
           </el-table-column>
           <el-table-column label="标题">
-            <template v-slot="{row, $index}">
+            <template v-slot="{ row, $index }">
               <div class="table-td">
-                <img v-if="$index < 3" class="table-img" :src="row.al.picUrl">
-                <span>{{ row.name }}</span>
+                <img
+                  v-if="$index < 3"
+                  class="table-img"
+                  :src="row.al.picUrl"
+                >
+                <link-to
+                  type="song"
+                  :title="row.name"
+                  :data="{
+                    query: {
+                      id: row.id
+                    },
+                    params: {
+                      pageTitle: `${row.name} - ${row.ar.map((x) => x.name).join('/')}`
+                    }
+                  }"
+                />
               </div>
             </template>
           </el-table-column>
-          <el-table-column label="时长" width="80">
+          <el-table-column
+            label="时长"
+            width="110"
+          >
             <template v-slot="{row}">
-              <span v-time> {{ row.dt }} </span>
+              <span
+                v-time
+                class="table-oprate-time"
+              > {{ row.dt }} </span>
+              <div class="table-oprate-btn">
+                <a
+                  class="a-icon"
+                  title="添加到播放列表"
+                >+</a>
+                <a
+                  class="a-icon"
+                  title="收藏"
+                >
+                  <svg-icon icon-class="file" />
+                </a>
+                <a
+                  class="a-icon"
+                  title="分享"
+                >
+                  <svg-icon icon-class="share" />
+                </a>
+                <a
+                  class="a-icon"
+                  title="下载"
+                >
+                  <svg-icon icon-class="download" />
+                </a>
+              </div>
             </template>
           </el-table-column>
-          <el-table-column label="歌手" width="180">
-            <template v-slot="{row}">
+          <el-table-column
+            label="歌手"
+            width="180"
+          >
+            <template v-slot="{ row }">
               <div class="ellipsis">
-                <span v-for="(item, index) in row.ar" :key="item.id">{{ item.name }}
+                <span
+                  v-for="(item, index) in row.ar"
+                  :key="item.id"
+                >{{ item.name }}
                   <span v-if="index !== row.ar.length - 1"> / </span>
                 </span>
               </div>
             </template>
           </el-table-column>
         </el-table>
-        <comment v-if="JSON.stringify(commentDetail) != '{}'" :detail="commentDetail" @page="handleCurrentChange" />
+        <comment
+          v-if="JSON.stringify(commentDetail) != '{}'"
+          :detail="commentDetail"
+          @page="handleCurrentChange"
+        />
       </div>
       <!-- <el-backtop target=".page-component__scroll .el-scrollbar__wrap"></el-backtop> -->
     </div>
@@ -84,11 +165,13 @@ import ListItem from './ListItem.vue'
 import { playListDetail, playListComment } from '@/api/music'
 import { parseTime } from '@/utils/index'
 import Comment from '@/views/components/comment'
+import PlayContral from '@/views/components/PlayContral.vue'
 export default {
   name: 'DiscoverToplist',
   components: {
     ListItem,
-    Comment
+    Comment,
+    PlayContral
   },
   data() {
     return {
@@ -109,7 +192,7 @@ export default {
   computed: {
     // 云音乐特色榜列表
     musicFeaturelist() {
-      return this.topList.slice(0, 4).map(item => {
+      return this.topList.slice(0, 4).map((item) => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
         return { ...item }
       })
@@ -117,7 +200,7 @@ export default {
 
     // 全球媒体榜列表
     globalMediaList() {
-      return this.topList.slice(4).map(item => {
+      return this.topList.slice(4).map((item) => {
         item.coverImgUrl = item.coverImgUrl + '?param40y40'
         return { ...item }
       })
@@ -157,20 +240,36 @@ export default {
         }
       })
     },
-
+    // 跳转歌曲详情页
+    checkSongDetail(row) {
+      this.$router.push({
+        name: 'song',
+        query: {
+          id: row.id
+        },
+        params: {
+          pageTitle: `${row.name} - ${row.ar.map((x) => x.name).join('/')}`
+        }
+      })
+    },
     // 获取歌单详情和评论
     getPlayDetailAndComment(offset) {
       this.loading = true
-      Promise.all([playListDetail(this.currentListId), playListComment({
-        id: this.currentListId,
-        offset
-      })]).then(res => {
-        this.playList = res[0]?.playlist
-        this.tableData = res[0]?.playlist.tracks
-        this.commentDetail = res[1]
-      }).finally(() => {
-        this.loading = false
-      })
+      Promise.all([
+        playListDetail(this.currentListId),
+        playListComment({
+          id: this.currentListId,
+          offset
+        })
+      ])
+        .then((res) => {
+          this.playList = res[0]?.playlist
+          this.tableData = res[0]?.playlist.tracks
+          this.commentDetail = res[1]
+        })
+        .finally(() => {
+          this.loading = false
+        })
     },
     // 分页切换
     handleCurrentChange(val) {
@@ -179,7 +278,6 @@ export default {
     }
   }
 }
-
 </script>
 <style lang="scss" scoped>
 .toplist {
@@ -247,8 +345,17 @@ export default {
   }
 }
 .el-table {
-  border: 1px solid #ccc;
-  border-top: 2px solid #c20c0c;
+  // border: 1px solid #ccc;
+  // border-top: 2px solid #c20c0c;
   margin-bottom: 40px;
+  .table-oprate-btn {
+    height: 23px;
+    a {
+      font-size: 20px;
+      .svg-icon {
+        margin-right: 3px;
+      }
+    }
+  }
 }
 </style>

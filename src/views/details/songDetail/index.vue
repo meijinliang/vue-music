@@ -129,7 +129,7 @@
             >
               <div class="text">
                 <div class="ellipsis">
-                  <link-to
+                  <!-- <link-to
                     type="song"
                     :title="item.name"
                     :data="{
@@ -140,7 +140,8 @@
                         pageTitle: `${item.name} - ${item.artists[0].name}`
                       }
                     }"
-                  />
+                  /> -->
+                  <a>{{item.name}}</a>
                 </div>
                 <div class="tc-9">
                   <a class="hover-underline">{{ item.artists[0].name }}</a>

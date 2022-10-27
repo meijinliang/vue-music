@@ -1,8 +1,17 @@
 <template>
   <div>
-    <div v-for="item in dataSource" :key="item.id" class="item pointer" :class="{selected: currentListId === item.id}" @click="chooseList(item)">
+    <div
+      v-for="item in dataSource"
+      :key="item.id"
+      class="item pointer"
+      :class="{selected: currentListId === item.id}"
+      @click="chooseList(item)"
+    >
       <div class="item-left">
-        <img :src="item.coverImgUrl" alt="">
+        <img
+          :src="item.coverImgUrl"
+          alt=""
+        >
       </div>
       <div class="item-right">
         <span class="text-bold">{{ item.name }}</span>
@@ -28,9 +37,7 @@ export default {
     }
   },
   data() {
-    return {
-
-    }
+    return {}
   },
   methods: {
     chooseList(row) {
