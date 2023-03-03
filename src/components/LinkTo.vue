@@ -1,9 +1,9 @@
 <template>
   <a
     class="hover-underline"
-    @click="goto"
     :title="title"
-  >{{title}}</a>
+    @click="goto"
+  >{{ title }}</a>
 </template>
 
 <script>

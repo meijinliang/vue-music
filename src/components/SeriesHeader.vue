@@ -10,10 +10,7 @@
       <slot name="items" />
     </div>
     <div class="more v-bg">
-      <link-to
-        :type="type"
-        title="更多"
-      />
+      <link-to :type="type" title="更多" />
     </div>
   </div>
 </template>

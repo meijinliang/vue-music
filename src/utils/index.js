@@ -108,8 +108,8 @@ export function extendDownload(data, fileName) {
 
 export function downloadFile(response, fileNameIn, blobTyype) {
   let fileName = fileNameIn
-  let blob
-  blob = blobTyype ? new Blob([response.data], { type: blobTyype }) : new Blob([response.data])
+  // let blob
+  const blob = blobTyype ? new Blob([response.data], { type: blobTyype }) : new Blob([response.data])
   if (!fileName) {
     // decodeURI mdn上只有一个传参 所有后面的utf-8的作用是什么
     fileName = window.decodeURI(response.header['content-disposition'].split('fileName=')[1], 'UTF-8')
@@ -132,12 +132,12 @@ export function downloadFile(response, fileNameIn, blobTyype) {
  * 歌曲的总毫秒数转换成分秒
  * @param val 总毫秒数
  * */
-export function formatTime(val) {
-  let m, s
-  m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
-  s = val % 60 < 10 ? '0' + val % 60 : val % 60
-  return m + ':' + s
-}
+// export function formatTime(val) {
+//   // let m, s
+//   m = Math.floor(val / 1000 / 60) < 10 ? '0' + Math.floor(val / 1000 / 60) : Math.floor(val / 1000 / 60)
+//   s = val % 60 < 10 ? '0' + val % 60 : val % 60
+//   return m + ':' + s
+// }
 
 // 字符传换行\n
 export function lineFeed(str) {

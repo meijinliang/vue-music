@@ -222,7 +222,7 @@ Object.create() 方式创建
   **相同点：** 都是浏览器存储
   **不同：** 
   **1.存储位置不同：** cookie由服务器写入，sessionStorage以及localStorage都是由前端写入
-  **2. 生命周期：**cookie的生命周期由服务器在写入的时候就设置的，LocalStorage写入就一直存在，是长期有效的，除非手动清除，sessionStorage是页面关闭（浏览器关闭）的时候就会自动清除。
+  **2. 生命周期：** cookie的生命周期由服务器在写入的时候就设置的，LocalStorage写入就一直存在，是长期有效的，除非手动清除，sessionStorage是页面关闭（浏览器关闭）的时候就会自动清除。
   **3.存储大小：** Cookie的存储大小约为4kb，sessionStorage及localStorage存储空间大小约5M
   **4.发送请求时是否携带：** 在前端给后端发送请求的时候自动携带Cookie中的数据，但是sessionStorage、localStorage不会
   **5.作用域不同：** Cookie和localStorage在所偶有同源窗口中都是共享的 sessionStorage限制必须在同一个页面

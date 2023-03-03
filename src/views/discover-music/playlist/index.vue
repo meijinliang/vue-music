@@ -19,7 +19,7 @@
                       </dt>
                       <dd :class="{mb24: Object.keys(catObj.categories).length - 1 == index}">
                         <span v-for="(subItem, subIndex) in catObj.sub[index]" :key="subIndex">
-                          <a class="hover-underline" @click="choiceCategory(subItem)">{{ subItem.name }}</a>
+                          <a class="hover-underline" :class="$route.query.cat === subItem.name ? 'isSelected' : ''" @click="choiceCategory(subItem)">{{ subItem.name }}</a>
                           <span class="line">|</span>
                         </span>
                       </dd>
@@ -34,11 +34,13 @@
             </el-popover>
           </el-row>
         </el-col>
+
         <el-col align="right">
           <el-button size="mini" style="backgroundColor: #b70a0b; color: #fff; border-radius: 5px">热门</el-button>
         </el-col>
       </el-row>
     </div>
+
     <div class="list-container">
       <div v-for="item in playListData" :key="item.id" class="list-item">
         <play-list-item :item-obj="item">
@@ -47,7 +49,12 @@
             <div class="play-creator">
               <span>by </span>
               <a class="hover-underline ellipsis" :title="item.creator.nickname">{{ item.creator.nickname }}</a>
-              <img v-if="item.creator.avatarDetail" class="inline-block" :src="item.creator.avatarDetail.identityIconUrl" alt="">
+              <img
+                v-if="item.creator.avatarDetail"
+                class="inline-block"
+                :src="item.creator.avatarDetail.identityIconUrl"
+                alt=""
+              >
             </div>
           </template>
         </play-list-item>
@@ -100,6 +107,10 @@ export default {
           isChange = true
         }
       }
+      if (isChange) {
+        // this.getplayListData(val)
+        this.$router.go(0)
+      }
       console.log(isChange)
     }
   },
@@ -110,6 +121,8 @@ export default {
   methods: {
     // 获取分类数据
     async getInitData() {
+      // eslint-disable-next-line no-debugger
+      debugger
       const res = await getCatList()
       this.catObj.all = res.all
       this.catObj.categories = res.categories
@@ -145,7 +158,6 @@ export default {
           order: 'hot'
         }
       })
-      location.reload()
     },
     // 跳转歌单详情
     gotoPlayDetail(item) {
@@ -233,6 +245,11 @@ export default {
         margin: 0 8px 0 10px;
         color: #d8d8d8;
       }
+    }
+    .isSelected {
+      background: #a7a7a7;
+      color: #fff;
+      padding: 2px 6px;
     }
   }
 }

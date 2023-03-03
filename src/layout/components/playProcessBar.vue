@@ -70,7 +70,7 @@ export default {
 // /* 从下到上，从蓝色开始渐变、到高度40%位置是绿色渐变开始、最后以红色结束 */
 // linear-gradient(0deg, blue, green 40%, red);
 .process-bar {
-  position: fixed;
+  // position: fixed;
   zoom: 1;
   bottom: 0;
   left: 0;

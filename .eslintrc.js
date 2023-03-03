@@ -16,10 +16,10 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off', // 生产环境中禁止使用debugger调试器
+    // 'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off', // 生产环境中禁止使用debugger调试器
     // 'no-unused-vars': 'off', // 关闭声明未使用的校验
     'for-direction': 2, // 禁止for无限循环
-    // 'vue/html-self-closing': 'off', // 关闭标签自闭合校验<img /> <img>
+    'vue/html-self-closing': 'off', // 关闭标签自闭合校验<img /> <img>
     // 'vue/html-self-closing': [
     //   'error',
     //   {

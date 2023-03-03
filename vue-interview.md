@@ -7,7 +7,13 @@
   vue侧重数据绑定，jquery侧重样式操作，动画效果等
 
 ## 2.v-model的实现原理
-  v-model其实就是一个语法糖主要有两个步骤 1.绑定数据v-bind:value(:value) 2.触发事件input($event在vue里指的就是触发的事件)
+  2.1 v-model其实就是一个语法糖主要有两个步骤 1.绑定数据v-bind:value(:value) 2.触发事件input($event在vue里指的就是触发的事件)
+  
+  2.2 源码层面：
+  - parse阶段  **v-model** 被当作普通的指令解析到 **el.directives**中
+  - codegen阶段 
+    1. 执行genData的时候会执行genDirectives方法。genDirectives方法就是遍历el.directives，然后获取每个指令对应的方法；
+    2. model指令的方法它会根据 AST 元素节点的不同情况去执行不同的逻辑（有genComponentModel、genSelect、genCheckboxModel、genRadioModel、genDefaultModel），这些逻辑中都有**addProp**，**addHandler**方法这两个是实现v-model的关键 addprop方法通过修改AST元素，给el添加一个prop相当于绑定了一个value，然后addhandler方法添加了事件处理（value绑定的变量 = $event.target.value）
 
 ## 3.在使用计算属性的时候，函数名和data中的数据可以同名吗
   严格模式下不可以，这些属性最后都会挂载到vm上 会有命名冲突 不在严格模式下可以但是会覆盖
@@ -60,8 +66,14 @@ proxy：
   难以实现的。
 
 ## 14 当style标签有scoped属性时，它的css只作用于当前组件中的元素
+  style标签中添加scoped属性后，vue就会为当前组件中的dom元素添加唯一的一个自定义属性（唯一性的标记）[data-v-xxx]，即css带属性选择器，以此完成类似作用域的选择方式，从而达到样式私有化，不污染全局的作用。
 
-
+## 15 watch和computed的区别
+  1. 功能上：computed是计算属性，watch是监听一个值的变化，然后执行对应的回调
+  2. 是否调用缓存： computed中的函数所依赖的属性没有发生变化，那么调用当前的函数的时候会从缓存读取，而watch在每次监听的值发生变化的时候都会执行回调。
+  3. 是否调用return：computed中的函数必须要用return返回，watch中的函数不是必须要用return
+  4. computed默认第一次加载的时候就开始监听；watch默认第一次加载不监听，如果需要第一次加载做监听，添加immediate属性，设置为true
+  5. 使用场景：computed--当一个属性受多个属性影响的时候，使用computed。watch--当一条数据影响多条数据的时候
 
 6. element的input输入框带图标  可以通过prefix-icon和suffix-icon属性在input组件首部和尾部增加显示图标，也可以通过slot来放置图标
 <el-input>
